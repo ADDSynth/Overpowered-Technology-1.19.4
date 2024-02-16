@@ -23,6 +23,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -50,6 +51,7 @@ public class ADDSynthEnergy {
     bus.addListener(ADDSynthEnergy::main_setup);
     bus.addListener(ADDSynthEnergyCompat::sendIMCMessages);
     bus.addListener(ADDSynthEnergy::client_setup);
+    MinecraftForge.EVENT_BUS.addListener(ADDSynthEnergy::onServerAboutToStart);
     MinecraftForge.EVENT_BUS.addListener(ADDSynthEnergy::onServerStarted);
     init_config();
   }
@@ -68,7 +70,7 @@ public class ADDSynthEnergy {
     CircuitFabricatorRecipes.INSTANCE.register();
   }
 
-  public static void onServerStarted(final ServerStartedEvent event){
+  public static void onServerAboutToStart(final ServerAboutToStartEvent event){
     @SuppressWarnings("resource")
     final MinecraftServer server = event.getServer();
     
@@ -76,7 +78,9 @@ public class ADDSynthEnergy {
     final RecipeManager recipe_manager = server.getRecipeManager();
     CompressorRecipes.INSTANCE.rebuild(recipe_manager);
     CircuitFabricatorRecipes.INSTANCE.rebuild(recipe_manager);
-    
+  }
+
+  public static void onServerStarted(final ServerStartedEvent event){
     /*
     if(Compatibility.PROJECT_E.loaded){
       if(DEV_STAGE.isDevelopment){
