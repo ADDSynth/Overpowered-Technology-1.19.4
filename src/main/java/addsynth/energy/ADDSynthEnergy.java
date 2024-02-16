@@ -20,8 +20,6 @@ import addsynth.energy.gameplay.machines.generator.GuiGenerator;
 import addsynth.energy.gameplay.machines.universal_energy_interface.GuiUniversalEnergyInterface;
 import addsynth.energy.registers.Containers;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
@@ -71,13 +69,6 @@ public class ADDSynthEnergy {
   }
 
   public static void onServerAboutToStart(final ServerAboutToStartEvent event){
-    @SuppressWarnings("resource")
-    final MinecraftServer server = event.getServer();
-    
-    // build recipe caches
-    final RecipeManager recipe_manager = server.getRecipeManager();
-    CompressorRecipes.INSTANCE.rebuild(recipe_manager);
-    CircuitFabricatorRecipes.INSTANCE.rebuild(recipe_manager);
   }
 
   public static void onServerStarted(final ServerStartedEvent event){
