@@ -2,11 +2,13 @@ package addsynth.core.game.tiles;
 
 import addsynth.core.block_network.BlockNetwork;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.extensions.IForgeBlockEntity;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 /** This DOES NOT SAVE any data to the world. It only syncs data from the
@@ -27,9 +29,15 @@ public abstract class TileBaseNoData extends TileAbstractBase {
     return ClientboundBlockEntityDataPacket.create(this);
   }
 
+  /** This is called when this Block Entity receives a Client-bound Update Packet.
+   *  Defined in {@link IForgeBlockEntity#onDataPacket}. Forge's interface defaults
+   *  to calling the {@link #load} method as well. */
   @Override
   public final void onDataPacket(final Connection net, final ClientboundBlockEntityDataPacket pkt){
-    load(pkt.getTag());
+    final CompoundTag compoundtag = pkt.getTag();
+    if(compoundtag != null){
+      load(compoundtag);
+    }
   }
 
   /** <p>Helper method to send TileEntity changes to the client.</p>
