@@ -137,51 +137,37 @@ repositories {
     //     dir 'libs'
     // }
   maven {
-    name "CurseForge"
-    url "https://minecraft.curseforge.com/api/maven/"
+    name = "CurseForge"
+    url = "https://minecraft.curseforge.com/api/maven/"
   }
   maven {
-    name "Curse Maven"
-    url "https://www.cursemaven.com"
+    name = "Curse Maven"
+    url = "https://www.cursemaven.com"
     content {
       includeGroup "curse.maven"
     }
   }
   maven {
-    // location of the maven that hosts JEI files (before January 2023)
-    name "Progwml6 maven"
-    url "https://dvs1.progwml6.com/files/maven"
+    // location of the maven that hosts JEI files (January 2023 and after)
+    name = "Jared's maven"
+    url = "https://maven.blamejared.com/"
   }
   maven {
-    name "ModMaven"
-    url "https://modmaven.dev/"
-    // For Gradel 5.1 and above, just limit it to AE2
-    content {
-      includeGroup "appeng"
-    }
+    name = "TheIllusiveC4"
+    url = "https://maven.theillusivec4.top/"
   }
   maven {
     // location of a maven mirror for JEI files, as a fallback
-    name "ModMaven2"
-    url "https://modmaven.k-4u.nl"
-  }
-  // New repositories
-  maven {
-    // location of the maven that hosts JEI files (January 2023 and after)
-    name "Jared's maven"
-    url "https://maven.blamejared.com"
-  }
-  maven {
-    name "TheIllusiveC4"
-    url "https://maven.theillusivec4.top/"
+    name = "ModMaven"
+    url = "https://modmaven.dev"
   }
   // maven {
-  //   name "tterrag"
-  //   url "https://maven.tterrag.com/"
+  //   name = "tterrag"
+  //   url = "https://maven.tterrag.com/"
   // }
   // maven {
-  //   name "tehnut"
-  //   url "https://maven.tehnut.info"
+  //   name = "tehnut"
+  //   url = "https://maven.tehnut.info"
   // }
 }
 
