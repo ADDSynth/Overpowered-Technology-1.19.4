@@ -1,5 +1,6 @@
 package addsynth.material;
 
+import addsynth.material.reference.MaterialBlocks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +24,7 @@ public final class CreativeTab {
         Material.EMERALD.setCreativeTab(output);
         Material.DIAMOND.setCreativeTab(output);
         Material.SAPPHIRE.setCreativeTab(output);
+        output.accept(MaterialBlocks.amethyst_ore.get());
         Material.AMETHYST.setCreativeTab(output);
         Material.QUARTZ.setCreativeTab(output);
         Material.ROSE_QUARTZ.setCreativeTab(output);

@@ -36,6 +36,7 @@ public final class ADDSynthMaterials {
     bus.addListener(MaterialsCompat::sendIMCMessages);
     bus.addListener(ADDSynthMaterials::process_imc_messages);
     MinecraftForge.EVENT_BUS.addListener(ADDSynthMaterials::onServerStarted);
+    MinecraftForge.EVENT_BUS.addListener(MaterialsRegister::onMissingEntries);
     init_config();
   }
 
