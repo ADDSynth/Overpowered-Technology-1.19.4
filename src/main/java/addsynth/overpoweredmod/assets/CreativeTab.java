@@ -59,9 +59,9 @@ public final class CreativeTab {
         output.accept(OverpoweredBlocks.data_cable.get());
         output.accept(OverpoweredBlocks.crystal_energy_extractor.get());
         output.accept(OverpoweredBlocks.gem_converter.get());
+        output.accept(OverpoweredBlocks.identifier.get());
         output.accept(OverpoweredBlocks.inverter.get());
         output.accept(OverpoweredBlocks.magic_infuser.get());
-        output.accept(OverpoweredBlocks.identifier.get());
         output.accept(OverpoweredBlocks.energy_suspension_bridge.get());
         output.accept(OverpoweredBlocks.portal_control_panel.get());
         output.accept(OverpoweredBlocks.portal_frame.get());
