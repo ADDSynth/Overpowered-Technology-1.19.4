@@ -56,7 +56,7 @@ public final class MusicBox extends TileEntityBlock {
     if(world.isClientSide){
       final TileMusicBox tile = MinecraftUtility.getTileEntity(pos, world, TileMusicBox.class);
       if(tile != null){
-        GuiProvider.openMusicBoxGui(tile, getDescriptionId());
+        GuiProvider.openMusicBoxGui(tile, getName());
       }
     }
     return InteractionResult.SUCCESS;

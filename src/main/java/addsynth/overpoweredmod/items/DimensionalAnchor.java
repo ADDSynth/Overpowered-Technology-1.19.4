@@ -1,10 +1,9 @@
 package addsynth.overpoweredmod.items;
 
 import addsynth.core.compat.Compatibility;
-import addsynth.core.util.game.MessageUtil;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +17,8 @@ import top.theillusivec4.curios.api.CuriosApi;
 
 @EventBusSubscriber(modid = OverpoweredTechnology.MOD_ID, bus = Bus.FORGE)
 public final class DimensionalAnchor extends Item {
+
+  private static final Component anchored_in_this_dimension = Component.translatable("gui.overpowered.anchored_in_this_dimension");
 
   public DimensionalAnchor(){
     super(new Item.Properties().stacksTo(1));
@@ -48,9 +49,7 @@ public final class DimensionalAnchor extends Item {
         // TODO: should probably check for Galacticraft planets here, and allow the Player to travel to them,
         //       since player travels to that dimension via a Rocket ship.
         event.setCanceled(true);
-        @SuppressWarnings("resource")
-        final MinecraftServer server = player.getLevel().getServer();
-        MessageUtil.send_to_player(server, player, "gui.overpowered.anchored_in_this_dimension");
+        player.displayClientMessage(anchored_in_this_dimension, true);
       }
     }
   }

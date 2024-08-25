@@ -3,7 +3,7 @@ package addsynth.overpoweredmod.machines.plasma_generator;
 import java.util.List;
 import javax.annotation.Nullable;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.energy.gameplay.reference.TextReference;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -41,7 +41,7 @@ public final class PlasmaGeneratorBlock extends MachineBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn){
-    tooltip.add(TextReference.class_3_machine);
+    tooltip.add(EnergyText.class_3_machine);
   }
 
   @Override

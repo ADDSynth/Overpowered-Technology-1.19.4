@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 
-public final class ListEntry extends AbstractListEntry<String> {
+public final class ListEntry extends AbstractListEntry<Component> {
 
   public ListEntry(int x, int y, int width, int height){
     super(x, y, width, height);
@@ -22,10 +22,9 @@ public final class ListEntry extends AbstractListEntry<String> {
   }
 
   @Override
-  public void set(final int entry_id, final String message){
+  public void set(final int entry_id, final Component message){
     this.entry_id = entry_id;
-    // this.text = message;
-    setMessage(Component.literal(message));
+    setMessage(message);
   }
 
   @Override

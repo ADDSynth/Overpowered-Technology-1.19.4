@@ -4,7 +4,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.energy.gameplay.reference.TextReference;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.energy.lib.energy_network.EnergyNetwork;
 import addsynth.energy.lib.energy_network.tiles.AbstractEnergyNetworkTile;
@@ -38,7 +38,7 @@ public final class EnergyStorageBlock extends MachineBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn){
-    tooltip.add(TextReference.battery_subtitle);
+    tooltip.add(EnergyText.battery_subtitle);
   }
 
   @Override

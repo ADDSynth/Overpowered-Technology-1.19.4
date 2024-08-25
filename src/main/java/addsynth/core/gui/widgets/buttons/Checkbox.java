@@ -18,8 +18,8 @@ public abstract class Checkbox extends AbstractButton {
   private static final int texture_height = 24;
   public static final int gui_size = 12;
 
-  public Checkbox(final int x, final int y, String label){
-    super(x, y, gui_size, gui_size, Component.literal(label));
+  public Checkbox(final int x, final int y, final Component text_component){
+    super(x, y, gui_size, gui_size, text_component);
   }
 
   protected abstract boolean get_toggle_state();

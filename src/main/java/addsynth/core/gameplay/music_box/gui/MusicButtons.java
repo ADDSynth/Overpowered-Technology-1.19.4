@@ -7,10 +7,10 @@ import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.music_box.TileMusicBox;
 import addsynth.core.gameplay.music_box.network_messages.ChangeInstrumentMessage;
 import addsynth.core.gameplay.music_box.network_messages.MusicBoxMessage;
+import addsynth.core.gameplay.reference.ADDSynthCoreText;
 import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.widgets.WidgetUtil;
 import addsynth.core.gui.widgets.buttons.AdjustableButton;
-import addsynth.core.util.java.StringUtil;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.sounds.SoundManager;
@@ -25,7 +25,7 @@ public final class MusicButtons {
     private final TileMusicBox tile;
 
     public PlayButton(int x, int y, int width, TileMusicBox tile){
-      super(x, y, width, 14, StringUtil.translate("gui.addsynthcore.music_box.play"));
+      super(x, y, width, 14, Component.translatable("gui.addsynthcore.music_box.play"));
       this.tile = tile;
     }
 
@@ -46,7 +46,7 @@ public final class MusicButtons {
     private final TileMusicBox tile;
 
     public TempoButton(int xIn, int yIn, int widthIn, int heightIn, boolean direction, TileMusicBox tile){
-      super(xIn, yIn, widthIn, heightIn, direction ? "<" : ">");
+      super(xIn, yIn, widthIn, heightIn, Component.literal(direction ? "<" : ">"));
       this.direction = direction;
       this.tile = tile;
     }
@@ -60,14 +60,6 @@ public final class MusicButtons {
   public static final class NextDirectionButton extends AdjustableButton {
 
     private final TileMusicBox tile;
-    private final String[] face = new String[] {
-      StringUtil.translate("gui.addsynthcore.direction.down"),
-      StringUtil.translate("gui.addsynthcore.direction.up"),
-      StringUtil.translate("gui.addsynthcore.direction.north"),
-      StringUtil.translate("gui.addsynthcore.direction.south"),
-      StringUtil.translate("gui.addsynthcore.direction.west"),
-      StringUtil.translate("gui.addsynthcore.direction.east")
-    };
   
     public NextDirectionButton(int xIn, int yIn, int widthIn, TileMusicBox tile){
       super(xIn, yIn, widthIn, 14);
@@ -76,7 +68,7 @@ public final class MusicButtons {
 
     @Override
     public void renderWidget(PoseStack matrix, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_){
-      setMessage(Component.literal(face[tile.get_next_direction()])); // stays up-to-date MAYBE need to simplify this now, should not create things every frame
+      setMessage(ADDSynthCoreText.getDirection(tile.get_next_direction())); // stays up-to-date
       super.renderWidget(matrix, p_renderButton_1_, p_renderButton_2_, p_renderButton_3_);
     }
 

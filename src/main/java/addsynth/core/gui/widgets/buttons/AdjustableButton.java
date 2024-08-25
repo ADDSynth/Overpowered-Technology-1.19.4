@@ -1,6 +1,5 @@
 package addsynth.core.gui.widgets.buttons;
 
-import javax.annotation.Nonnull;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.util.java.StringUtil;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -37,8 +36,8 @@ public abstract class AdjustableButton extends AbstractButton {
    * @param height
    * @param buttonText
    */
-  public AdjustableButton(int x, int y, int width, int height, @Nonnull String buttonText){
-    super(x, y, width, Math.min(height, max_height), Component.literal(buttonText));
+  public AdjustableButton(int x, int y, int width, int height, final Component buttonText){
+    super(x, y, width, Math.min(height, max_height), buttonText);
     if(height > max_height){
       ADDSynthCore.log.warn(StringUtil.build("Cannot set height of ", AdjustableButton.class.getSimpleName(), " higher than ", max_height, "."));
     }

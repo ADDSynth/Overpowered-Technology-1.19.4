@@ -13,8 +13,8 @@ import net.minecraft.world.entity.player.Inventory;
 
 public final class GuiMatterCompressor extends GuiEnergyBase<TileMatterCompressor, MatterCompressorContainer> {
 
-  private final String black_hole_text = StringUtil.translate(OverpoweredBlocks.black_hole.get().getDescriptionId());
-  private final String matter_text     = StringUtil.translate("gui.overpowered.matter_compressor.matter");
+  private static final Component black_hole_text = OverpoweredBlocks.black_hole.get().getName();
+  private static final Component matter_text     = Component.translatable("gui.overpowered.matter_compressor.matter");
 
   private final ProgressBar progress_bar = new ProgressBar(8, 83, 166, 11, 7, 190);
 
@@ -31,7 +31,7 @@ public final class GuiMatterCompressor extends GuiEnergyBase<TileMatterCompresso
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
     draw_title(matrix);
-    draw_text_right(matrix, black_hole_text+':', 76, 27);
+    draw_text_right(matrix, black_hole_text+":", 76, 27);
     // final int slash = font.width("/"); // 6
     // final int space = font.width(" "); // 4
     

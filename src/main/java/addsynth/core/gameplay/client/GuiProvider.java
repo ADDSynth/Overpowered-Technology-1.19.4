@@ -9,8 +9,8 @@ import net.minecraft.network.chat.Component;
 public final class GuiProvider {
 
   @SuppressWarnings("resource")
-  public static final void openMusicBoxGui(final TileMusicBox tile, final String title){
-    Minecraft.getInstance().setScreen(new GuiMusicBox(tile, Component.translatable(title)));
+  public static final void openMusicBoxGui(final TileMusicBox tile, final Component title){
+    Minecraft.getInstance().setScreen(new GuiMusicBox(tile, title));
   }
 
   @SuppressWarnings("resource")

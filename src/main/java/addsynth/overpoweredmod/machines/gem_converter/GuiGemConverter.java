@@ -45,7 +45,7 @@ public final class GuiGemConverter extends GuiEnergyBase<TileGemConverter, Conta
     private final boolean direction;
 
     public CycleGemButton(int xIn, int yIn, boolean direction, TileGemConverter tile){
-      super(xIn, yIn, cycle_button_width, cycle_button_height, direction ? ">" : "<"); // true goes right
+      super(xIn, yIn, cycle_button_width, cycle_button_height, Component.literal(direction ? ">" : "<")); // true goes right
       this.tile = tile;
       this.direction = direction;
     }

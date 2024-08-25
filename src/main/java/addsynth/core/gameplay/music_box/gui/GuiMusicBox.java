@@ -5,7 +5,6 @@ import addsynth.core.gameplay.music_box.TileMusicBox;
 import addsynth.core.gameplay.music_box.data.MusicGrid;
 import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.GuiBase;
-import addsynth.core.util.java.StringUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -18,30 +17,30 @@ public final class GuiMusicBox extends GuiBase {
   private static final int gui_width = 263;
   private static final int gui_height = 210;
   
-  // gui translation strings
-  private final String next_text         = StringUtil.translate("gui.addsynthcore.music_box.next");
-  private final String tempo_text        = StringUtil.translate("gui.addsynthcore.music_box.tempo");
-  private final String ticks_text        = StringUtil.translate("gui.addsynthcore.music_box.ticks");
-  private final String bpm_text          = StringUtil.translate("gui.addsynthcore.music_box.bpm");
-  private final String current_note_text = StringUtil.translate("gui.addsynthcore.music_box.current_note");
-  private final String instrument_text   = StringUtil.translate("gui.addsynthcore.music_box.instrument");
-  private final String[] instrument = new String[] {
-    StringUtil.translate("gui.addsynthcore.instrument.harp"),
-    StringUtil.translate("gui.addsynthcore.instrument.bass"),
-    StringUtil.translate("gui.addsynthcore.instrument.bass_drum"),
-    StringUtil.translate("gui.addsynthcore.instrument.snare_drum"),
-    StringUtil.translate("gui.addsynthcore.instrument.click"),
-    StringUtil.translate("gui.addsynthcore.instrument.bell"),
-    StringUtil.translate("gui.addsynthcore.instrument.chime"),
-    StringUtil.translate("gui.addsynthcore.instrument.flute"),
-    StringUtil.translate("gui.addsynthcore.instrument.guitar"),
-    StringUtil.translate("gui.addsynthcore.instrument.xylophone"),
-    StringUtil.translate("gui.addsynthcore.instrument.iron_xylophone"),
-    StringUtil.translate("gui.addsynthcore.instrument.cow_bell"),
-    StringUtil.translate("gui.addsynthcore.instrument.didgeridoo"),
-    StringUtil.translate("gui.addsynthcore.instrument.square"),
-    StringUtil.translate("gui.addsynthcore.instrument.banjo"),
-    StringUtil.translate("gui.addsynthcore.instrument.pling")
+  // gui text
+  private static final Component next_text         = Component.translatable("gui.addsynthcore.music_box.next");
+  private static final Component tempo_text        = Component.translatable("gui.addsynthcore.music_box.tempo");
+  private static final Component ticks_text        = Component.translatable("gui.addsynthcore.music_box.ticks");
+  private static final Component bpm_text          = Component.translatable("gui.addsynthcore.music_box.bpm");
+  private static final Component current_note_text = Component.translatable("gui.addsynthcore.music_box.current_note");
+  private static final Component instrument_text   = Component.translatable("gui.addsynthcore.music_box.instrument");
+  private static final Component[] instrument = new Component[] {
+    Component.translatable("gui.addsynthcore.instrument.harp"),
+    Component.translatable("gui.addsynthcore.instrument.bass"),
+    Component.translatable("gui.addsynthcore.instrument.bass_drum"),
+    Component.translatable("gui.addsynthcore.instrument.snare_drum"),
+    Component.translatable("gui.addsynthcore.instrument.click"),
+    Component.translatable("gui.addsynthcore.instrument.bell"),
+    Component.translatable("gui.addsynthcore.instrument.chime"),
+    Component.translatable("gui.addsynthcore.instrument.flute"),
+    Component.translatable("gui.addsynthcore.instrument.guitar"),
+    Component.translatable("gui.addsynthcore.instrument.xylophone"),
+    Component.translatable("gui.addsynthcore.instrument.iron_xylophone"),
+    Component.translatable("gui.addsynthcore.instrument.cow_bell"),
+    Component.translatable("gui.addsynthcore.instrument.didgeridoo"),
+    Component.translatable("gui.addsynthcore.instrument.square"),
+    Component.translatable("gui.addsynthcore.instrument.banjo"),
+    Component.translatable("gui.addsynthcore.instrument.pling")
   };
 
   // variables
