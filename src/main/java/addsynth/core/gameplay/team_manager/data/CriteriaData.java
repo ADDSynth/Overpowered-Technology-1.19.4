@@ -170,28 +170,25 @@ public final class CriteriaData {
     return (Component[])items_with_durability.toArray();
   }
 
-  @SuppressWarnings("null")
-  public static final Component[] getColors(){
+  public static final Component[] chat_colors = {
     // the Minecraft colors are translated, however the teams use the TextFormatting colors.
-    return new Component[] {
-      Component.literal(ChatFormatting.getById(0).getName()),
-      Component.literal(ChatFormatting.getById(1).getName()),
-      Component.literal(ChatFormatting.getById(2).getName()),
-      Component.literal(ChatFormatting.getById(3).getName()),
-      Component.literal(ChatFormatting.getById(4).getName()),
-      Component.literal(ChatFormatting.getById(5).getName()),
-      Component.literal(ChatFormatting.getById(6).getName()),
-      Component.literal(ChatFormatting.getById(7).getName()),
-      Component.literal(ChatFormatting.getById(8).getName()),
-      Component.literal(ChatFormatting.getById(9).getName()),
-      Component.literal(ChatFormatting.getById(10).getName()),
-      Component.literal(ChatFormatting.getById(11).getName()),
-      Component.literal(ChatFormatting.getById(12).getName()),
-      Component.literal(ChatFormatting.getById(13).getName()),
-      Component.literal(ChatFormatting.getById(14).getName()),
-      Component.literal(ChatFormatting.getById(15).getName()),
-    };
-  }
+    Component.literal(ChatFormatting.BLACK.getName()),
+    Component.literal(ChatFormatting.DARK_BLUE.getName()),
+    Component.literal(ChatFormatting.DARK_GREEN.getName()),
+    Component.literal(ChatFormatting.DARK_AQUA.getName()),
+    Component.literal(ChatFormatting.DARK_RED.getName()),
+    Component.literal(ChatFormatting.DARK_PURPLE.getName()),
+    Component.literal(ChatFormatting.GOLD.getName()),
+    Component.literal(ChatFormatting.GRAY.getName()),
+    Component.literal(ChatFormatting.DARK_GRAY.getName()),
+    Component.literal(ChatFormatting.BLUE.getName()),
+    Component.literal(ChatFormatting.GREEN.getName()),
+    Component.literal(ChatFormatting.AQUA.getName()),
+    Component.literal(ChatFormatting.RED.getName()),
+    Component.literal(ChatFormatting.LIGHT_PURPLE.getName()),
+    Component.literal(ChatFormatting.YELLOW.getName()),
+    Component.literal(ChatFormatting.WHITE.getName()),
+  };
 
   public static final Component[] getEntities(){
     return (Component[])entities.toArray();
