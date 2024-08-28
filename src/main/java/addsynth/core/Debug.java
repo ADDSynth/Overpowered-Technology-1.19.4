@@ -3,15 +3,14 @@ package addsynth.core;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import addsynth.core.gameplay.Config;
 import addsynth.core.util.color.ColorUtil;
 import addsynth.core.util.java.FileUtil;
+import addsynth.core.util.java.StringUtil;
+import addsynth.core.util.java.list.Sorters;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
@@ -61,85 +60,8 @@ public final class Debug {
       try{
         ADDSynthCore.log.info("Begin dumping tags...");
         
-        // Sorter
-        final boolean prioritize_minecraft_tag = true;
-        final class TagComparer implements Comparator<TagKey<Block>> {
-          @Override
-          public int compare(TagKey<Block> k1, TagKey<Block> k2){
-            final ResourceLocation o1 = k1.location();
-            final ResourceLocation o2 = k2.location();
-            if(prioritize_minecraft_tag){
-              if(o1.getNamespace().equals("minecraft")){
-                if(o2.getNamespace().equals("minecraft")){
-                  return o1.compareTo(o2);
-                }
-                return -1;
-              }
-              if(o2.getNamespace().equals("minecraft")){
-                if(o1.getNamespace().equals("minecraft")){
-                  return o1.compareTo(o2);
-                }
-                return 1;
-              }
-            }
-            return o1.compareTo(o2);
-          }
-        }
-        final class NameComparer implements Comparator<ResourceLocation> {
-          @Override
-          public int compare(ResourceLocation o1, ResourceLocation o2){
-            return o1.toString().compareTo(o2.toString());
-          }
-        }
-        
-        final String block_tags_file = "block_tags.txt";
-        final String item_tags_file = "item_tags.txt";
-        
-        // Blocks PRIORITY: Still need to fix the comparer to sort the list so that Minecraft's tags are listed first!
-        final ITagManager<Block> block_tag_manager = ForgeRegistries.BLOCKS.tags();
-        final List<ITag<Block>> block_tag_list = block_tag_manager.stream().toList(); // have to convert to a list, because stream.size() will consume the whole stream?
-        File file = FileUtil.getNewFile(block_tags_file);
-        if(file != null){
-          try(final FileWriter writer = new FileWriter(file)){
-            writer.write("\nBlock Tags: "+block_tag_list.size()+"\n\n");
-            final IForgeRegistry<Block> registry = ForgeRegistries.BLOCKS;
-            Iterator<Block> iterator;
-            for(ITag<Block> block_tag : block_tag_list){
-              writer.write(block_tag.getKey().location().toString()+" {\n");
-              iterator = block_tag.iterator();
-              while(iterator.hasNext()){
-                writer.write("  "+registry.getKey(iterator.next())+'\n');
-              }
-              writer.write("}\n\n");
-            }
-          }
-          catch(IOException e){
-            e.printStackTrace();
-          }
-        }
-        
-        // Items
-        final ITagManager<Item> item_tag_manager = ForgeRegistries.ITEMS.tags();
-        final List<ITag<Item>> item_tag_list = item_tag_manager.stream().toList();
-        file = FileUtil.getNewFile(item_tags_file);
-        if(file != null){
-          try(final FileWriter writer = new FileWriter(file)){
-            writer.write("\nItem Tags: "+item_tag_list.size()+"\n\n");
-            final IForgeRegistry<Item> registry = ForgeRegistries.ITEMS;
-            Iterator<Item> iterator;
-            for(ITag<Item> item_tag : item_tag_list){
-              writer.write(item_tag.getKey().location().toString()+" {\n");
-              iterator = item_tag.iterator();
-              while(iterator.hasNext()){
-                writer.write("  "+registry.getKey(iterator.next())+'\n');
-              }
-              writer.write("}\n\n");
-            }
-          }
-          catch(IOException e){
-            e.printStackTrace();
-          }
-        }
+        printTags("block_tags.txt", Block.class, ForgeRegistries.BLOCKS);
+        printTags( "item_tags.txt",  Item.class, ForgeRegistries.ITEMS);
         
         ADDSynthCore.log.info("Done dumping tags.");
       }
@@ -147,6 +69,37 @@ public final class Debug {
         ADDSynthCore.log.error("An error occured during tag dumping.", e);
       }
     }
+  }
+
+  private static final <T> void printTags(final String filename, final Class<T> type, final IForgeRegistry<T> registry){
+    printTags(filename, type.getSimpleName(), registry);
+  }
+
+  private static final <T> void printTags(final String filename, final String type_name, final IForgeRegistry<T> registry){
+    final ITagManager<T> tag_manager = registry.tags();
+    if(tag_manager != null){
+      final List<ITag<T>> tag_list = tag_manager.stream().sorted(Sorters.TagComparerMinecraftFirst).toList();
+      final File file = FileUtil.getNewFile(filename);
+      if(file != null){
+        try(final FileWriter writer = new FileWriter(file)){
+          writer.write(StringUtil.build("\n", type_name, " Tags: ", tag_list.size(), "\n\n"));
+          Iterator<T> iterator;
+          for(ITag<T> tag : tag_list){
+            writer.write(tag.getKey().location().toString()+" {\n");
+            iterator = tag.iterator();
+            while(iterator.hasNext()){
+              writer.write("  "+registry.getKey(iterator.next())+'\n');
+            }
+            writer.write("}\n\n");
+          }
+        }
+        catch(IOException e){
+          e.printStackTrace();
+        }
+      }
+      return;
+    }
+    ADDSynthCore.log.error("The "+type_name+" registry does not support Tags.");
   }
 
 }
