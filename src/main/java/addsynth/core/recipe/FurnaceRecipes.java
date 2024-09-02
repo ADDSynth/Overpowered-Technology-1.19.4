@@ -14,7 +14,7 @@ public final class FurnaceRecipes extends RecipeCollection<SmeltingRecipe> {
   public static final FurnaceRecipes INSTANCE = new FurnaceRecipes();
 
   private FurnaceRecipes(){
-    super(RecipeType.SMELTING, 1);
+    super(() -> RecipeType.SMELTING, 1);
   }
 
   public static final boolean isFurnaceIngredient(final ItemStack stack){

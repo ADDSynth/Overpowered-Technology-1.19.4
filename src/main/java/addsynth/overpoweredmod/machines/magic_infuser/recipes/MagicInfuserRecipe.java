@@ -3,6 +3,7 @@ package addsynth.overpoweredmod.machines.magic_infuser.recipes;
 import addsynth.core.recipe.shapeless.AbstractRecipe;
 import addsynth.core.util.java.StringUtil;
 import addsynth.material.util.MaterialTag;
+import addsynth.overpoweredmod.game.core.RecipeTypes;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
 import addsynth.overpoweredmod.registers.RecipeSerializers;
@@ -73,6 +74,11 @@ public final class MagicInfuserRecipe extends AbstractRecipe {
   }
 
   @Override
+  public ItemStack getResultItem(RegistryAccess registry){
+    return getEnchantedBook();
+  }
+
+  @Override
   public ItemStack getToastSymbol(){
     return new ItemStack(OverpoweredBlocks.magic_infuser.get(), 1);
   }
@@ -84,7 +90,7 @@ public final class MagicInfuserRecipe extends AbstractRecipe {
 
   @Override
   public RecipeType<?> getType(){
-    return MagicInfuserRecipes.INSTANCE.type;
+    return RecipeTypes.MAGIC_INFUSER.get();
   }
 
   @Override

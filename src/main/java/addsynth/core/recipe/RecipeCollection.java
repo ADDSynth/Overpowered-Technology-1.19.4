@@ -3,6 +3,7 @@ package addsynth.core.recipe;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.ADDSynthCore;
@@ -39,12 +40,12 @@ import net.minecraftforge.server.ServerLifecycleHooks;
  */
 public class RecipeCollection<T extends Recipe<Container>> {
 
-  public final RecipeType<T> type;
+  private final Supplier<RecipeType<T>> type;
   private final ArrayList<T> recipes = new ArrayList<T>();
   private final MachineFilter filter;
 
-  public RecipeCollection(RecipeType<T> type, int recipe_max_size){
-    this.type = type;
+  public RecipeCollection(final Supplier<RecipeType<T>> type_holder, final int recipe_max_size){
+    type = type_holder;
     filter = new MachineFilter(recipe_max_size);
   }
 
@@ -87,7 +88,7 @@ public class RecipeCollection<T extends Recipe<Container>> {
     if(recipe_manager != null){
       // rebuild recipe cache
       recipes.clear();
-      final List<T> final_recipes = alter_recipes(recipe_manager.getAllRecipesFor(type));
+      final List<T> final_recipes = alter_recipes(recipe_manager.getAllRecipesFor(type.get()));
       recipes.addAll(final_recipes);
       if(recipes.isEmpty()){
         filter.clear();
@@ -199,16 +200,12 @@ public class RecipeCollection<T extends Recipe<Container>> {
   }
 
   public final String getRecipeTypeName(){
-    if(type == null){
-      return "null";
-    }
-    final String type_name = type.getClass().getSimpleName();
-    return type_name.isEmpty() ? StringUtil.Capitalize(type.toString()) : type_name;
+    return type.get().toString();
   }
 
   @Override
   public String toString(){
-    return StringUtil.build(getRecipeTypeName(), ' ', RecipeCollection.class.getSimpleName());
+    return StringUtil.build(getRecipeTypeName(), " RecipeCollection");
   }
 
 }

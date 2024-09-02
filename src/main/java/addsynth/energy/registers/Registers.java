@@ -1,6 +1,7 @@
 package addsynth.energy.registers;
 
 import addsynth.core.game.registry.BlockItemHolder;
+import addsynth.core.game.registry.RegistryUtil;
 import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.EnergyBlocks;
 import addsynth.energy.gameplay.machines.circuit_fabricator.CircuitFabricatorBlock;
@@ -24,6 +25,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
@@ -93,6 +95,11 @@ public final class Registers {
       registry.register(Names.ELECTRIC_FURNACE,           IForgeMenuType.create(ContainerElectricFurnace::new));
       registry.register(Names.CIRCUIT_FABRICATOR,         IForgeMenuType.create(CircuitFabricatorContainer::new));
       registry.register(Names.UNIVERSAL_ENERGY_INTERFACE, IForgeMenuType.create(ContainerUniversalEnergyInterface::new));
+    }
+    if(key.equals(ForgeRegistries.Keys.RECIPE_TYPES)){
+      final IForgeRegistry<RecipeType<?>> registry = event.getForgeRegistry();
+      RegistryUtil.registerRecipeType(registry, Names.CIRCUIT_FABRICATOR);
+      RegistryUtil.registerRecipeType(registry, Names.COMPRESSOR);
     }
     if(key.equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS)){
       final IForgeRegistry<RecipeSerializer> registry = event.getForgeRegistry();

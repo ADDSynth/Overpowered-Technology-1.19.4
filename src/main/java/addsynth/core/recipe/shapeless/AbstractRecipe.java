@@ -85,7 +85,7 @@ public abstract class AbstractRecipe implements Recipe<Container> {
 
   /** @return EXACT object. DO NOT EDIT! */
   public ItemStack getResultItem(){
-    return getResultItem(RegistryAccess.EMPTY); // Until I know what this is supposed to be, this is what we will do.
+    return result;
   }
 
   /** @return EXACT object. DO NOT EDIT! */

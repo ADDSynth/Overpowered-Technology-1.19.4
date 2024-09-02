@@ -4,6 +4,7 @@ import addsynth.core.compat.Compatibility;
 import addsynth.core.game.item.constants.ArmorMaterial;
 import addsynth.core.game.item.constants.EquipmentType;
 import addsynth.core.game.registry.BlockItemHolder;
+import addsynth.core.game.registry.RegistryUtil;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.assets.Sounds;
 import addsynth.overpoweredmod.blocks.*;
@@ -58,6 +59,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
@@ -275,6 +277,10 @@ public final class Registers {
       registry.register(Names.PORTAL_CONTROL_PANEL,     IForgeMenuType.create(ContainerPortalControlPanel::new));
       registry.register(Names.PORTAL_FRAME,             IForgeMenuType.create(ContainerPortalFrame::new));
       registry.register(Names.MATTER_COMPRESSOR,        IForgeMenuType.create(MatterCompressorContainer::new));
+    }
+    if(key.equals(ForgeRegistries.Keys.RECIPE_TYPES)){
+      final IForgeRegistry<RecipeType<?>> registry = event.getForgeRegistry();
+      RegistryUtil.registerRecipeType(registry, Names.MAGIC_INFUSER);
     }
     if(key.equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS)){
       final IForgeRegistry<RecipeSerializer> registry = event.getForgeRegistry();
