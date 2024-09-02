@@ -31,8 +31,8 @@ public final class TeamDataUnit {
     data.writeBoolean(see_invisible_allys);
     data.writeByte(nametag_option);
     data.writeByte(death_message_option);
-    data.writeUtf(prefix.getString());
-    data.writeUtf(suffix.getString());
+    data.writeComponent(prefix);
+    data.writeComponent(suffix);
     int i;
     final int length = players.size();
     final Component[] player_names = new Component[length];
@@ -51,8 +51,8 @@ public final class TeamDataUnit {
     team.see_invisible_allys = data.readBoolean();
     team.nametag_option = data.readByte();
     team.death_message_option = data.readByte();
-    team.prefix = Component.literal(data.readUtf());
-    team.suffix = Component.literal(data.readUtf());
+    team.prefix = data.readComponent();
+    team.suffix = data.readComponent();
     team.players = new ArrayList<Component>();
     for(final Component t : NetworkUtil.readTextComponentArray(data)){
       team.players.add(t);
