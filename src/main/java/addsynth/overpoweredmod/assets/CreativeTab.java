@@ -52,7 +52,7 @@ public final class CreativeTab {
         output.accept(OverpoweredItems.magenta_lens.get());
         output.accept(OverpoweredItems.plasma.get());
         output.accept(OverpoweredItems.fusion_core.get());
-        output.accept(OverpoweredItems.matter_energy_converter.get());
+        output.accept(OverpoweredItems.matter_energy_core.get());
         output.accept(OverpoweredItems.dimensional_flux.get());
         output.accept(OverpoweredItems.dimensional_anchor.get());
         output.accept(OverpoweredItems.unimatter.get());

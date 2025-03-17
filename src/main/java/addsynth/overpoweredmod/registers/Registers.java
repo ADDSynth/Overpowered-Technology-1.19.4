@@ -1,5 +1,6 @@
 package addsynth.overpoweredmod.registers;
 
+import java.util.List;
 import addsynth.core.compat.Compatibility;
 import addsynth.core.game.item.constants.ArmorMaterial;
 import addsynth.core.game.item.constants.EquipmentType;
@@ -12,6 +13,7 @@ import addsynth.overpoweredmod.blocks.dimension.tree.*;
 import addsynth.overpoweredmod.game.core.*;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
+import addsynth.overpoweredmod.game.reference.OverpoweredItems;
 import addsynth.overpoweredmod.items.*;
 import addsynth.overpoweredmod.items.basic.*;
 import addsynth.overpoweredmod.items.tools.*;
@@ -67,6 +69,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.MissingMappingsEvent;
+import net.minecraftforge.registries.MissingMappingsEvent.Mapping;
 import net.minecraftforge.registries.RegisterEvent;
 
 @EventBusSubscriber(modid = OverpoweredTechnology.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
@@ -163,7 +167,7 @@ public final class Registers {
       
       registry.register(Names.PLASMA,                     new PlasmaItem());
       registry.register(Names.FUSION_CORE,                new FusionCore());
-      registry.register(Names.MATTER_ENERGY_CONVERTER,    new Item(new Item.Properties()));
+      registry.register(Names.MATTER_ENERGY_CORE,         new Item(new Item.Properties()));
       registry.register(Names.DIMENSIONAL_FLUX,           new DimensionalFlux());
       registry.register(Names.DIMENSIONAL_ANCHOR,         new DimensionalAnchor());
       registry.register(Names.UNIMATTER,                  new Item(new Item.Properties()));
@@ -289,6 +293,16 @@ public final class Registers {
     if(key.equals(ForgeRegistries.Keys.SOUND_EVENTS)){
       final IForgeRegistry<SoundEvent> registry = event.getForgeRegistry();
       registry.register(Sounds.Names.laser_fire, SoundEvent.createFixedRangeEvent(Sounds.Names.laser_fire, 2.0f));
+    }
+  }
+
+  public static final void onMissingEntries(MissingMappingsEvent event){
+    // handle items
+    final List<Mapping<Item>> missing_items = event.getMappings(ForgeRegistries.Keys.ITEMS, OverpoweredTechnology.MOD_ID);
+    for(Mapping<Item> map : missing_items){
+      if(map.getKey().equals(Names.MATTER_ENERGY_CORE_LEGACY)){
+        map.remap(OverpoweredItems.matter_energy_core.get());
+      }
     }
   }
 
