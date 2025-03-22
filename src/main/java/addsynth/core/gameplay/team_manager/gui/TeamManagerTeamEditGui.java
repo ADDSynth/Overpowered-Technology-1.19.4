@@ -26,7 +26,7 @@ public final class TeamManagerTeamEditGui extends GuiBase {
   private static final Component       member_suffix_text = Component.translatable("gui.addsynthcore.team_manager.team_edit.member_suffix");
 
   private final boolean new_team;
-  private Component message;
+  private Component message = Component.empty();
   private EditBox team_id_name;
   private EditBox team_display_name;
   private ClientCheckbox friendly_fire;
@@ -200,13 +200,13 @@ public final class TeamManagerTeamEditGui extends GuiBase {
   @Override
   protected void drawGuiForegroundLayer(PoseStack matrix, int mouseX, int mouseY){
     draw_title(matrix);
-    draw_text_left(matrix, team_id_name_text+":",         left_text_x, line_1);
-    draw_text_left(matrix, team_display_name_text+":",   right_text_x, line_1);
-    draw_text_left(matrix, team_color_text+":",          right_text_x, line_2);
-    draw_text_left(matrix, show_nametag_option_text+":",  left_text_x, line_3);
-    draw_text_left(matrix, show_death_messages_text+":", right_text_x, line_3);
-    draw_text_left(matrix, member_prefix_text+":",        left_text_x, line_4);
-    draw_text_left(matrix, member_suffix_text+":",       right_text_x, line_4);
+    draw_text_left(matrix, team_id_name_text.getString()+":",         left_text_x, line_1);
+    draw_text_left(matrix, team_display_name_text.getString()+":",   right_text_x, line_1);
+    draw_text_left(matrix, team_color_text.getString()+":",          right_text_x, line_2);
+    draw_text_left(matrix, show_nametag_option_text.getString()+":",  left_text_x, line_3);
+    draw_text_left(matrix, show_death_messages_text.getString()+":", right_text_x, line_3);
+    draw_text_left(matrix, member_prefix_text.getString()+":",        left_text_x, line_4);
+    draw_text_left(matrix, member_suffix_text.getString()+":",       right_text_x, line_4);
     draw_text_left(matrix, message,                       left_text_x, line_5);
   }
 

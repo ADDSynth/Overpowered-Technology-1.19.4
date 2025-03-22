@@ -19,7 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabricator, CircuitFabricatorContainer> {
 
-  private Component selected_item;
+  private Component selected_item = Component.empty();
 
   private final WorkProgressBar work_progress_bar = new WorkProgressBar(239, 125, 58, 5, 8, 245);
 
@@ -139,7 +139,7 @@ public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabrica
     draw_title(matrix);
     draw_energy_usage(matrix);
     draw_status(matrix, tile.getStatus());
-    draw_text_left(matrix, EnergyText.selected_text+": "+selected_item, 6, 39);
+    draw_text_left(matrix, EnergyText.selected_text.getString()+": "+selected_item.getString(), 6, 39);
     // itemRenderer.renderGuiItem(circuit_stack[tile.getCircuitID()], 102, 29);
     draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 270, 113);
     draw_time_left_center(matrix, 145);

@@ -3,6 +3,7 @@ package addsynth.overpoweredmod.machines.portal.control_panel;
 import addsynth.core.util.color.ColorCode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 public enum PortalMessage {
 
@@ -17,16 +18,16 @@ public enum PortalMessage {
   CREATIVE_MODE         (null,            "gui.overpowered.portal_message.creative_mode"),
   PORTAL_READY          (ColorCode.GOOD,  "gui.overpowered.portal_message.ready");
 
-  private final Component message;
-  private final String formatting_code;
+  private final MutableComponent message;
+  private final ChatFormatting formatting_code;
 
   private PortalMessage(final ChatFormatting code, final String translation_key){
     this.message = Component.translatable(translation_key);
-    this.formatting_code = code != null ? code.toString() : "";
+    this.formatting_code = code != null ? code : ChatFormatting.RESET;
   }
 
-  public final String getMessage(){
-    return formatting_code + message;
+  public final Component getMessage(){
+    return message.withStyle(formatting_code);
   }
 
 }

@@ -42,7 +42,7 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     Component.translatable("gui.addsynthcore.team_manager.criteria_type.killed"),
     Component.translatable("gui.addsynthcore.team_manager.criteria_type.killed_by")
   };
-  private Component message;
+  private Component message = Component.empty();
 
   private EditBox objective_id_name;
   private EditBox objective_display_name;
@@ -306,10 +306,10 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   @Override
   protected void drawGuiForegroundLayer(PoseStack matrix, int mouse_x, int mouse_y){
     draw_title(matrix);
-    draw_text_left(matrix,      objective_id_name_text+":", 6, line_1);
-    draw_text_left(matrix, objective_display_name_text+":", 6, line_2);
-    draw_text_left(matrix,          criteria_type_text+":", middle_section.left - guiBox.left, line_1);
-    draw_text_left(matrix,        criteria_header_text+":",  right_section.left - guiBox.left, line_1);
+    draw_text_left(matrix,      objective_id_name_text.getString()+":", 6, line_1);
+    draw_text_left(matrix, objective_display_name_text.getString()+":", 6, line_2);
+    draw_text_left(matrix,          criteria_type_text.getString()+":", middle_section.left - guiBox.left, line_1);
+    draw_text_left(matrix,        criteria_header_text.getString()+":",  right_section.left - guiBox.left, line_1);
     draw_text_left(matrix, message,                         6, line_5);
   }
 
