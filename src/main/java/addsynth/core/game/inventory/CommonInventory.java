@@ -1,6 +1,5 @@
 package addsynth.core.game.inventory;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.ADDSynthCore;
 import net.minecraft.core.BlockPos;
@@ -58,9 +57,8 @@ public class CommonInventory extends ItemStackHandler {
   }
 
   /** <p>Alias for {@link #insertItem(int, ItemStack, boolean)} with {@code simulate} set to false.
-   *     Commonly used right after calling {@link OutputInventory#can_add(int, ItemStack)}.
-   *  <p>Deprecated: Try to use {@link #insertItem(int, ItemStack, boolean)} whenever possible. */
-  public final void add(final int slot, final @Nonnull ItemStack stack){
+   *     Commonly used right after calling {@link OutputInventory#can_add(int, ItemStack)}. */
+  public final void add(final int slot, final @NotNull ItemStack stack){
     insertItem(slot, stack, false);
   }
 
@@ -109,6 +107,11 @@ public class CommonInventory extends ItemStackHandler {
         Block.popResource(world, pos, stack);
       }
     }
+  }
+
+  @Override
+  public boolean isItemValid(final int slot, final @NotNull ItemStack stack){
+    return is_valid_slot(slot);
   }
 
   protected final boolean is_valid_slot(final int slot){
