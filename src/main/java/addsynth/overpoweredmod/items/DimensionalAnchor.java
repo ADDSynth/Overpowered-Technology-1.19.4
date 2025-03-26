@@ -27,7 +27,7 @@ public final class DimensionalAnchor extends Item {
   }
 
   public static final boolean player_has_dimensional_anchor(final Player player){
-    if(Compatibility.CURIOS.loaded){
+    if(Compatibility.CURIOS.isLoaded()){
       if(CuriosApi.getCuriosHelper().findEquippedCurio(OverpoweredItems.dimensional_anchor.get(), player).isPresent()){
         return true;
       }

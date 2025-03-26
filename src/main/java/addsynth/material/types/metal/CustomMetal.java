@@ -51,7 +51,7 @@ public final class CustomMetal extends Metal implements OreMaterial {
     output.accept(ingot.get());
     output.accept(block.get());
     output.accept(ore.get());
-    if(Compatibility.ADDSYNTH_ENERGY.loaded){
+    if(Compatibility.ADDSYNTH_ENERGY.isLoaded()){
       output.accept(plate.get());
     }
   }

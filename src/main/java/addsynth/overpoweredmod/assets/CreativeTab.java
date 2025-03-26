@@ -101,7 +101,7 @@ public final class CreativeTab {
             }
           }
         }
-        if(Compatibility.CURIOS.loaded){
+        if(Compatibility.CURIOS.isLoaded()){
           output.accept(OverpoweredItems.ring_0.get());
           output.accept(OverpoweredItems.ring_1.get());
           output.accept(OverpoweredItems.ring_2.get());

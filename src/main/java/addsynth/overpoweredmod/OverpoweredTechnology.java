@@ -103,7 +103,7 @@ public class OverpoweredTechnology {
 
     /*
     // check items missing EMC
-    if(Compatibility.PROJECT_E.loaded){
+    if(Compatibility.PROJECT_E.isLoaded()){
       if(DEV_STAGE.isDevelopment){
         EMCValue.check_items(MOD_ID);
       }

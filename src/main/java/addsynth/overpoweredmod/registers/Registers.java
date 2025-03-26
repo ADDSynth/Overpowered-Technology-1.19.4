@@ -224,7 +224,7 @@ public final class Registers {
         }
       }
       
-      if(Compatibility.CURIOS.loaded){
+      if(Compatibility.CURIOS.isLoaded()){
         registry.register(Names.UNIDENTIFIED_RING[0],     new UnidentifiedItem(0));
         registry.register(Names.UNIDENTIFIED_RING[1],     new UnidentifiedItem(1));
         registry.register(Names.UNIDENTIFIED_RING[2],     new UnidentifiedItem(2));

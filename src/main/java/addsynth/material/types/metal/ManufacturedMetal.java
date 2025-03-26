@@ -44,7 +44,7 @@ public final class ManufacturedMetal extends Metal {
   public final void setCreativeTab(final CreativeModeTab.Output output){
     output.accept(ingot.get());
     output.accept(block.get());
-    if(Compatibility.ADDSYNTH_ENERGY.loaded){
+    if(Compatibility.ADDSYNTH_ENERGY.isLoaded()){
       output.accept(plate.get());
     }
   }

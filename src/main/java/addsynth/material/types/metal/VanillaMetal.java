@@ -28,7 +28,7 @@ public final class VanillaMetal extends Metal implements OreMaterial {
   }
 
   public final void setCreativeTab(final CreativeModeTab.Output output){
-    if(Compatibility.ADDSYNTH_ENERGY.loaded){
+    if(Compatibility.ADDSYNTH_ENERGY.isLoaded()){
       output.accept(plate.get());
     }
   }
