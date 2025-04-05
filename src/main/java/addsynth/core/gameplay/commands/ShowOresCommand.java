@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.util.command.PermissionLevel;
 import addsynth.core.util.java.FileUtil;
+import addsynth.core.util.java.JavaUtils;
 import addsynth.core.util.java.StringUtil;
 import addsynth.core.util.math.block.BlockMath;
 import addsynth.core.util.world.WorldConstants;
@@ -32,7 +33,7 @@ import net.minecraftforge.registries.tags.ITag;
 public final class ShowOresCommand {
 
   private static final int DEFAULT_ORE_SAMPLE_SIZE = 15;
-  private static final int MAX_ORE_SAMPLE_SIZE = 32;
+  private static final int MAX_ORE_SAMPLE_SIZE = 40;
   private static final String ore_sample_file = "ore_sample.txt";
 
   public static final void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext build_context){
@@ -137,6 +138,7 @@ public final class ShowOresCommand {
       final TreeMap<String, Integer> block_count = new TreeMap<>();
       final ITag<Block> ore_blocks = ForgeRegistries.BLOCKS.tags().getTag(Tags.Blocks.ORES);
       final Level world = source.getLevel();
+      final int height = world.getMaxBuildHeight();
       final BlockPos position = entity.blockPosition();
       final int chunks = size * size;
       final int offset = ((size - 1) / 2) * WorldConstants.chunk_size;
@@ -152,7 +154,7 @@ public final class ShowOresCommand {
       Block block;
       String text;
       int max_text_width = 0;
-      for(y = WorldConstants.bottom_level; y < WorldConstants.world_height; y++){
+      for(y = world.getMinBuildHeight(); y < height; y++){
         for(x = 0; x < full_size; x++){
           for(z = 0; z < full_size; z++){
             new_position = new BlockPos(x_coord + x, y, z_coord + z);
@@ -221,13 +223,14 @@ public final class ShowOresCommand {
   }
 
   private static final int count_ores(final CommandSourceStack source, final BlockInput block_state_input, final int size){
-    int blocks = 0;
+    long blocks = 0;
     final Entity entity = source.getEntity();
     if(entity != null){
       final Block check_block = block_state_input.getState().getBlock();
       @SuppressWarnings("null")
       final String block_name = ForgeRegistries.BLOCKS.getKey(check_block).toString(); // can't translate
       final Level world = source.getLevel();
+      final int height = world.getMaxBuildHeight();
       final BlockPos position = entity.blockPosition();
       final int chunks = size * size;
       final int offset = ((size - 1) / 2) * WorldConstants.chunk_size;
@@ -240,7 +243,7 @@ public final class ShowOresCommand {
       BlockPos new_position;
       BlockState blockstate;
       Block block;
-      for(y = WorldConstants.bottom_level; y < WorldConstants.world_height; y++){
+      for(y = world.getMinBuildHeight(); y < height; y++){
         for(x = 0; x < full_size; x++){
           for(z = 0; z < full_size; z++){
             new_position = new BlockPos(x_coord + x, y, z_coord + z);
@@ -253,7 +256,7 @@ public final class ShowOresCommand {
         }
       }
       if(blocks > 0){
-        final String text = StringUtil.build("Found ", blocks, " ", block_name, " in ", chunks, " chunks. Average: ", String.format("%.2f", ((float)blocks/chunks)), " per chunk.");
+        final String text = StringUtil.build("Found ", blocks, " ", block_name, " in ", chunks, " chunks. Average: ", String.format("%.2f", ((double)blocks/chunks)), " per chunk.");
         source.sendSuccess(Component.literal(text), true);
       }
       else{
@@ -261,7 +264,7 @@ public final class ShowOresCommand {
         source.sendSuccess(Component.literal(text), true);
       }
     }
-    return blocks;
+    return JavaUtils.cast_to_int(blocks);
   }
 
   // This is the better way to do it, but Java prevents accessing local variables in a local function.

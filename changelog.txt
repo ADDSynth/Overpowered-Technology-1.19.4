@@ -1,4 +1,6 @@
 v1.5.3 - TBD
+CHANGED:
+  The count_blocks and sample_ores commands max size has increased from 32 to 40.
 
 
 

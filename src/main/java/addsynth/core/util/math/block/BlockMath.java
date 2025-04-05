@@ -137,7 +137,7 @@ public final class BlockMath {
   }
 
   public static final int get_first_block_in_chunk(final int coordinate){
-    return (coordinate >> 4) << 4;
+    return coordinate & 0xFFFFFFF0;
   }
 
   public static final class BlockDistanceComparator implements Comparator<BlockPos> {
