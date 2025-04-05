@@ -1,9 +1,13 @@
+v1.5.3 - TBD
+
+
+
 v1.5.2 - April 5, 2025
 NEW:
   It is now possible to get a Soul Speed Enchanted Book by inserting an Amethyst in the Magic Infuser.
   Now, the Dimensional Anchor itself will not travel to other dimensions.
   Now detects the WTHIT (What The Hell Is That) mod.
-  Added EMC value to Unimatter. This fixed missing EMC for a bunch of other things.
+  Added EMC value to Unimatter.
 CHANGES:
   Renamed Matter/Energy Converter to Matter/Energy Core.
   Circuit Tier 8 and Circuit Tier 9 now use an Aluminum Ingot in their recipe instead of an
@@ -30,7 +34,7 @@ FIXED:
   Fixed Music Boxes and Lasers activating from an active redstone signal when the world loads.
     - (They now remember the powered state.)
     - These should only activate on Rising Edge, aka, first tick powered on from an OFF state.
-  Fix Plasma missing EMC value.
+  Fix Plasma missing EMC value. This fixed missing EMC for a bunch of other things as well.
   Fix Titanium Plates and Platinum Plates having the wrong EMC value.
 
 
