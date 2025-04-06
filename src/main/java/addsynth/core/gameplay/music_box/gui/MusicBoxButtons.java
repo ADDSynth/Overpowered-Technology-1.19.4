@@ -7,20 +7,20 @@ import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.music_box.TileMusicBox;
 import addsynth.core.gameplay.music_box.network_messages.ChangeInstrumentMessage;
 import addsynth.core.gameplay.music_box.network_messages.MusicBoxMessage;
-import addsynth.core.gameplay.reference.ADDSynthCoreText;
 import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.widgets.WidgetUtil;
-import addsynth.core.gui.widgets.buttons.AdjustableButton;
 import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 
-public final class MusicButtons {
+public final class MusicBoxButtons {
 
   private static final int instrument_texture_size = 64;
 
-  public static final class PlayButton extends AdjustableButton {
+  public static final class PlayButton extends AbstractButton {
 
     private final TileMusicBox tile;
 
@@ -37,45 +37,17 @@ public final class MusicButtons {
     @Override
     public final void playDownSound(final SoundManager p_playDownSound_1_){
     }
+
+    @Override
+    protected void updateWidgetNarration(NarrationElementOutput p_259858_){
+    }
   
   }
 
-  public static final class TempoButton extends AdjustableButton {
-
-    private final boolean direction;
-    private final TileMusicBox tile;
-
-    public TempoButton(int xIn, int yIn, int widthIn, int heightIn, boolean direction, TileMusicBox tile){
-      super(xIn, yIn, widthIn, heightIn, Component.literal(direction ? "<" : ">"));
-      this.direction = direction;
-      this.tile = tile;
-    }
-
-    @Override
-    public void onPress(){
-      NetworkHandler.INSTANCE.sendToServer(new MusicBoxMessage(tile.getBlockPos(),TileMusicBox.Command.CHANGE_TEMPO,direction ? 0 : 1));
-    }
-  }
-
-  public static final class NextDirectionButton extends AdjustableButton {
-
-    private final TileMusicBox tile;
-  
-    public NextDirectionButton(int xIn, int yIn, int widthIn, TileMusicBox tile){
-      super(xIn, yIn, widthIn, 14);
-      this.tile = tile;
-    }
-
-    @Override
-    public void renderWidget(PoseStack matrix, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_){
-      setMessage(ADDSynthCoreText.getDirection(tile.get_next_direction())); // stays up-to-date
-      super.renderWidget(matrix, p_renderButton_1_, p_renderButton_2_, p_renderButton_3_);
-    }
-
-    @Override
-    public void onPress(){
-      NetworkHandler.INSTANCE.sendToServer(new MusicBoxMessage(tile.getBlockPos(),TileMusicBox.Command.CYCLE_NEXT_DIRECTION));
-    }
+  public static final Button getNextDirectionButton(int x, int y, int width, TileMusicBox tile){
+    return Button.builder(Component.empty(), (Button button) -> {
+      NetworkHandler.INSTANCE.sendToServer(new MusicBoxMessage(tile.getBlockPos(), TileMusicBox.Command.CYCLE_NEXT_DIRECTION));
+    }).bounds(x, y, width, 14).build();
   }
 
   public static final class MuteButton extends AbstractButton {
@@ -104,7 +76,7 @@ public final class MusicButtons {
   
     @Override
     public void onPress(){
-      NetworkHandler.INSTANCE.sendToServer(new MusicBoxMessage(tile.getBlockPos(),TileMusicBox.Command.TOGGLE_MUTE,track));
+      NetworkHandler.INSTANCE.sendToServer(new MusicBoxMessage(tile.getBlockPos(), TileMusicBox.Command.TOGGLE_MUTE, track));
     }
   
     @Override
@@ -117,7 +89,7 @@ public final class MusicButtons {
   
   }
 
-  public static final class TrackInstrumentButton extends AbstractButton {
+  public static final class TrackInstrumentButton extends AbstractWidget {
 
     private static final int button_size = 12;
 
@@ -147,7 +119,7 @@ public final class MusicButtons {
     }
   
     @Override
-    public void onPress(){
+    public final void onClick(double mouse_x, double mouse_y){
       NetworkHandler.INSTANCE.sendToServer(new ChangeInstrumentMessage(tile.getBlockPos(), track, GuiMusicBox.instrument_selected));
     }
 
@@ -161,7 +133,7 @@ public final class MusicButtons {
   
   }
 
-  public static final class SelectInstrumentButton extends AbstractButton {
+  public static final class SelectInstrumentButton extends AbstractWidget {
   
     private static final int button_size = 16;
 
@@ -189,7 +161,7 @@ public final class MusicButtons {
     }
   
     @Override
-    public void onPress(){
+    public final void onClick(double mouse_x, double mouse_y){
       GuiMusicBox.instrument_selected = (byte)instrument;
     }
 

@@ -12,25 +12,27 @@ import net.minecraft.world.level.Level;
 
 public final class MusicGrid {
 
-  public static final SoundEvent[] instruments = new SoundEvent[] {
-    // TODO: Replace with a switch function that returns an instrument based on the passed-in ID.
-    SoundEvents.NOTE_BLOCK_HARP.value(),
-    SoundEvents.NOTE_BLOCK_BASS.value(),
-    SoundEvents.NOTE_BLOCK_BASEDRUM.value(),
-    SoundEvents.NOTE_BLOCK_SNARE.value(),
-    SoundEvents.NOTE_BLOCK_HAT.value(),
-    SoundEvents.NOTE_BLOCK_BELL.value(),
-    SoundEvents.NOTE_BLOCK_CHIME.value(),
-    SoundEvents.NOTE_BLOCK_FLUTE.value(),
-    SoundEvents.NOTE_BLOCK_GUITAR.value(),
-    SoundEvents.NOTE_BLOCK_XYLOPHONE.value(),
-    SoundEvents.NOTE_BLOCK_IRON_XYLOPHONE.value(),
-    SoundEvents.NOTE_BLOCK_COW_BELL.value(),
-    SoundEvents.NOTE_BLOCK_DIDGERIDOO.value(),
-    SoundEvents.NOTE_BLOCK_BIT.value(),
-    SoundEvents.NOTE_BLOCK_BANJO.value(),
-    SoundEvents.NOTE_BLOCK_PLING.value()
-  };
+  public static final SoundEvent getInstrument(final int id){
+    return switch(id){
+      case  0 -> SoundEvents.NOTE_BLOCK_HARP.value();
+      case  1 -> SoundEvents.NOTE_BLOCK_BASS.value();
+      case  2 -> SoundEvents.NOTE_BLOCK_BASEDRUM.value();
+      case  3 -> SoundEvents.NOTE_BLOCK_SNARE.value();
+      case  4 -> SoundEvents.NOTE_BLOCK_HAT.value();
+      case  5 -> SoundEvents.NOTE_BLOCK_BELL.value();
+      case  6 -> SoundEvents.NOTE_BLOCK_CHIME.value();
+      case  7 -> SoundEvents.NOTE_BLOCK_FLUTE.value();
+      case  8 -> SoundEvents.NOTE_BLOCK_GUITAR.value();
+      case  9 -> SoundEvents.NOTE_BLOCK_XYLOPHONE.value();
+      case 10 -> SoundEvents.NOTE_BLOCK_IRON_XYLOPHONE.value();
+      case 11 -> SoundEvents.NOTE_BLOCK_COW_BELL.value();
+      case 12 -> SoundEvents.NOTE_BLOCK_DIDGERIDOO.value();
+      case 13 -> SoundEvents.NOTE_BLOCK_BIT.value();
+      case 14 -> SoundEvents.NOTE_BLOCK_BANJO.value();
+      case 15 -> SoundEvents.NOTE_BLOCK_PLING.value();
+      default -> SoundEvents.NOTE_BLOCK_HARP.value();
+    };
+  }
   
   public static final byte tracks = 8;
   public static final byte frames = 8;
@@ -109,20 +111,19 @@ public final class MusicGrid {
    * @return true if tempo variable actually changed.
    */
   public final boolean setTempo(final boolean direction){
-    boolean pass = false;
     if(direction){
       if(tempo > 1){
         tempo -=1;
-        pass = true;
+        return true;
       }
     }
     else{
       if(tempo < lowest_tempo){
         tempo += 1;
-        pass = true;
+        return true;
       }
     }
-    return pass;
+    return false;
   }
 
   public final byte getTempo(){
@@ -156,7 +157,7 @@ public final class MusicGrid {
         track = this.track[i];
         if(track != null){
           if(track.mute == false){
-            instrument = instruments[track.instrument];
+            instrument = getInstrument(track.instrument);
             note = track.note[frame];
             if(note != null){
               if(note.on){

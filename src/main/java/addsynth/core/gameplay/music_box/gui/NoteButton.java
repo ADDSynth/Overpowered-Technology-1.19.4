@@ -1,5 +1,6 @@
 package addsynth.core.gameplay.music_box.gui;
 
+import org.lwjgl.glfw.GLFW;
 import addsynth.core.gameplay.Config;
 import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.music_box.TileMusicBox;
@@ -12,9 +13,15 @@ import net.minecraft.network.chat.Component;
 
 public final class NoteButton extends AbstractWidget {
   
-  public static final String[] note = new String[] {                                "F#3","G3","G#3","A3","A#3","B3",
-                                                    "C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4",
-                                                    "C5","C#5","D5","D#5","E5","F5","F#5"};
+  public static final Component[] note = new Component[]{
+                                                        Component.literal("F#3"), Component.literal("G3" ),
+    Component.literal("G#3"), Component.literal("A3" ), Component.literal("A#3"), Component.literal("B3" ),
+    Component.literal("C4" ), Component.literal("C#4"), Component.literal("D4" ), Component.literal("D#4"),
+    Component.literal("E4" ), Component.literal("F4" ), Component.literal("F#4"), Component.literal("G4" ),
+    Component.literal("G#4"), Component.literal("A4" ), Component.literal("A#4"), Component.literal("B4" ),
+    Component.literal("C5" ), Component.literal("C#5"), Component.literal("D5" ), Component.literal("D#5"),
+    Component.literal("E5" ), Component.literal("F5" ), Component.literal("F#5")
+  };
 
   private static final int center_x = Math.round((float)GuiMusicBox.note_button_width / 2);
   private static final int text_draw_y = Math.round((float)GuiMusicBox.note_button_height / 2) - 4;
@@ -24,7 +31,7 @@ public final class NoteButton extends AbstractWidget {
   private final byte frame;
 
   public NoteButton(int x_position, int y_position, byte track, byte frame, TileMusicBox tile){
-    super(x_position, y_position , GuiMusicBox.note_button_width, GuiMusicBox.note_button_height, Component.literal(note[tile.get_note(frame, track)]));
+    super(x_position, y_position , GuiMusicBox.note_button_width, GuiMusicBox.note_button_height, note[tile.get_note(frame, track)]);
     this.tile = tile;
     this.track = (byte)track;
     this.frame = (byte)frame;
@@ -34,7 +41,7 @@ public final class NoteButton extends AbstractWidget {
   public void render(PoseStack matrix, int p_render_1_, int p_render_2_, float p_render_3_){
     visible = tile.note_exists(track, frame);
     if(visible){
-      setMessage(Component.literal(note[tile.get_note(frame, track)])); // OPTIMIZE: Find everywhere we're setting the widget message each tick, and don't creat new TextComponents, have them already defined as static somewhere.
+      setMessage(note[tile.get_note(frame, track)]);
     }
     super.render(matrix, p_render_1_, p_render_2_, p_render_3_);
   }
@@ -53,29 +60,25 @@ public final class NoteButton extends AbstractWidget {
   public boolean mouseClicked(double mouse_x, double mouse_y, int button){ // overriden so it doesn't play the button sound?
     if(active){
       if(clicked(mouse_x, mouse_y)){
-        boolean flag = false;
         final boolean left_hand = Config.enable_left_hand.get();
-        switch(button){
-        case 0: // left mouse button
+        if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
           if(left_hand){
             delete_note();
           }
           else{
             set_note();
           }
-          flag = true;
-          break;
-        case 1: // right mouse button
-          if(left_hand){
-            set_note();
-          }
-          else{
-            delete_note();
-          }
-          flag = true;
-          break;
+          return true;
         }
-        return flag;
+        if(button == GLFW.GLFW_MOUSE_BUTTON_RIGHT){
+          if(left_hand){
+            set_note();
+          }
+          else{
+            delete_note();
+          }
+          return true;
+        }
       }
     }
     return false;

@@ -9,6 +9,7 @@ import addsynth.core.gui.GuiBase;
 import addsynth.core.gui.widgets.buttons.ClientCheckbox;
 import addsynth.core.gui.widgets.buttons.RadialButtonGroup;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 
@@ -37,7 +38,7 @@ public final class TeamManagerTeamEditGui extends GuiBase {
   private RadialButtonGroup death_message_controls;
   private EditBox member_prefix;
   private EditBox member_suffix;
-  private TeamManagerGuiButtons.FinishButton finish_button;
+  private Button finish_button;
 
   private static final int center_space = 3;
   private static final int widget_spacing = 2;
@@ -119,9 +120,9 @@ public final class TeamManagerTeamEditGui extends GuiBase {
     addWidget(team_display_name);
     addWidget(member_prefix);
     addWidget(member_suffix);
-    finish_button = new TeamManagerGuiButtons.FinishButton(button_x1, button_y, button_width, button_height, this::create_team);
+    finish_button = TeamManagerButtons.getFinishButton(button_x1, button_y, button_width, button_height, this::create_team);
     addRenderableWidget(finish_button);
-    addRenderableWidget(new TeamManagerGuiButtons.CancelButton(button_x2, button_y, button_width, button_height));
+    addRenderableWidget(TeamManagerButtons.getCancelButton(button_x2, button_y, button_width, button_height));
 
     if(new_team == false){
       // editing pre-existing team, load all data

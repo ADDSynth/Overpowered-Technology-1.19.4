@@ -3,10 +3,10 @@ package addsynth.energy.gameplay.machines.energy_diagnostics;
 import addsynth.core.gui.GuiBase;
 import addsynth.core.gui.section.GuiSection;
 import addsynth.core.gui.util.GuiUtil;
+import addsynth.core.gui.widgets.buttons.ButtonUtil;
 import addsynth.energy.gameplay.reference.GuiReference;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.components.AbstractButton;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
 public final class GuiEnergyDiagnostics extends GuiBase {
@@ -20,8 +20,8 @@ public final class GuiEnergyDiagnostics extends GuiBase {
   private int begin = 0;
   private int end = 10;
   private static EnergyDiagnosticData diag_line;
-  private final  LeftArrowButton  left_button = new  LeftArrowButton( 70, 6);
-  private final RightArrowButton right_button = new RightArrowButton(105, 6);
+  private final Button  left_button = ButtonUtil.getBigtLeftArrowButton( 70, 6, null);
+  private final Button right_button = ButtonUtil.getBigRightArrowButton(105, 6, null);
   // private static final int x_space = 4;
   private static final int text_y = 30;
   private static final int y_space = 14;
@@ -36,30 +36,6 @@ public final class GuiEnergyDiagnostics extends GuiBase {
   public GuiEnergyDiagnostics(final TileEnergyDiagnostics tile, final Component title){
     super(631, 288, title, GuiReference.energy_diagnostics);
     this.tile = tile;
-  }
-
-  private static final class LeftArrowButton extends AbstractButton {
-    public LeftArrowButton(int x, int y){
-      super(x, y, 30, 20, Component.empty());
-    }
-    @Override
-    public void updateWidgetNarration(NarrationElementOutput p_169152_){
-    }
-    @Override
-    public void onPress(){
-    }
-  }
-
-  private static final class RightArrowButton extends AbstractButton {
-    public RightArrowButton(int x, int y){
-      super(x, y, 30, 20, Component.empty());
-    }
-    @Override
-    public void updateWidgetNarration(NarrationElementOutput p_169152_){
-    }
-    @Override
-    public void onPress(){
-    }
   }
 
   @Override

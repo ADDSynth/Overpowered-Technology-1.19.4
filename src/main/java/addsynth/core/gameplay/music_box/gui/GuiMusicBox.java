@@ -1,13 +1,18 @@
 package addsynth.core.gameplay.music_box.gui;
 
 import org.lwjgl.glfw.GLFW;
+import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.music_box.TileMusicBox;
 import addsynth.core.gameplay.music_box.data.MusicGrid;
+import addsynth.core.gameplay.music_box.network_messages.MusicBoxMessage;
+import addsynth.core.gameplay.reference.ADDSynthCoreText;
 import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.GuiBase;
+import addsynth.core.gui.widgets.buttons.ButtonUtil;
+import addsynth.core.util.constants.Constants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
 public final class GuiMusicBox extends GuiBase {
@@ -52,15 +57,14 @@ public final class GuiMusicBox extends GuiBase {
   // controls
   private static final int play_button_width = 46;
   
-  private static final int tempo_button_width = 10;
-  private static final int tempo_button_height = 16;
   private static final int tempo_text_width = 50;
   private static final int tempo_text_height = 18;
-  private static final int tempo_text_x_center = 6 + tempo_button_width + Math.round(tempo_text_width / 2);
+  private static final int tempo_text_x_center = 6 + ButtonUtil.width + Math.round(tempo_text_width / 2);
   private static final int tempo_text_y_center = 17 + 9;
-  private static final int tempo_button_y = tempo_text_y_center - Math.round(tempo_button_height / 2);
+  private static final int tempo_button_y = tempo_text_y_center - Math.round(ButtonUtil.height / 2);
   
   private static final int next_direction_button_width = 50;
+  private Button next_direction_button;
 
   private static final int info_text_y = 17 + tempo_text_height + 3;
 
@@ -103,12 +107,17 @@ public final class GuiMusicBox extends GuiBase {
     // controls list
     final int play_button_x = guiBox.center_x - (play_button_width / 2);
     final int tempo_x1 = guiBox.left + 6;
-    final int tempo_x2 = guiBox.left + 6 + tempo_button_width + tempo_text_width;
+    final int tempo_x2 = guiBox.left + 6 + ButtonUtil.width + tempo_text_width;
     final int tempo_y = guiBox.top + tempo_button_y;
-    addRenderableWidget(new MusicButtons.PlayButton(play_button_x, guiBox.top + 17, play_button_width, tile));
-    addRenderableWidget(new MusicButtons.TempoButton(tempo_x1, tempo_y, tempo_button_width, tempo_button_height, true, tile));
-    addRenderableWidget(new MusicButtons.TempoButton(tempo_x2, tempo_y, tempo_button_width, tempo_button_height, false, tile));
-    addRenderableWidget(new MusicButtons.NextDirectionButton(guiBox.right - 6 - next_direction_button_width, guiBox.top + 17, next_direction_button_width, tile));
+    addRenderableWidget(new MusicBoxButtons.PlayButton(play_button_x, guiBox.top + 17, play_button_width, tile));
+    addRenderableWidget(ButtonUtil.getLeftArrowButton(tempo_x1, tempo_y,
+      () -> NetworkHandler.INSTANCE.sendToServer(new MusicBoxMessage(tile.getBlockPos(), TileMusicBox.Command.CHANGE_TEMPO, 0))
+    ));
+    addRenderableWidget(ButtonUtil.getRightArrowButton(tempo_x2, tempo_y,
+      () -> NetworkHandler.INSTANCE.sendToServer(new MusicBoxMessage(tile.getBlockPos(), TileMusicBox.Command.CHANGE_TEMPO, 1))
+    ));
+    next_direction_button = MusicBoxButtons.getNextDirectionButton(guiBox.right - 6 - next_direction_button_width, guiBox.top + 17, next_direction_button_width, tile);
+    addRenderableWidget(next_direction_button);
 
     // music grid buttons
     create_dynamic_buttons();
@@ -124,14 +133,14 @@ public final class GuiMusicBox extends GuiBase {
     x = guiBox.left + mute_button_x;
     for(i = 0; i < MusicGrid.tracks; i++){
       y = guiBox.top + music_grid_y + (i * (track_height));
-      addRenderableWidget(new MusicButtons.MuteButton(x, y, i, tile));
+      addRenderableWidget(new MusicBoxButtons.MuteButton(x, y, i, tile));
     }
 
     // Track Instrument Buttons
     x = guiBox.left + track_instrument_x;
     for(i = 0; i < MusicGrid.tracks; i++){
       y = guiBox.top + music_grid_y + (i * track_height);
-      addRenderableWidget(new MusicButtons.TrackInstrumentButton(x, y, i, tile));
+      addRenderableWidget(new MusicBoxButtons.TrackInstrumentButton(x, y, i, tile));
     }
 
     // Note Buttons
@@ -147,10 +156,10 @@ public final class GuiMusicBox extends GuiBase {
     for(j = 0; j < 2; j++){
       for(i = 0; i < instrument_buttons; i++){
         instrument = i + (j * instrument_buttons);
-        if(instrument < MusicGrid.instruments.length){
+        if(instrument < Constants.note_block_instruments){
           x = guiBox.left + instrument_button_x + (i * instrument_button_size);
           y = guiBox.top  + instrument_button_y + (j * instrument_button_size);
-          addRenderableWidget(new MusicButtons.SelectInstrumentButton(x, y, instrument));
+          addRenderableWidget(new MusicBoxButtons.SelectInstrumentButton(x, y, instrument));
         }
       }
     }
@@ -159,8 +168,13 @@ public final class GuiMusicBox extends GuiBase {
     x = guiBox.left + track_swap_button_x;
     for(i = 0; i < MusicGrid.tracks - 1; i++){
       y = guiBox.top + track_swap_button_y + (i * track_height);
-      addRenderableWidget(new MusicButtons.SwapTrackButton(x, y, tile, i));
+      addRenderableWidget(new MusicBoxButtons.SwapTrackButton(x, y, tile, i));
     }
+  }
+
+  @Override
+  public final void tick(){
+    next_direction_button.setMessage(ADDSynthCoreText.getDirection(tile.get_next_direction()));
   }
 
   @Override
@@ -215,18 +229,15 @@ public final class GuiMusicBox extends GuiBase {
     
     draw_text_center(matrix, next_text.getString()+":", right_edge - (next_direction_button_width / 2), 6);
     
-    draw_text_left(matrix, current_note_text.getString()+": "+NoteButton.note[note_selected],            6, info_text_y);
+    draw_text_left(matrix, current_note_text.getString()+": "+NoteButton.note[note_selected].getString(),            6, info_text_y);
     draw_text_left(matrix, instrument_text.getString()+": "+instrument[instrument_selected].getString(), center_x - 10, info_text_y);
   }
 
-  /**
-   * Overrides the {@link AbstractContainerScreen#keyPressed(int, int, int)} method.
-   */
   @Override
   public
   final boolean keyPressed(final int keyCode, final int par2, final int par3){
     if(keyCode == GLFW.GLFW_KEY_ESCAPE){
-      this.minecraft.player.closeContainer();
+      onClose();
       return true;
     }
     // MAYBE: maybe make these keys changeable in the Controls Options screen.

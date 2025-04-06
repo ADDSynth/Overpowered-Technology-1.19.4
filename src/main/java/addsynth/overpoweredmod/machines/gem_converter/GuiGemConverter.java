@@ -1,7 +1,7 @@
 package addsynth.overpoweredmod.machines.gem_converter;
 
 import addsynth.core.gui.util.GuiUtil;
-import addsynth.core.gui.widgets.buttons.AdjustableButton;
+import addsynth.core.gui.widgets.buttons.ButtonUtil;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.WorkProgressBar;
 import addsynth.material.Material;
@@ -26,12 +26,11 @@ public final class GuiGemConverter extends GuiEnergyBase<TileGemConverter, Conta
     new ItemStack(Material.QUARTZ.gem, 1)
   };
 
-  private static final int left_button_x = 64;
+  private static final int left_button_x = 57;
   private static final int cycle_button_y = 64;
-  private static final int cycle_button_width = 10;
-  private static final int cycle_button_buffer = 2;
-  private static final int right_button_x = left_button_x + cycle_button_width + 16 + (cycle_button_buffer*2);
-  private static final int cycle_button_height = 16;
+  private static final int cycle_button_buffer = 3;
+  private static final int render_item_x = left_button_x + ButtonUtil.width + cycle_button_buffer;
+  private static final int right_button_x = render_item_x + 16 + cycle_button_buffer;
   
   private final WorkProgressBar work_progress_bar = new WorkProgressBar(43, 89, 122, 5, 40, 199);
   
@@ -39,36 +38,22 @@ public final class GuiGemConverter extends GuiEnergyBase<TileGemConverter, Conta
     super(176, 194, container, player_inventory, title, GuiReference.gem_converter);
   }
 
-  private static final class CycleGemButton extends AdjustableButton {
-
-    private final TileGemConverter tile;
-    private final boolean direction;
-
-    public CycleGemButton(int xIn, int yIn, boolean direction, TileGemConverter tile){
-      super(xIn, yIn, cycle_button_width, cycle_button_height, Component.literal(direction ? ">" : "<")); // true goes right
-      this.tile = tile;
-      this.direction = direction;
-    }
-
-    @Override
-    public void onPress(){
-      NetworkHandler.INSTANCE.sendToServer(new CycleGemConverterMessage(tile.getBlockPos(),direction));
-    }
-
-  }
-
   @Override
   protected final void init(){
     super.init();
-    addRenderableWidget(new CycleGemButton(this.leftPos + left_button_x, this.topPos + cycle_button_y,false, tile));
-    addRenderableWidget(new CycleGemButton(this.leftPos + right_button_x, this.topPos + cycle_button_y,true, tile));
+    addRenderableWidget(ButtonUtil.getLeftArrowButton(this.leftPos + left_button_x, this.topPos + cycle_button_y,
+      () -> NetworkHandler.INSTANCE.sendToServer(new CycleGemConverterMessage(tile.getBlockPos(), false))
+    ));
+    addRenderableWidget(ButtonUtil.getRightArrowButton(this.leftPos + right_button_x, this.topPos + cycle_button_y,
+      () -> NetworkHandler.INSTANCE.sendToServer(new CycleGemConverterMessage(tile.getBlockPos(), true))
+    ));
   }
 
   @Override
   protected final void renderBg(PoseStack matrix, final float partialTicks, final int mouseX, final int mouseY){
     draw_background_texture(matrix);
     work_progress_bar.draw(matrix, this, tile);
-    itemRenderer.renderGuiItem(matrix, gem[tile.get_gem_selected()], this.leftPos + left_button_x + 12, this.topPos + cycle_button_y);
+    itemRenderer.renderGuiItem(matrix, gem[tile.get_gem_selected()], this.leftPos + render_item_x, this.topPos + cycle_button_y);
   }
 
   @Override

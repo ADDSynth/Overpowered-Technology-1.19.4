@@ -14,6 +14,7 @@ import addsynth.core.gui.widgets.buttons.RadialButtonGroup;
 import addsynth.core.gui.widgets.scrollbar.ListEntry;
 import addsynth.core.gui.widgets.scrollbar.TextScrollbar;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 
@@ -49,7 +50,7 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   private EditBox objective_display_name;
   private RadialButtonGroup criteria_types;
   private TextScrollbar criteria_list;
-  private TeamManagerGuiButtons.FinishButton finish_button;
+  private Button finish_button;
 
   private static final int widget_spacing = 2;
   private static final int line_space = 8;
@@ -121,9 +122,9 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     final int button_area = middle_section.right - left_section.left;
     final int[] button_x = WidgetUtil.evenAlignment(button_area, button_width, 2);
     final int   button_y = guiBox.bottom - 8 - button_height;
-    finish_button = new TeamManagerGuiButtons.FinishButton(guiBox.left + button_x[0], button_y, button_width, button_height, this::create_objective);
+    finish_button = TeamManagerButtons.getFinishButton(guiBox.left + button_x[0], button_y, button_width, button_height, this::create_objective);
     addRenderableWidget(finish_button);
-    addRenderableWidget(new TeamManagerGuiButtons.CancelButton(guiBox.left + button_x[1], button_y, button_width, button_height));
+    addRenderableWidget(TeamManagerButtons.getCancelButton(guiBox.left + button_x[1], button_y, button_width, button_height));
     
     if(new_objective){
       // Initialize Criteria List

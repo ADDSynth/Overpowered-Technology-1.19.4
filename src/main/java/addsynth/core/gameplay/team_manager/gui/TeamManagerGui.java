@@ -15,6 +15,7 @@ import addsynth.core.gui.widgets.scrollbar.CombinedListEntry;
 import addsynth.core.gui.widgets.scrollbar.CombinedNameScrollbar;
 import addsynth.core.util.game.data.CombinedNameComponent;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 
@@ -94,17 +95,17 @@ public final class TeamManagerGui extends GuiBase {
     objective_selected = value;
   };
 
-  private TeamManagerGuiButtons.MovePlayerToTeamButton player_to_team_button;
-  private TeamManagerGuiButtons.RemovePlayerFromTeamButton player_from_team_button;
-  private TeamManagerGuiButtons.EditTeamButton edit_team_button;
-  private TeamManagerGuiButtons.DeleteTeamButton delete_team_button;
-  private TeamManagerGuiButtons.EditObjectiveButton edit_objective_button;
-  private TeamManagerGuiButtons.DeleteObjectiveButton delete_objective_button;
+  private TeamManagerButtons.MovePlayerToTeamButton player_to_team_button;
+  private TeamManagerButtons.RemovePlayerFromTeamButton player_from_team_button;
+  private Button edit_team_button;
+  private Button delete_team_button;
+  private Button edit_objective_button;
+  private Button delete_objective_button;
   private EditBox new_score;
-  private TeamManagerGuiButtons.SetScoreButton set_score_button;
-  private TeamManagerGuiButtons.AddScoreButton add_score_button;
-  private TeamManagerGuiButtons.SubtractScoreButton subtract_score_button;
-  private TeamManagerGuiButtons.SetDisplaySlotButton[] display_slot_button = new TeamManagerGuiButtons.SetDisplaySlotButton[3];
+  private Button set_score_button;
+  private Button add_score_button;
+  private Button subtract_score_button;
+  private Button[] display_slot_button = new Button[3];
 
   public static int player_score;
   private static boolean player_score_can_be_changed;
@@ -142,7 +143,7 @@ public final class TeamManagerGui extends GuiBase {
 
   private static final int player_buttons_y = line_1 + text_space + player_list_height + button_x_spacing;
   /** Y position all players header text should draw at. */
-  private static final int players_text_line = player_buttons_y + TeamManagerGuiButtons.player_button_size + button_x_spacing;
+  private static final int players_text_line = player_buttons_y + TeamManagerButtons.player_button_size + button_x_spacing;
   
 
   private int selected_text_left;
@@ -160,14 +161,14 @@ public final class TeamManagerGui extends GuiBase {
   private static final int line_4 = text_box_y + text_box_height + score_spacing + button_height + button_y_spacing;
   private static final int display_slot_spacing = 2;
   private static final int display_slot_button_y1 = line_4 + text_space;
-  private static final int display_slot_button_y2 = display_slot_button_y1 + TeamManagerGuiButtons.display_slot_button_height + display_slot_spacing;
-  private static final int display_slot_button_y3 = display_slot_button_y2 + TeamManagerGuiButtons.display_slot_button_height + display_slot_spacing;
-  private static final int display_slot_text_y1 = WidgetUtil.centerYAdjacent(display_slot_button_y1, TeamManagerGuiButtons.display_slot_button_height);
-  private static final int display_slot_text_y2 = WidgetUtil.centerYAdjacent(display_slot_button_y2, TeamManagerGuiButtons.display_slot_button_height);
-  private static final int display_slot_text_y3 = WidgetUtil.centerYAdjacent(display_slot_button_y3, TeamManagerGuiButtons.display_slot_button_height);
+  private static final int display_slot_button_y2 = display_slot_button_y1 + TeamManagerButtons.display_slot_button_height + display_slot_spacing;
+  private static final int display_slot_button_y3 = display_slot_button_y2 + TeamManagerButtons.display_slot_button_height + display_slot_spacing;
+  private static final int display_slot_text_y1 = WidgetUtil.centerYAdjacent(display_slot_button_y1, TeamManagerButtons.display_slot_button_height);
+  private static final int display_slot_text_y2 = WidgetUtil.centerYAdjacent(display_slot_button_y2, TeamManagerButtons.display_slot_button_height);
+  private static final int display_slot_text_y3 = WidgetUtil.centerYAdjacent(display_slot_button_y3, TeamManagerButtons.display_slot_button_height);
   private static final int last_x = text_x3 + list_width + scrollbar_width;
-  private static final int display_slot_button_x2 = last_x - TeamManagerGuiButtons.display_slot_button_width;
-  private static final int display_slot_button_x1 = display_slot_button_x2 - TeamManagerGuiButtons.display_slot_button_width - 6;
+  private static final int display_slot_button_x2 = last_x - TeamManagerButtons.display_slot_button_width;
+  private static final int display_slot_button_x1 = display_slot_button_x2 - TeamManagerButtons.display_slot_button_width - 6;
   private int display_slot_x1;
   private int display_slot_x2;
 
@@ -188,7 +189,7 @@ public final class TeamManagerGui extends GuiBase {
 
     // Player Controls
     final int player_x_center = x_position_1 + (list_width / 2);
-    final int player_button_x1 = player_x_center - 3 - TeamManagerGuiButtons.player_button_size;
+    final int player_button_x1 = player_x_center - 3 - TeamManagerButtons.player_button_size;
     final int player_button_x2 = player_x_center + 3;
     final int player_list_y = guiBox.top + players_text_line + text_space;
     for(i = 0; i < team_players.length; i++){
@@ -199,8 +200,8 @@ public final class TeamManagerGui extends GuiBase {
     team_players_list.setResponder(onTeamPlayerSelected);
     addRenderableWidget(team_players_list);
     
-    player_to_team_button   = new TeamManagerGuiButtons.MovePlayerToTeamButton(    this, player_button_x1, guiBox.top + player_buttons_y);
-    player_from_team_button = new TeamManagerGuiButtons.RemovePlayerFromTeamButton(this, player_button_x2, guiBox.top + player_buttons_y);
+    player_to_team_button   = new TeamManagerButtons.MovePlayerToTeamButton(    this, player_button_x1, guiBox.top + player_buttons_y);
+    player_from_team_button = new TeamManagerButtons.RemovePlayerFromTeamButton(this, player_button_x2, guiBox.top + player_buttons_y);
     addRenderableWidget(player_to_team_button);
     addRenderableWidget(player_from_team_button);
     
@@ -221,9 +222,9 @@ public final class TeamManagerGui extends GuiBase {
     team_list = new CombinedNameScrollbar(x_position_2 + list_width, start_y, team_list_height, team_entries);
     team_list.setResponder(onTeamSelected);
     addRenderableWidget(team_list);
-      edit_team_button = new TeamManagerGuiButtons.EditTeamButton(  this, x_position_2 + 34, team_buttons_y, 30, button_height);
-    delete_team_button = new TeamManagerGuiButtons.DeleteTeamButton(this, x_position_2 + 68, team_buttons_y, 50, button_height);
-    addRenderableWidget( new TeamManagerGuiButtons.AddTeamButton(         x_position_2,      team_buttons_y, 30, button_height));
+      edit_team_button = TeamManagerButtons.getEditTeamButton(  this, x_position_2 + 34, team_buttons_y, 30, button_height);
+    delete_team_button = TeamManagerButtons.getDeleteTeamButton(this, x_position_2 + 68, team_buttons_y, 50, button_height);
+    addRenderableWidget( TeamManagerButtons.getAddTeamButton(         x_position_2,      team_buttons_y, 30, button_height));
     addRenderableWidget(edit_team_button);
     addRenderableWidget(delete_team_button);
 
@@ -236,9 +237,9 @@ public final class TeamManagerGui extends GuiBase {
     objectives_list = new CombinedNameScrollbar(x_position_3 + list_width, start_y, objectives_list_height, objectives_entries);
     objectives_list.setResponder(onObjectiveSelected);
     addRenderableWidget(objectives_list);
-    edit_objective_button   = new TeamManagerGuiButtons.EditObjectiveButton(  this, x_position_3 + 34, objective_buttons_y, 30, button_height);
-    delete_objective_button = new TeamManagerGuiButtons.DeleteObjectiveButton(this, x_position_3 + 68, objective_buttons_y, 50, button_height);
-    addRenderableWidget(new TeamManagerGuiButtons.AddObjectiveButton(   x_position_3,      objective_buttons_y, 30, button_height));
+    edit_objective_button   = TeamManagerButtons.getEditObjectiveButton(  this, x_position_3 + 34, objective_buttons_y, 30, button_height);
+    delete_objective_button = TeamManagerButtons.getDeleteObjectiveButton(this, x_position_3 + 68, objective_buttons_y, 50, button_height);
+    addRenderableWidget(      TeamManagerButtons.getAddObjectiveButton(         x_position_3,      objective_buttons_y, 30, button_height));
     addRenderableWidget(edit_objective_button);
     addRenderableWidget(delete_objective_button);
     
@@ -249,9 +250,9 @@ public final class TeamManagerGui extends GuiBase {
     final int[] score_buttons_width = {70, 50, 75, 60};
     final int score_button_x2 =    x_position_2 + score_buttons_width[0] + button_x_spacing;
     final int score_button_x3 = score_button_x2 + score_buttons_width[1] + button_x_spacing;
-    subtract_score_button = new TeamManagerGuiButtons.SubtractScoreButton(x_position_2, score_buttons_y, score_buttons_width[0], button_height, this::subtract_score);
-         add_score_button = new TeamManagerGuiButtons.AddScoreButton(  score_button_x2, score_buttons_y, score_buttons_width[1], button_height, this::add_score);
-         set_score_button = new TeamManagerGuiButtons.SetScoreButton(  score_button_x3, score_buttons_y, score_buttons_width[2], button_height, this::set_score);
+    subtract_score_button = TeamManagerButtons.getSubtractScoreButton(x_position_2, score_buttons_y, score_buttons_width[0], button_height, this::subtract_score);
+         add_score_button = TeamManagerButtons.getAddScoreButton(  score_button_x2, score_buttons_y, score_buttons_width[1], button_height, this::add_score);
+         set_score_button = TeamManagerButtons.getSetScoreButton(  score_button_x3, score_buttons_y, score_buttons_width[2], button_height, this::set_score);
     addRenderableWidget(subtract_score_button);
     addRenderableWidget(add_score_button);
     addRenderableWidget(set_score_button);
@@ -259,15 +260,15 @@ public final class TeamManagerGui extends GuiBase {
     // Display Slot widgets
     display_slot_x1 = text_x2 + GuiUtil.getMaxStringWidth(font, display_slot_text_1, display_slot_text_2, display_slot_text_3);
     display_slot_x2 = (display_slot_x1 + 5 + display_slot_button_x1) / 2;
-    display_slot_button[0] = new TeamManagerGuiButtons.SetDisplaySlotButton(this, guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y1, 0);
-    display_slot_button[1] = new TeamManagerGuiButtons.SetDisplaySlotButton(this, guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y2, 1);
-    display_slot_button[2] = new TeamManagerGuiButtons.SetDisplaySlotButton(this, guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y3, 2);
+    display_slot_button[0] = TeamManagerButtons.getSetDisplaySlotButton(this, guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y1, 0);
+    display_slot_button[1] = TeamManagerButtons.getSetDisplaySlotButton(this, guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y2, 1);
+    display_slot_button[2] = TeamManagerButtons.getSetDisplaySlotButton(this, guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y3, 2);
     addRenderableWidget(display_slot_button[0]);
     addRenderableWidget(display_slot_button[1]);
     addRenderableWidget(display_slot_button[2]);
-    addRenderableWidget(new TeamManagerGuiButtons.ClearDisplaySlotButton(guiBox.left + display_slot_button_x2, guiBox.top + display_slot_button_y1, 0));
-    addRenderableWidget(new TeamManagerGuiButtons.ClearDisplaySlotButton(guiBox.left + display_slot_button_x2, guiBox.top + display_slot_button_y2, 1));
-    addRenderableWidget(new TeamManagerGuiButtons.ClearDisplaySlotButton(guiBox.left + display_slot_button_x2, guiBox.top + display_slot_button_y3, 2));
+    addRenderableWidget(TeamManagerButtons.getClearDisplaySlotButton(guiBox.left + display_slot_button_x2, guiBox.top + display_slot_button_y1, 0));
+    addRenderableWidget(TeamManagerButtons.getClearDisplaySlotButton(guiBox.left + display_slot_button_x2, guiBox.top + display_slot_button_y2, 1));
+    addRenderableWidget(TeamManagerButtons.getClearDisplaySlotButton(guiBox.left + display_slot_button_x2, guiBox.top + display_slot_button_y3, 2));
     
     TeamData.changed = true;
   }

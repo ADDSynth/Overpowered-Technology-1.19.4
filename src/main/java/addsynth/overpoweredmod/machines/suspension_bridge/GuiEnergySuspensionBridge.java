@@ -3,12 +3,12 @@ package addsynth.overpoweredmod.machines.suspension_bridge;
 import addsynth.core.gameplay.reference.ADDSynthCoreText;
 import addsynth.core.gui.section.GuiSection;
 import addsynth.core.gui.util.GuiUtil;
-import addsynth.core.gui.widgets.buttons.AdjustableButton;
 import addsynth.core.util.constants.DirectionConstant;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.overpoweredmod.game.NetworkHandler;
 import addsynth.overpoweredmod.game.reference.GuiReference;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -40,23 +40,7 @@ public final class GuiEnergySuspensionBridge extends GuiEnergyBase<TileSuspensio
   private static final int button_x = gui_width - 6 - button_width;
   private static final int button_y = 17;
 
-  private RotateButton rotate_button;
-
-  private static final class RotateButton extends AdjustableButton {
-
-    private final TileSuspensionBridge tile;
-
-    public RotateButton(int x, int y, TileSuspensionBridge tile){
-      super(x, y, button_width, 20, rotate);
-      this.tile = tile;
-    }
-
-    @Override
-    public void onPress(){
-      NetworkHandler.INSTANCE.sendToServer(new RotateBridgeMessage(tile.getBlockPos()));
-    }
-
-  }
+  private Button rotate_button;
 
   public GuiEnergySuspensionBridge(final ContainerSuspensionBridge container, final Inventory inventory, final Component title){
     super(gui_width, 185, container, inventory, title, GuiReference.energy_suspension_bridge);
@@ -65,7 +49,9 @@ public final class GuiEnergySuspensionBridge extends GuiEnergyBase<TileSuspensio
   @Override
   protected final void init(){
     super.init();
-    rotate_button = new RotateButton(this.leftPos + button_x, this.topPos + button_y, tile);
+    rotate_button = Button.builder(rotate, (Button button) -> {
+      NetworkHandler.INSTANCE.sendToServer(new RotateBridgeMessage(tile.getBlockPos()));
+    }).bounds(this.leftPos + button_x, this.topPos + button_y, button_width, 20).build();
     addRenderableWidget(rotate_button);
     message_x[0] =    up_section.horizontal_center + GuiUtil.getMaxStringWidth(font,  ADDSynthCoreText.west.getString()+":",    ADDSynthCoreText.up.getString()+":") / 2;
     message_x[1] = north_section.horizontal_center + GuiUtil.getMaxStringWidth(font, ADDSynthCoreText.south.getString()+":", ADDSynthCoreText.north.getString()+":") / 2;

@@ -19,6 +19,8 @@ public static final float block_resistance = Blocks.STONE.getExplosionResistance
 @SuppressWarnings("deprecation")
 public static final float infinite_resistance = Blocks.BEDROCK.getExplosionResistance();
 
+public static final int note_block_instruments = 16;
+
 public static final float[] light_level = new float[] { // UNUSED Constants.light_level[]
   0.0f, 1.0f / 15, 2.0f / 15, 3.0f / 15, 4.0f / 15, 5.0f / 15, 6.0f / 15, 7.0f / 15,
   8.0f / 15, 9.0f / 15, 10.0f / 15, 11.0f / 15, 12.0f / 15, 13.0f / 15, 14.0f / 15, 1.0f

@@ -1,6 +1,5 @@
 package addsynth.overpoweredmod.machines.portal.control_panel;
 
-import addsynth.core.gui.widgets.buttons.AdjustableButton;
 import addsynth.core.gui.widgets.item.IngredientWidgetGroup;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.AutoShutoffCheckbox;
@@ -12,6 +11,7 @@ import addsynth.overpoweredmod.game.NetworkHandler;
 import addsynth.overpoweredmod.game.reference.GuiReference;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -38,6 +38,7 @@ public final class GuiPortalControlPanel extends GuiEnergyBase<TilePortalControl
   private static final int button_y = 108;
   private static final int button_width = 136;
   private static final int button_height = 16;
+  private Button generate_portal_button;
   
   private static final int status_message_y = button_y + button_height + 6;
 
@@ -45,34 +46,16 @@ public final class GuiPortalControlPanel extends GuiEnergyBase<TilePortalControl
     super(218, 146, container, player_inventory, title, GuiReference.portal_control_panel);
   }
 
-  private static final class GeneratePortalButton extends AdjustableButton {
-
-    private final TilePortalControlPanel tile;
-
-    public GeneratePortalButton(final int x, final int y, final TilePortalControlPanel tile){
-      super(x, y, button_width, button_height, Component.translatable("gui.overpowered.portal_control_panel.generate_portal"));
-      this.tile = tile;
-    }
-
-    @Override
-    public void renderWidget(PoseStack matrix, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_){
-      this.active = tile.isValid();
-      super.renderWidget(matrix, p_renderButton_1_, p_renderButton_2_, p_renderButton_3_);
-    }
-
-    @Override
-    public void onPress(){
-      NetworkHandler.INSTANCE.sendToServer(new GeneratePortalMessage(tile.getBlockPos()));
-    }
-
-  }
-
   @Override
   protected final void init(){
     super.init();
     addRenderableWidget(new OnOffSwitch<>(this, tile));
     addRenderableWidget(new AutoShutoffCheckbox<TilePortalControlPanel>(this.leftPos + checkbox_x, this.topPos + checkbox_y, tile));
-    addRenderableWidget(new GeneratePortalButton(this.leftPos + button_x, this.topPos + button_y, tile));
+    generate_portal_button = Button.builder(Component.translatable("gui.overpowered.portal_control_panel.generate_portal"),
+      (Button button) -> {
+        NetworkHandler.INSTANCE.sendToServer(new GeneratePortalMessage(tile.getBlockPos()));
+      }).bounds(this.leftPos + button_x, this.topPos + button_y, button_width, button_height).build();
+    addRenderableWidget(generate_portal_button);
     
     // Set Portal Control Panel Gui Displayed ItemStacks
     final Ingredient[] portal_control_panel_displayed_itemstacks = {
@@ -91,6 +74,7 @@ public final class GuiPortalControlPanel extends GuiEnergyBase<TilePortalControl
   @Override
   protected void containerTick(){
     gem_blocks.tick();
+    generate_portal_button.active = tile.isValid();
   }
 
   @Override

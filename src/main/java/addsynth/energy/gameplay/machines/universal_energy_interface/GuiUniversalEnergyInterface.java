@@ -1,18 +1,19 @@
 package addsynth.energy.gameplay.machines.universal_energy_interface;
 
-import addsynth.core.gui.widgets.buttons.AdjustableButton;
 import addsynth.energy.gameplay.NetworkHandler;
 import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.gameplay.reference.GuiReference;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.EnergyProgressBar;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 public final class GuiUniversalEnergyInterface extends GuiEnergyBase<TileUniversalEnergyInterface, ContainerUniversalEnergyInterface> {
 
   private static final int button_width = 90;
+  private Button transfer_mode_button;
   private final EnergyProgressBar energy_bar = new EnergyProgressBar(156, 18, 12, 34, 206, 28);
   
   private static final int line_1 = 21;
@@ -22,33 +23,19 @@ public final class GuiUniversalEnergyInterface extends GuiEnergyBase<TileUnivers
     super(176, 60, container, player_inventory, title, GuiReference.universal_interface);
   }
 
-  private static final class CycleTransferModeButton extends AdjustableButton {
-
-    private final TileUniversalEnergyInterface tile;
-
-    public CycleTransferModeButton(int xIn, int yIn, TileUniversalEnergyInterface tile){
-      super(xIn, yIn, button_width, 16);
-      this.tile = tile;
-    }
-
-    @Override
-    public final void renderWidget(PoseStack matrix, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_){
-      setMessage(tile.get_transfer_mode().title);
-      super.renderWidget(matrix, p_renderButton_1_, p_renderButton_2_, p_renderButton_3_);
-    }
-
-    @Override
-    public void onPress(){
-      NetworkHandler.INSTANCE.sendToServer(new CycleTransferModeMessage(tile.getBlockPos()));
-    }
-
-  }
-
   @Override
   protected final void init(){
     super.init();
     final int button_x = leftPos + center_x - (button_width / 2) + 4;
-    addRenderableWidget(new CycleTransferModeButton(button_x, topPos + 17, tile));
+    transfer_mode_button = Button.builder(tile.get_transfer_mode().title, (Button button) -> {
+      NetworkHandler.INSTANCE.sendToServer(new CycleTransferModeMessage(tile.getBlockPos()));
+    }).bounds(button_x, topPos + 17, button_width, 16).build();
+    addRenderableWidget(transfer_mode_button);
+  }
+
+  @Override
+  protected final void containerTick(){
+    transfer_mode_button.setMessage(tile.get_transfer_mode().title);
   }
 
   @Override
