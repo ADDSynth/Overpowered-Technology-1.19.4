@@ -17,14 +17,14 @@ public final class GemConverterRecipe {
 
   public static final ArrayList<GemConverterRecipe> getRecipes(){
     final ArrayList<GemConverterRecipe> recipes = new ArrayList<>(8);
-    recipes.add(new GemConverterRecipe(new ItemStack(Material.RUBY.getGem())));
-    recipes.add(new GemConverterRecipe(new ItemStack(Material.TOPAZ.getGem())));
-    recipes.add(new GemConverterRecipe(new ItemStack(Material.CITRINE.getGem())));
-    recipes.add(new GemConverterRecipe(new ItemStack(Material.EMERALD.getGem())));
-    recipes.add(new GemConverterRecipe(new ItemStack(Material.DIAMOND.getGem())));
-    recipes.add(new GemConverterRecipe(new ItemStack(Material.SAPPHIRE.getGem())));
-    recipes.add(new GemConverterRecipe(new ItemStack(Material.AMETHYST.getGem())));
-    recipes.add(new GemConverterRecipe(new ItemStack(Material.QUARTZ.getGem())));
+    recipes.add(new GemConverterRecipe(new ItemStack(Material.RUBY.gem.get())));
+    recipes.add(new GemConverterRecipe(new ItemStack(Material.TOPAZ.gem.get())));
+    recipes.add(new GemConverterRecipe(new ItemStack(Material.CITRINE.gem.get())));
+    recipes.add(new GemConverterRecipe(new ItemStack(Material.EMERALD.gem)));
+    recipes.add(new GemConverterRecipe(new ItemStack(Material.DIAMOND.gem)));
+    recipes.add(new GemConverterRecipe(new ItemStack(Material.SAPPHIRE.gem.get())));
+    recipes.add(new GemConverterRecipe(new ItemStack(Material.AMETHYST.gem)));
+    recipes.add(new GemConverterRecipe(new ItemStack(Material.QUARTZ.gem)));
     return recipes;
   }
 

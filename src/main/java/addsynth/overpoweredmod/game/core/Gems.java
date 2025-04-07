@@ -1,27 +1,44 @@
 package addsynth.overpoweredmod.game.core;
 
 import addsynth.material.Material;
-import addsynth.material.types.gem.Gem;
 import addsynth.material.util.MaterialTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.tags.ITagManager;
 
 public final class Gems {
 
-  private static final Gem[] index = {
-    Material.RUBY,    Material.TOPAZ,    Material.CITRINE,  Material.EMERALD,
-    Material.DIAMOND, Material.SAPPHIRE, Material.AMETHYST, Material.QUARTZ
-  };
-
   public static final ItemStack getGem(final int gem_id){
-    return new ItemStack(index[gem_id].getGem());
+    final Item gem = switch(gem_id){
+      case 0 -> Material.RUBY.gem.get();
+      case 1 -> Material.TOPAZ.gem.get();
+      case 2 -> Material.CITRINE.gem.get();
+      case 3 -> Material.EMERALD.gem;
+      case 4 -> Material.DIAMOND.gem;
+      case 5 -> Material.SAPPHIRE.gem.get();
+      case 6 -> Material.AMETHYST.gem;
+      case 7 -> Material.QUARTZ.gem;
+      default -> Items.AIR;
+    };
+    return new ItemStack(gem);
   }
 
   public static final ItemStack getShard(final int gem_id){
-    return new ItemStack(index[gem_id].getGemShard());
+    final Item shard = switch(gem_id){
+      case 0 -> Material.RUBY.shard.get();
+      case 1 -> Material.TOPAZ.shard.get();
+      case 2 -> Material.CITRINE.shard.get();
+      case 3 -> Material.EMERALD.shard.get();
+      case 4 -> Material.DIAMOND.shard.get();
+      case 5 -> Material.SAPPHIRE.shard.get();
+      case 6 -> Material.AMETHYST.shard.get();
+      case 7 -> Material.QUARTZ.shard.get();
+      default -> Items.AIR;
+    };
+    return new ItemStack(shard);
   }
 
   public static final int getGemIndex(final ItemStack gem){

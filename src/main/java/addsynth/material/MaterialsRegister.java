@@ -1,11 +1,11 @@
 package addsynth.material;
 
 import java.util.List;
-import addsynth.material.blocks.OreBlock;
+import addsynth.core.compat.Compatibility;
 import addsynth.material.compat.recipe.BronzeModAbsentCondition;
 import addsynth.material.compat.recipe.SteelModAbsentCondition;
-import addsynth.material.reference.MaterialBlocks;
 import addsynth.material.reference.Names;
+import addsynth.material.types.Gem;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -31,59 +31,116 @@ public final class MaterialsRegister {
     if(key.equals(ForgeRegistries.Keys.BLOCKS)){
       final IForgeRegistry<Block> registry = event.getForgeRegistry();
       
-      // gems
-      Material.RUBY.registerBlocks(registry);
-      Material.TOPAZ.registerBlocks(registry);
-      Material.CITRINE.registerBlocks(registry);
-      Material.SAPPHIRE.registerBlocks(registry);
-      registry.register(Names.AMETHYST_ORE, new OreBlock(3, 7));
-      Material.ROSE_QUARTZ.registerBlocks(registry);
+      // metal blocks
+      Material.TIN.registerBlock(registry);
+      Material.ALUMINUM.registerBlock(registry);
+      Material.SILVER.registerBlock(registry);
+      Material.PLATINUM.registerBlock(registry);
+      Material.TITANIUM.registerBlock(registry);
+      Material.STEEL.registerBlock(registry);
+      Material.BRONZE.registerBlock(registry);
       
-      // metals
-      Material.TIN.registerBlocks(registry);
-      Material.ALUMINUM.registerBlocks(registry);
-      Material.STEEL.registerBlocks(registry);
-      Material.BRONZE.registerBlocks(registry);
-      Material.SILVER.registerBlocks(registry);
-      Material.PLATINUM.registerBlocks(registry);
-      Material.TITANIUM.registerBlocks(registry);
+      // metal ores
+      Material.TIN.registerOre(registry);
+      Material.ALUMINUM.registerOre(registry);
+      Material.SILVER.registerOre(registry);
+      Material.PLATINUM.registerOre(registry);
+      Material.TITANIUM.registerOre(registry);
       
+      // gem blocks
+      Material.RUBY.registerBlock(registry);
+      Material.TOPAZ.registerBlock(registry);
+      Material.CITRINE.registerBlock(registry);
+      Material.SAPPHIRE.registerBlock(registry);
+      
+      // gem ores
+      Material.RUBY.registerOre(registry);
+      Material.TOPAZ.registerOre(registry);
+      Material.CITRINE.registerOre(registry);
+      Material.SAPPHIRE.registerOre(registry);
+      registry.register(Names.AMETHYST_ORE, Gem.getOreBlock());
+
       // other materials
-      Material.SILICON.registerBlocks(registry);
+      Material.SILICON.registerOre(registry);
+      Material.ROSE_QUARTZ.registerOre(registry);
+      
     }
     if(key.equals(ForgeRegistries.Keys.ITEMS)){
       final IForgeRegistry<Item> registry = event.getForgeRegistry();
   
-      // gems
-      Material.RUBY.registerItems(registry);
-      Material.TOPAZ.registerItems(registry);
-      Material.CITRINE.registerItems(registry);
-      Material.EMERALD.registerItems(registry);
-      Material.DIAMOND.registerItems(registry);
-      Material.SAPPHIRE.registerItems(registry);
-      registry.register(Names.AMETHYST_ORE, new BlockItem(MaterialBlocks.amethyst_ore.get(), new Item.Properties()));
-      Material.AMETHYST.registerItems(registry);
-      Material.QUARTZ.registerItems(registry);
-      Material.ROSE_QUARTZ.registerItems(registry);
-  
-      // vanilla metals
-      Material.IRON.registerItems(registry);
-      Material.GOLD.registerItems(registry);
-      Material.COPPER.registerItems(registry);
-  
-      // metals
-      Material.TIN.registerItems(registry);
-      Material.ALUMINUM.registerItems(registry);
-      Material.SILVER.registerItems(registry);
-      Material.PLATINUM.registerItems(registry);
-      Material.TITANIUM.registerItems(registry);
-  
-      // manufactured metals
-      Material.STEEL.registerItems(registry); // Now that I have the MaterialsCompat.SteelModAbsent() function, I could prevent registering Steel if I wanted to.
-      Material.BRONZE.registerItems(registry);
+      // metal ingots
+      Material.TIN.registerIngot(registry);
+      Material.ALUMINUM.registerIngot(registry);
+      Material.SILVER.registerIngot(registry);
+      Material.PLATINUM.registerIngot(registry);
+      Material.TITANIUM.registerIngot(registry);
+      Material.STEEL.registerIngot(registry);
+      Material.BRONZE.registerIngot(registry);
+
+      // metal blocks
+      Material.TIN.registerBlockItem(registry);
+      Material.ALUMINUM.registerBlockItem(registry);
+      Material.SILVER.registerBlockItem(registry);
+      Material.PLATINUM.registerBlockItem(registry);
+      Material.TITANIUM.registerBlockItem(registry);
+      Material.STEEL.registerBlockItem(registry);
+      Material.BRONZE.registerBlockItem(registry);
+
+      // metal ores
+      Material.TIN.registerOreItem(registry);
+      Material.ALUMINUM.registerOreItem(registry);
+      Material.SILVER.registerOreItem(registry);
+      Material.PLATINUM.registerOreItem(registry);
+      Material.TITANIUM.registerOreItem(registry);
+
+      // metal plates
+      if(Compatibility.ADDSYNTH_ENERGY.isLoaded()){
+        registry.register(Names.IRON_PLATE,   new Item(new Item.Properties()));
+        registry.register(Names.COPPER_PLATE, new Item(new Item.Properties()));
+        registry.register(Names.GOLD_PLATE,   new Item(new Item.Properties()));
+        Material.TIN.registerPlate(registry);
+        Material.ALUMINUM.registerPlate(registry);
+        Material.SILVER.registerPlate(registry);
+        Material.PLATINUM.registerPlate(registry);
+        Material.TITANIUM.registerPlate(registry);
+        Material.STEEL.registerPlate(registry);
+        Material.BRONZE.registerPlate(registry);
+      }
+
+      // gem shards
+      Material.RUBY.registerShard(registry);
+      Material.TOPAZ.registerShard(registry);
+      Material.CITRINE.registerShard(registry);
+      registry.register(Names.EMERALD_SHARD, new Item(new Item.Properties()));
+      registry.register(Names.DIAMOND_SHARD, new Item(new Item.Properties()));
+      Material.SAPPHIRE.registerShard(registry);
+      registry.register(Names.AMETHYST_SHARD, new Item(new Item.Properties()));
+      registry.register(Names.QUARTZ_SHARD, new Item(new Item.Properties()));
       
-      // other material items
-      Material.SILICON.registerItems(registry);
+      // gems
+      Material.RUBY.registerGem(registry);
+      Material.TOPAZ.registerGem(registry);
+      Material.CITRINE.registerGem(registry);
+      Material.SAPPHIRE.registerGem(registry);
+      
+      // gem blocks
+      Material.RUBY.registerBlockItem(registry);
+      Material.TOPAZ.registerBlockItem(registry);
+      Material.CITRINE.registerBlockItem(registry);
+      Material.SAPPHIRE.registerBlockItem(registry);
+      
+      // gem ores
+      Material.RUBY.registerOreItem(registry);
+      Material.TOPAZ.registerOreItem(registry);
+      Material.CITRINE.registerOreItem(registry);
+      Material.SAPPHIRE.registerOreItem(registry);
+      registry.register(Names.AMETHYST_ORE, new BlockItem(Material.AMETHYST.ore.get(), new Item.Properties()));
+      
+      // other materials
+      Material.SILICON.registerItem(registry);
+      Material.SILICON.registerOreItem(registry);
+      Material.ROSE_QUARTZ.registerItem(registry);
+      Material.ROSE_QUARTZ.registerOreItem(registry);
     }
     if(key.equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS)){
       CraftingHelper.register(SteelModAbsentCondition.Serializer.INSTANCE);

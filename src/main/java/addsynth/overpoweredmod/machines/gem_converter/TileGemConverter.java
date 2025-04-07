@@ -30,7 +30,7 @@ public final class TileGemConverter extends TileStandardWorkMachine implements M
   private static final TagFilter filter = new TagFilter(OverpoweredItemTags.convertable_gems);
 
   private byte selection;
-  private ItemStack gem_selected = new ItemStack(Material.RUBY.getGem(), 1);
+  private ItemStack gem_selected = new ItemStack(Material.RUBY.gem.get(), 1);
   private byte converting_to;
   
   public TileGemConverter(BlockPos position, BlockState blockstate){

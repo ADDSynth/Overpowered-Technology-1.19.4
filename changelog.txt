@@ -1,5 +1,8 @@
 v1.5.3 - TBD
+NEW:
+  Some vanilla items can now be found in the ADDSynth Materials Creative Tab.
 CHANGED:
+  Items in the Materials Creative Tab are sorted by Item type again, instead of by Material type.
   The count_blocks and sample_ores commands max size has increased from 32 to 40.
 
 
