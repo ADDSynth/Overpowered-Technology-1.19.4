@@ -1,9 +1,13 @@
 v1.5.3 - TBD
 NEW:
   Some vanilla items can now be found in the ADDSynth Materials Creative Tab.
+  Unidentified Item drops now drop for the Piglin, Piglin Brute, Hoglin, Zoglin, and the Warden.
 CHANGED:
   Items in the Materials Creative Tab are sorted by Item type again, instead of by Material type.
   The count_blocks and sample_ores commands max size has increased from 32 to 40.
+  Unidentified Item Configuration settings have moved to their own config file.
+FIXED:
+  Fixed not dropping custom mob loot for the Zombified Piglin, ever since the ID changed in Minecraft 1.16.
 
 
 

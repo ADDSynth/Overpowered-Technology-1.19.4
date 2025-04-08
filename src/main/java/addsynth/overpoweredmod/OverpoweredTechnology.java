@@ -70,9 +70,10 @@ public class OverpoweredTechnology {
   private static final void init_config(){
     new File(FMLPaths.CONFIGDIR.get().toString(), MOD_NAME).mkdir();
     final ModLoadingContext context = ModLoadingContext.get();
-    context.registerConfig(ModConfig.Type.COMMON, Config.CONFIG_SPEC,        MOD_NAME+File.separator+"main.toml");
-    context.registerConfig(ModConfig.Type.COMMON, MachineValues.CONFIG_SPEC, MOD_NAME+File.separator+"machine_values.toml");
-    context.registerConfig(ModConfig.Type.COMMON, Values.CONFIG_SPEC,        MOD_NAME+File.separator+"values.toml");
+    context.registerConfig(ModConfig.Type.COMMON,                  Config.CONFIG_SPEC, MOD_NAME+File.separator+"main.toml");
+    context.registerConfig(ModConfig.Type.COMMON,           MachineValues.CONFIG_SPEC, MOD_NAME+File.separator+"machine_values.toml");
+    context.registerConfig(ModConfig.Type.COMMON, UnidentifiedItemsConfig.CONFIG_SPEC, MOD_NAME+File.separator+"unidentified_items.toml");
+    context.registerConfig(ModConfig.Type.COMMON,                  Values.CONFIG_SPEC, MOD_NAME+File.separator+"values.toml");
   }
   
   private static final void main_setup(final FMLCommonSetupEvent event){

@@ -7,7 +7,7 @@ import addsynth.core.game.item.constants.ItemValue;
 import addsynth.core.util.math.random.Weight;
 import addsynth.core.util.time.TimeConstants;
 import addsynth.overpoweredmod.config.Config;
-import addsynth.overpoweredmod.config.Values;
+import addsynth.overpoweredmod.config.UnidentifiedItemsConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -111,8 +111,11 @@ public enum RingEffects {
 
   public static final void set_ring_effects(final ItemStack stack){
     final Random random = new Random();
-    switch(Weight.getWeightedValue(random,  Values.common_ring_weight.get(), Values.good_ring_weight.get(),
-             Values.rare_ring_weight.get(), Values.unique_ring_weight.get())){
+    final int weighted_value = Weight.getWeightedValue(random,
+      UnidentifiedItemsConfig.common_ring_weight.get(), UnidentifiedItemsConfig.good_ring_weight.get(),
+      UnidentifiedItemsConfig.rare_ring_weight.get(),   UnidentifiedItemsConfig.unique_ring_weight.get()
+    );
+    switch(weighted_value){
     case 0: common_ring_effects(random, stack, ItemValue.COMMON); break;
     case 1:   good_ring_effects(random, stack, ItemValue.GOOD); break;
     case 2:   rare_ring_effects(random, stack, ItemValue.RARE); break;
