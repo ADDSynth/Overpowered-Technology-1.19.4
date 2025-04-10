@@ -37,18 +37,10 @@ public final class ADDSynthMaterials {
     bus.addListener(ADDSynthMaterials::process_imc_messages);
     MinecraftForge.EVENT_BUS.addListener(ADDSynthMaterials::onServerStarted);
     MinecraftForge.EVENT_BUS.addListener(MaterialsRegister::onMissingEntries);
-    init_config();
-  }
-
-  private static final void init_config(){
-    // new File(FMLPaths.CONFIGDIR.get().toString(), MOD_NAME).mkdir();
-    // final ModLoadingContext context = ModLoadingContext.get();
   }
 
   private static final void main_setup(final FMLCommonSetupEvent event){
-    // log.info("Begin ADDSynthMaterials main setup...");
     CommonUtil.displayModInfo(log, MOD_NAME, "ADDSynth", VERSION, DEV_STAGE, VERSION_DATE);
-    // log.info("Finished ADDSynthMaterials main setup.");
   }
 
   public static void onServerStarted(final ServerStartedEvent event){
