@@ -1,15 +1,6 @@
 ﻿{
 "itemGroup.addsynth_materials": "ADDSynth Materials",
 
-"item.addsynth_materials.ruby_shard": "κομμάτι ρουμπίνι",
-"item.addsynth_materials.topaz_shard": "κομμάτι τοπάζ",
-"item.addsynth_materials.citrine_shard": "θραύσματα κιτρίνης",
-"item.addsynth_materials.emerald_shard": "σμαραγδένιο θραύσμα",
-"item.addsynth_materials.diamond_shard": "διαμάντι θραύσμα",
-"item.addsynth_materials.sapphire_shard": "σάπφειρο σκάρδα",
-"item.addsynth_materials.amethyst_shard": "κομμάτι του αμέθυστου",
-"item.addsynth_materials.quartz_shard": "χαλαζία θραύσμα",
-
 "item.addsynth_materials.ruby": "Ρουμπίνι",
 "item.addsynth_materials.topaz": "Τοπάζι",
 "item.addsynth_materials.citrine": "κίτρινο χαλαζία",

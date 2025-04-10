@@ -58,15 +58,6 @@ public final class CreativeTab {
           output.accept(Material.STEEL.plate.get());
           output.accept(Material.BRONZE.plate.get());
         }
-        // shards
-        output.accept(Material.RUBY.shard.get());
-        output.accept(Material.TOPAZ.shard.get());
-        output.accept(Material.CITRINE.shard.get());
-        output.accept(Material.EMERALD.shard.get());
-        output.accept(Material.DIAMOND.shard.get());
-        output.accept(Material.SAPPHIRE.shard.get());
-        output.accept(Material.AMETHYST.shard.get());
-        output.accept(Material.QUARTZ.shard.get());
         // gems
         output.accept(Material.RUBY.gem.get());
         output.accept(Material.TOPAZ.gem.get());

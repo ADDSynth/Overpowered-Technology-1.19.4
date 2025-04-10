@@ -107,16 +107,6 @@ public final class MaterialsRegister {
         Material.BRONZE.registerPlate(registry);
       }
 
-      // gem shards
-      Material.RUBY.registerShard(registry);
-      Material.TOPAZ.registerShard(registry);
-      Material.CITRINE.registerShard(registry);
-      registry.register(Names.EMERALD_SHARD, new Item(new Item.Properties()));
-      registry.register(Names.DIAMOND_SHARD, new Item(new Item.Properties()));
-      Material.SAPPHIRE.registerShard(registry);
-      registry.register(Names.AMETHYST_SHARD, new Item(new Item.Properties()));
-      registry.register(Names.QUARTZ_SHARD, new Item(new Item.Properties()));
-      
       // gems
       Material.RUBY.registerGem(registry);
       Material.TOPAZ.registerGem(registry);

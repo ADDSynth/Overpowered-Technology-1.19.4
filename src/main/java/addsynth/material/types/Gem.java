@@ -18,21 +18,15 @@ import net.minecraftforge.registries.RegistryObject;
 public final class Gem {
 
   private final MaterialColor block_color;
-  public final RegistryObject<Item>  shard;
   public final RegistryObject<Item>  gem;
   public final RegistryObject<Block> block;
   public final RegistryObject<Block> ore;
   
   public Gem(final String name, final MaterialColor block_color){
     this.block_color = block_color;
-    shard = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_shard"), ForgeRegistries.ITEMS);
       gem = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name), ForgeRegistries.ITEMS);
     block = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_block"), ForgeRegistries.BLOCKS);
       ore = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_ore"), ForgeRegistries.BLOCKS);
-  }
-
-  public final void registerShard(final IForgeRegistry<Item> registry){
-    registry.register(shard.getId(), new Item(new Item.Properties()));
   }
 
   public final void registerGem(final IForgeRegistry<Item> registry){

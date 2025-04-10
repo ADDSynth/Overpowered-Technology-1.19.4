@@ -21,7 +21,7 @@ public final class MachineValues {
 
   // Passive Machines
   public static final MachineDataConfig crystal_matter_generator =
-    new MachineDataConfig("Crystal Matter Generator", MachineType.PASSIVE, 16_000,  31.25, 0,  600); // 500,000 energy for 1 shard every 13.3 minutes
+    new MachineDataConfig("Crystal Matter Generator", MachineType.PASSIVE, 108_000,  25, 0,  600); // 2,700,000 energy for 1 gem every 1.5 hours
   public static final MachineDataConfig plasma_generator =
     new MachineDataConfig("Plasma Generator", MachineType.PASSIVE, 4_800, 50, 0.08, 300); // 50 energy per tick for 4 minutes = 240,000 Energy (1 Plasma per Energy Crystal.)
     // First Plasma will require 30 Coal or Charcoal to produce.

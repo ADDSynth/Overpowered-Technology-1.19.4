@@ -8,6 +8,10 @@ CHANGED:
   Items in the Materials Creative Tab are sorted by Item type again, instead of by Material type.
   The count_blocks and sample_ores commands max size has increased from 32 to 40.
   Unidentified Item Configuration settings have moved to their own config file.
+REMOVED:
+  Removed Gem shards. (Been meaning to do this for a while.)
+   - As a result, the Crystal Matter Generator now produces 1 random Gem every 1.5 hours using
+     2,700,000 total energy.
 FIXED:
   Fixed not dropping custom mob loot for the Zombified Piglin, ever since the ID changed in Minecraft 1.16.
 

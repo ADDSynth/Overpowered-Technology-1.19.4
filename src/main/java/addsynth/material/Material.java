@@ -66,28 +66,24 @@ public final class Material {
   }
 
   public static final class DIAMOND {
-    public static final RegistryObject<Item> shard = RegistryObject.create(Names.DIAMOND_SHARD, ForgeRegistries.ITEMS);
     public static final Item  gem   = Items.DIAMOND;
     public static final Block block = Blocks.DIAMOND_BLOCK;
     public static final Block ore   = Blocks.DIAMOND_ORE;
   }
 
   public static final class EMERALD {
-    public static final RegistryObject<Item> shard = RegistryObject.create(Names.EMERALD_SHARD, ForgeRegistries.ITEMS);
     public static final Item  gem   = Items.EMERALD;
     public static final Block block = Blocks.EMERALD_BLOCK;
     public static final Block ore   = Blocks.EMERALD_ORE;
   }
 
   public static final class QUARTZ {
-    public static final RegistryObject<Item> shard = RegistryObject.create(Names.QUARTZ_SHARD, ForgeRegistries.ITEMS);
     public static final Item  gem   = Items.QUARTZ;
     public static final Block block = Blocks.QUARTZ_BLOCK;
     public static final Block ore   = Blocks.NETHER_QUARTZ_ORE;
   }
 
   public static final class AMETHYST {
-    public static final RegistryObject<Item> shard = RegistryObject.create(Names.AMETHYST_SHARD, ForgeRegistries.ITEMS);
     public static final Item   gem = Items.AMETHYST_SHARD;
     public static final Block block = Blocks.AMETHYST_BLOCK;
     public static final RegistryObject<Block> ore = RegistryObject.create(Names.AMETHYST_ORE, ForgeRegistries.BLOCKS);

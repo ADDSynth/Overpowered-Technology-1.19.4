@@ -26,21 +26,6 @@ public final class Gems {
     return new ItemStack(gem);
   }
 
-  public static final ItemStack getShard(final int gem_id){
-    final Item shard = switch(gem_id){
-      case 0 -> Material.RUBY.shard.get();
-      case 1 -> Material.TOPAZ.shard.get();
-      case 2 -> Material.CITRINE.shard.get();
-      case 3 -> Material.EMERALD.shard.get();
-      case 4 -> Material.DIAMOND.shard.get();
-      case 5 -> Material.SAPPHIRE.shard.get();
-      case 6 -> Material.AMETHYST.shard.get();
-      case 7 -> Material.QUARTZ.shard.get();
-      default -> Items.AIR;
-    };
-    return new ItemStack(shard);
-  }
-
   public static final int getGemIndex(final ItemStack gem){
     return getGemIndex(gem.getItem());
   }

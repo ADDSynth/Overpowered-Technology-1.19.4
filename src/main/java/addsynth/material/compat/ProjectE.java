@@ -18,16 +18,6 @@ public final class ProjectE {
     final String mod = Compatibility.PROJECT_E.modid;
     final String message = IMCMethods.REGISTER_CUSTOM_EMC;
     
-    // REMOVE shards
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.RUBY.shard.get()),     EMCValue.gem_shard));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.TOPAZ.shard.get()),    EMCValue.gem_shard));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.CITRINE.shard.get()),  EMCValue.gem_shard));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.EMERALD.shard.get()),  EMCValue.gem_shard));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.DIAMOND.shard.get()),  EMCValue.gem_shard));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.SAPPHIRE.shard.get()), EMCValue.gem_shard));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.AMETHYST.shard.get()), EMCValue.gem_shard));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.QUARTZ.shard.get()),   EMCValue.gem_shard));
-    
     InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.RUBY.gem.get()),     EMCValue.gemstone)); // ProjectE OreDictionary defaults to 2024 emc
     InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.TOPAZ.gem.get()),    EMCValue.gemstone));
     InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.CITRINE.gem.get()),  EMCValue.gemstone));
