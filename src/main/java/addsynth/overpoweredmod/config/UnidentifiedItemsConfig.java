@@ -1,13 +1,8 @@
 package addsynth.overpoweredmod.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import org.apache.commons.lang3.tuple.Pair;
 
 public final class UnidentifiedItemsConfig {
-
-  private static final Pair<UnidentifiedItemsConfig, ForgeConfigSpec> SPEC_PAIR = new ForgeConfigSpec.Builder().configure(UnidentifiedItemsConfig::new);
-  public static final UnidentifiedItemsConfig INSTANCE = SPEC_PAIR.getLeft();
-  public static final ForgeConfigSpec CONFIG_SPEC = SPEC_PAIR.getRight();
 
   private static final int DEFAULT_LEATHER_ARMOR_WEIGHT = 30;
   private static final int DEFAULT_GOLD_ARMOR_WEIGHT    = 18;

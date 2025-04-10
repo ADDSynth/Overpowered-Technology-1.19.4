@@ -10,6 +10,7 @@ import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.recipe.FurnaceRecipes;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
+import addsynth.core.util.game.Game;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TagsUpdatedEvent;
@@ -18,7 +19,6 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -58,9 +58,8 @@ public final class ADDSynthCore {
 
   private static final void init_config(){
     new File(FMLPaths.CONFIGDIR.get().toString(), NAME).mkdir();
-
     final ModLoadingContext context = ModLoadingContext.get();
-    context.registerConfig(ModConfig.Type.COMMON, Config.CONFIG_SPEC,         NAME+File.separator+"main.toml");
+    Game.registerConfig(context, Config::new, NAME, "main.toml");
   }
 
   private static final void main_setup(final FMLCommonSetupEvent event){

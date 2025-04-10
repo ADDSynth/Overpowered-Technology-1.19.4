@@ -1,6 +1,5 @@
 package addsynth.energy.gameplay.config;
 
-import org.apache.commons.lang3.tuple.Pair;
 import addsynth.energy.lib.config.MachineDataConfig;
 import addsynth.energy.lib.config.MachineType;
 import addsynth.energy.lib.config.SimpleBatteryConfig;
@@ -15,10 +14,6 @@ public final class Config {
 
   private static final int DEFAULT_UNIVERSAL_ENERGY_INTERFACE_BUFFER = 1_000;
   public static ForgeConfigSpec.IntValue     universal_energy_interface_buffer;
-
-  private static final Pair<Config, ForgeConfigSpec> SPEC_PAIR = new ForgeConfigSpec.Builder().configure(Config::new);
-  public static final Config INSTANCE = SPEC_PAIR.getLeft();
-  public static final ForgeConfigSpec CONFIG_SPEC = SPEC_PAIR.getRight();
 
   public Config(final ForgeConfigSpec.Builder builder){
   

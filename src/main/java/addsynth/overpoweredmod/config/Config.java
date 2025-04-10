@@ -2,7 +2,6 @@ package addsynth.overpoweredmod.config;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang3.tuple.Pair;
 import addsynth.core.util.time.TimeConstants;
 import addsynth.overpoweredmod.machines.black_hole.TileBlackHole;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -56,10 +55,6 @@ public final class Config {
   public static ForgeConfigSpec.BooleanValue rings_have_particle_effects;
 
   public static ForgeConfigSpec.BooleanValue show_advanced_config;
-
-  private static final Pair<Config, ForgeConfigSpec> SPEC_PAIR = new ForgeConfigSpec.Builder().configure(Config::new);
-  public static final Config INSTANCE = SPEC_PAIR.getLeft();
-  public static final ForgeConfigSpec CONFIG_SPEC = SPEC_PAIR.getRight();
 
   public Config(final ForgeConfigSpec.Builder builder){
 

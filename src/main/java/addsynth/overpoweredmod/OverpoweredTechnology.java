@@ -35,7 +35,6 @@ import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -70,10 +69,10 @@ public class OverpoweredTechnology {
   private static final void init_config(){
     new File(FMLPaths.CONFIGDIR.get().toString(), MOD_NAME).mkdir();
     final ModLoadingContext context = ModLoadingContext.get();
-    context.registerConfig(ModConfig.Type.COMMON,                  Config.CONFIG_SPEC, MOD_NAME+File.separator+"main.toml");
-    context.registerConfig(ModConfig.Type.COMMON,           MachineValues.CONFIG_SPEC, MOD_NAME+File.separator+"machine_values.toml");
-    context.registerConfig(ModConfig.Type.COMMON, UnidentifiedItemsConfig.CONFIG_SPEC, MOD_NAME+File.separator+"unidentified_items.toml");
-    context.registerConfig(ModConfig.Type.COMMON,                  Values.CONFIG_SPEC, MOD_NAME+File.separator+"values.toml");
+    Game.registerConfig(context,                  Config::new, MOD_NAME, "main.toml");
+    Game.registerConfig(context,           MachineValues::new, MOD_NAME, "machine_values.toml");
+    Game.registerConfig(context, UnidentifiedItemsConfig::new, MOD_NAME, "unidentified_items.toml");
+    Game.registerConfig(context,                  Values::new, MOD_NAME, "values.toml");
   }
   
   private static final void main_setup(final FMLCommonSetupEvent event){

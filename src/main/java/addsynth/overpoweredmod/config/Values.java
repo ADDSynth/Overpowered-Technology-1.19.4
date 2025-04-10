@@ -1,15 +1,10 @@
 package addsynth.overpoweredmod.config;
 
-import org.apache.commons.lang3.tuple.Pair;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public final class Values {
 
-  private static final Pair<Values, ForgeConfigSpec> SPEC_PAIR = new ForgeConfigSpec.Builder().configure(Values::new);
-  public static final Values INSTANCE = SPEC_PAIR.getLeft();
-  public static final ForgeConfigSpec CONFIG_SPEC = SPEC_PAIR.getRight();
-
-  private static final int   DEFAULT_PORTAL_SPAWN_TIME = 40;
+  private static final int    DEFAULT_PORTAL_SPAWN_TIME = 40;
   private static final double DEFAULT_UNKNOWN_TREE_SPAWN_CHANCE = 0.0005; // 1 / 2000
 
   public static ForgeConfigSpec.IntValue portal_spawn_time;

@@ -3,7 +3,6 @@ package addsynth.overpoweredmod.config;
 import addsynth.energy.lib.config.MachineDataConfig;
 import addsynth.energy.lib.config.MachineType;
 import net.minecraftforge.common.ForgeConfigSpec;
-import org.apache.commons.lang3.tuple.Pair;
 
 public final class MachineValues {
 
@@ -56,10 +55,6 @@ public final class MachineValues {
   private static final int DEFAULT_ENERGY_PER_LASER_CANNON   = 5_000;
   private static final int DEFAULT_ENERGY_PER_LASER_DISTANCE =   100;
   private static final int DEFAULT_LASER_MAX_RECEIVE = 1_000;
-
-  private static final Pair<MachineValues, ForgeConfigSpec> SPEC_PAIR = new ForgeConfigSpec.Builder().configure(MachineValues::new);
-  public static final MachineValues INSTANCE = SPEC_PAIR.getLeft();
-  public static final ForgeConfigSpec CONFIG_SPEC = SPEC_PAIR.getRight();
 
   public MachineValues(final ForgeConfigSpec.Builder builder){
 

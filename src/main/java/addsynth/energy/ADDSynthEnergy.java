@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 // import addsynth.core.compat.EMCValue;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
+import addsynth.core.util.game.Game;
 import addsynth.energy.compat.ADDSynthEnergyCompat;
 import addsynth.energy.gameplay.NetworkHandler;
 import addsynth.energy.gameplay.config.Config;
@@ -26,7 +27,6 @@ import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -56,9 +56,8 @@ public class ADDSynthEnergy {
 
   private static final void init_config(){
     new File(FMLPaths.CONFIGDIR.get().toString(), MOD_NAME).mkdir();
-
     final ModLoadingContext context = ModLoadingContext.get();
-    context.registerConfig(ModConfig.Type.COMMON, Config.CONFIG_SPEC,   MOD_NAME+File.separator+"main.toml");
+    Game.registerConfig(context, Config::new, MOD_NAME, "main.toml");
   }
 
   private static final void main_setup(final FMLCommonSetupEvent event){
