@@ -13,12 +13,12 @@
         ]
       }
     },
-    "aluminum_plate": {
+    "silver_plate": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "forge:plates/aluminum"
+            "tag": "forge:plates/silver"
           }
         ]
       }
@@ -81,7 +81,7 @@
   "requirements": [
     [
       "energy_crystal",
-      "aluminum_plate",
+      "silver_plate",
       "matter_energy_transformer",
       "circuit",
       "vacuum_container",
