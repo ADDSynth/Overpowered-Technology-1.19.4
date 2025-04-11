@@ -31,6 +31,7 @@
   "rewards": {
     "recipes": [
       "addsynth_materials:bronze",
+      "addsynth_materials:bronze_ingot",
       "addsynth_materials:bronze_block"
     ]
   }

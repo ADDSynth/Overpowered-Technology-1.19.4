@@ -81,6 +81,8 @@
 "advancements.addsynth_energy.root.description": "Energy Library for all of ADDSynth's mods.",
 "advancements.addsynth_energy.generator.title": "Generator",
 "advancements.addsynth_energy.generator.description": "Craft a Generator",
+"advancements.addsynth_energy.steel.title": "Steel",
+"advancements.addsynth_energy.steel.description": "Smelt Iron to get Steel",
 "advancements.addsynth_energy.compressor.title": "Compressor",
 "advancements.addsynth_energy.compressor.description": "Craft a Compressor",
 "advancements.addsynth_energy.electric_furnace.title": "Ηλεκτρικός φούρνος",

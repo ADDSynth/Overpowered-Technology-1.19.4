@@ -65,13 +65,13 @@
         "recipe": "addsynth_energy:universal_energy_interface"
       }
     },
-    "has_interface": {
+    "has_diagnostics": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "addsynth_energy:universal_energy_interface"
+              "addsynth_energy:energy_diagnostics_block"
             ]
           }
         ]
@@ -86,12 +86,12 @@
       "power_regulator",
       "circuit_tier_2",
       "has_recipe",
-      "has_interface"
+      "has_diagnostics"
     ]
   ],
   "rewards": {
     "recipes": [
-      "addsynth_energy:universal_energy_interface"
+      "addsynth_energy:energy_diagnostics_block"
     ]
   }
 }

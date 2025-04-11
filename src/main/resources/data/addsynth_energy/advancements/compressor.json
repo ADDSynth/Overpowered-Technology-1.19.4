@@ -10,7 +10,7 @@
       "translate": "advancements.addsynth_energy.compressor.description"
     }
   },
-  "parent": "addsynth_energy:generator",
+  "parent": "addsynth_energy:steel",
   "criteria": {
     "compressor": {
       "trigger": "minecraft:inventory_changed",

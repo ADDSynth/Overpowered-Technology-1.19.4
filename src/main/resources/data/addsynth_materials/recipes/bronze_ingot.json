@@ -1,18 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {"tag": "forge:ingots/tin"},
-    {"item": "minecraft:copper_ingot"},
-    {"item": "minecraft:copper_ingot"},
-    {"item": "minecraft:copper_ingot"}
+    {
+      "tag": "forge:storage_blocks/bronze"
+    }
   ],
   "result": {
     "item": "addsynth_materials:bronze_ingot",
-    "count": 4
-  },
-  "conditions": [
-    {
-      "type": "addsynth_materials:bronze_mod_absent"
-    }
-  ]
+    "count": 9
+  }
 }
