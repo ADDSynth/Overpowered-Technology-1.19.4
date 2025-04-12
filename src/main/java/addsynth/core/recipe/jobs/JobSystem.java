@@ -43,6 +43,7 @@ public final class JobSystem {
   /** A simpler form. Assumes recipes will only use 1 of each item in the inventory,
    *  so the maximum number of recipes we can craft equals the item of the least amount.
    * @param inventory
+   * @param requires_all_slots
    */
   public static final int getMaxNumberOfJobs(final ItemStack[] inventory, final boolean requires_all_slots){
     int min = Integer.MAX_VALUE;

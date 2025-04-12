@@ -16,6 +16,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileMagicInfuser extends TileStandardWorkMachine implements MenuProvider {
@@ -55,7 +58,14 @@ public final class TileMagicInfuser extends TileStandardWorkMachine implements M
 
   @Override
   public final int getJobs(){
-    return JobSystem.getMaxNumberOfJobs(inventory.getInputInventory().getItemStacks(), true);
+    final Level world = level;
+    if(world != null){
+      final Block block = world.getBlockState(worldPosition.below()).getBlock();
+      if(block == Blocks.HOPPER){
+        return JobSystem.getMaxNumberOfJobs(inventory.getInputInventory().getItemStacks(), true);
+      }
+    }
+    return 0; // Magic Infuser cannot work multiple jobs because only 1 item can be in the output slot at a time.
   }
 
   @Override
