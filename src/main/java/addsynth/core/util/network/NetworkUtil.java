@@ -59,7 +59,7 @@ public final class NetworkUtil {
   public static final void writeTextComponentArray(final FriendlyByteBuf data, final Component[] text_component_array){
     data.writeInt(text_component_array.length);
     for(final Component t : text_component_array){
-      data.writeUtf(t.getString());
+      data.writeComponent(t);
     }
   }
 
@@ -68,7 +68,7 @@ public final class NetworkUtil {
     final int length = data.readInt();
     final Component[] text_components = new Component[length];
     for(i = 0; i < length; i++){
-      text_components[i] = Component.literal(data.readUtf());
+      text_components[i] = data.readComponent();
     }
     return text_components;
   }
