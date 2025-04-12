@@ -1,7 +1,7 @@
 package addsynth.overpoweredmod.machines.laser.beam;
 
 import addsynth.overpoweredmod.assets.DamageSources;
-import addsynth.overpoweredmod.config.Config;
+import addsynth.overpoweredmod.assets.DamageTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -33,18 +33,11 @@ public final class LaserBeam extends Block {
   @Override
   @SuppressWarnings("deprecation")
   public final void entityInside(final BlockState state, final Level world, final BlockPos pos, final Entity entity){
-    if(Config.lasers_set_entities_on_fire.get()){
-      if(entity instanceof ItemEntity == false){
-        if(Config.laser_damage_depends_on_world_difficulty.get()){
-          final int[] damage = new int[] {
-            Config.LASER_DAMAGE_PEACEFUL_DIFFICULTY, Config.LASER_DAMAGE_EASY_DIFFICULTY,
-            Config.LASER_DAMAGE_NORMAL_DIFFICULTY, Config.LASER_DAMAGE_HARD_DIFFICULTY};
-          entity.hurt(DamageSources.laser, damage[world.getDifficulty().ordinal()]);
-        }
-        else{
-          entity.hurt(DamageSources.laser, Config.LASER_DAMAGE_NORMAL_DIFFICULTY);
-        }
-        entity.setSecondsOnFire(8); // 8 seconds is the same time Vanilla sets players on fire when in contact with fire.
+    if(entity instanceof ItemEntity == false){
+      if(!entity.fireImmune()){
+        // See: Entity.lavaHurt();
+        entity.hurt(DamageSources.get(world, DamageTypes.LASER), 4); // keep this the same as Lava damage
+        entity.setSecondsOnFire(15);
       }
     }
   }

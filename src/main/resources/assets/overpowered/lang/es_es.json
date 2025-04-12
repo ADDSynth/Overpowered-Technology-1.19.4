@@ -122,6 +122,8 @@
 
 
 
+"death.attack.laser": "%1$s died from Laser.",
+
 "stat.overpowered.gems_converted": "Gems Converted",
 "stat.overpowered.lasers_fired": "Lasers Fired",
 "stat.overpowered.items_identified": "Items Identified",

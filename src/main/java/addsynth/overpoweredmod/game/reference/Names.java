@@ -60,6 +60,7 @@ public final class Names {
   public static final ResourceLocation UNKNOWN_WOOD             = new ResourceLocation(OverpoweredTechnology.MOD_ID, "unknown_wood");
   public static final ResourceLocation UNKNOWN_LEAVES           = new ResourceLocation(OverpoweredTechnology.MOD_ID, "unknown_leaves");
 
+  public static final ResourceLocation LASER_DAMAGE             = new ResourceLocation(OverpoweredTechnology.MOD_ID, "laser");
   public static final ResourceLocation LASER_HOUSING            = new ResourceLocation(OverpoweredTechnology.MOD_ID, "laser_housing");
 
   public static final ResourceLocation FUSION_CONVERTER          = new ResourceLocation(OverpoweredTechnology.MOD_ID, "fusion_energy_converter");

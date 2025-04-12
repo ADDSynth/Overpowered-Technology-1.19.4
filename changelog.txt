@@ -12,7 +12,14 @@ REMOVED:
   Removed Gem shards. (Been meaning to do this for a while.)
    - As a result, the Crystal Matter Generator now produces 1 random Gem every 1.5 hours using
      2,700,000 total energy.
+  You can no longer control whether Lasers set Entities on fire. Now, Lasers will always set Entities on fire.
+  You can no longer configure whether Laser damage is fixed or scales with world difficulty.
+    Laser damage will now always adjust based on world difficulty.
 FIXED:
+  Minecraft 1.19.4 version only: Fixed Lasers crashing the game when it hit any Entity. Oh, my gawd......
+  Minecraft 1.19.4 version only: Laser Damage is once again tagged as Fire type damage,
+    meaning you will not take any damage from Lasers if you are immune to fire.
+  We now have a translated death message if you died from a Laser.
   Fixed not dropping custom mob loot for the Zombified Piglin, ever since the ID changed in Minecraft 1.16.
 
 

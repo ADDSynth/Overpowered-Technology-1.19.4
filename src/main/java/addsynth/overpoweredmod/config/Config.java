@@ -18,13 +18,6 @@ public final class Config {
   public static ForgeConfigSpec.IntValue weird_biome_id;
 
   public static ForgeConfigSpec.IntValue     default_laser_distance;
-  public static ForgeConfigSpec.BooleanValue lasers_set_entities_on_fire;
-  public static ForgeConfigSpec.BooleanValue laser_damage_depends_on_world_difficulty;
-  
-  public static final byte LASER_DAMAGE_PEACEFUL_DIFFICULTY = 2;
-  public static final byte LASER_DAMAGE_EASY_DIFFICULTY     = 4; // 2 hearts
-  public static final byte LASER_DAMAGE_NORMAL_DIFFICULTY   = 6; // 3 hearts
-  public static final byte LASER_DAMAGE_HARD_DIFFICULTY     = 10; // 5 hearts
   
   public static final int BLACK_HOLE_PEACEFUL_DIFFICULTY_RADIUS = 30;
   public static final int BLACK_HOLE_EASY_DIFFICULTY_RADIUS     = 60;
@@ -71,9 +64,6 @@ public final class Config {
     // Laser Config
     builder.push("Lasers");
     default_laser_distance      = builder.defineInRange("Default Laser Distance", 30, 0, 1000);
-    lasers_set_entities_on_fire = builder.comment("If set to true, Living Entities that are inside Laser Beams will receive fire damage.")
-                                         .define("Lasers Set Entities On Fire", true);
-    laser_damage_depends_on_world_difficulty = builder.define("Laser Damage depends on World Difficulty", true);
     builder.pop();
     
     // Black Hole Config
