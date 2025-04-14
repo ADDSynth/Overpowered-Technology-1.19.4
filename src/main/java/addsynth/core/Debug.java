@@ -4,19 +4,26 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import addsynth.core.gameplay.Config;
 import addsynth.core.util.color.ColorUtil;
 import addsynth.core.util.java.FileUtil;
 import addsynth.core.util.java.StringUtil;
 import addsynth.core.util.java.list.Sorters;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.tags.ITag;
-import net.minecraftforge.registries.tags.ITagManager;
 
 public final class Debug {
 
@@ -54,49 +61,77 @@ public final class Debug {
   }
 
   // This must be run when tags are done being loaded.
-  public static final void dump_tags(){
-    if(Config.dump_tags.get()){
-      try{
-        ADDSynthCore.log.info("Begin dumping tags...");
-        
-        printTags("block_tags.txt", Block.class, ForgeRegistries.BLOCKS);
-        printTags( "item_tags.txt",  Item.class, ForgeRegistries.ITEMS);
-        
-        ADDSynthCore.log.info("Done dumping tags.");
-      }
-      catch(Exception e){
-        ADDSynthCore.log.error("An error occured during tag dumping.", e);
-      }
+  @SuppressWarnings("deprecation")
+  public static final void dump_tags(final RegistryAccess registry){
+    if(Config.dump_block_tags.get()){
+      printTags("block_tags.txt",            "Block",               BuiltInRegistries.BLOCK);
+    }
+    if(Config.dump_item_tags.get()){
+      printTags("item_tags.txt",             "Item",                BuiltInRegistries.ITEM);
+    }
+    if(Config.dump_entity_tags.get()){
+      printTags("entity_tags.txt",           "Entity",              BuiltInRegistries.ENTITY_TYPE);
+    }
+    if(Config.dump_biome_tags.get()){
+      printTags("biome_tags.txt",            "Biome",               registry.registry(Registries.BIOME));
+    }
+    // if(Config.dump_enchantment_tags.get()){
+    // FUTURE: Enchantment Tags aren't until Minecraft 1.20.x
+    //   printTags("enchantment_tags.txt",      "Enchantment",         BuiltInRegistries.ENCHANTMENT);
+    // }
+    if(Config.dump_damage_type_tags.get()){
+      printTags("damage_type_tags.txt",      "Damage Type",         registry.registry(Registries.DAMAGE_TYPE));
+    }
+    if(Config.dump_game_event_tags.get()){
+      printTags("game_event_tags.txt",       "Game Event",          BuiltInRegistries.GAME_EVENT);
+    }
+    if(Config.dump_fluid_tags.get()){
+      printTags("fluid_tags.txt",            "Fluid",               BuiltInRegistries.FLUID);
+    }
+    if(Config.dump_poi_tags.get()){
+      printTags("poi_tags.txt",              "Points of Interest",  BuiltInRegistries.POINT_OF_INTEREST_TYPE);
+    }
+    if(Config.dump_structure_tags.get()){
+      // Dump Structure Tags isn't working
+      printTags("structure_tags.txt",        "Structure",           registry.registry(Registries.STRUCTURE));
+    }
+    if(Config.dump_banner_pattern_tags.get()){
+      printTags("banner_pattern_tags.txt",   "Banner Pattern",      BuiltInRegistries.BANNER_PATTERN);
+    }
+    if(Config.dump_painting_variant_tags.get()){
+      printTags("painting_variant_tags.txt", "Painting Variant",    BuiltInRegistries.PAINTING_VARIANT);
     }
   }
 
-  private static final <T> void printTags(final String filename, final Class<T> type, final IForgeRegistry<T> registry){
-    printTags(filename, type.getSimpleName(), registry);
+  private static final <T> void printTags(final String filename, final String type_name, final Optional<Registry<T>> optional){
+    if(optional.isPresent()){
+      printTags(filename, type_name, optional.get());
+    }
   }
 
-  private static final <T> void printTags(final String filename, final String type_name, final IForgeRegistry<T> registry){
-    final ITagManager<T> tag_manager = registry.tags();
-    if(tag_manager != null){
-      final List<ITag<T>> tag_list = tag_manager.stream().sorted(Sorters.TagComparerMinecraftFirst).toList();
+  private static final <T> void printTags(final String filename, final String type_name, final Registry<T> registry){
+    final List<Pair<TagKey<T>, HolderSet.Named<T>>> tags = registry.getTags().sorted(Sorters::TagPairComparerMinecraftFirst).toList();
+    if(tags.size() > 0){
       final File file = FileUtil.getNewFile(filename);
-      if(file != null){
-        try(final FileWriter writer = new FileWriter(file)){
-          writer.write(StringUtil.build("\n", type_name, " Tags: ", tag_list.size(), "\n\n"));
-          for(final ITag<T> tag : tag_list){
-            writer.write(tag.getKey().location().toString()+" {\n");
-            for(final T item : tag){
-              writer.write("  "+registry.getKey(item)+'\n');
+      ResourceLocation location;
+      try(final FileWriter writer = new FileWriter(file)){
+        writer.write(StringUtil.build("\n", type_name, " Tags: ", tags.size(), "\n\n"));
+        for(final Pair<TagKey<T>, HolderSet.Named<T>> pair : tags){
+          writer.write(pair.getFirst().location().toString()+" {\n");
+          for(final Holder<T> entry : pair.getSecond()){
+            location = registry.getKey(entry.get());
+            if(location != null){
+              writer.write(StringUtil.build("  ", location.toString(), '\n'));
             }
-            writer.write("}\n\n");
           }
+          writer.write("}\n\n");
         }
-        catch(IOException e){
-          e.printStackTrace();
-        }
+        ADDSynthCore.log.info("Dumped "+type_name+" Tags.");
       }
-      return;
+      catch(IOException e){
+        e.printStackTrace();
+      }
     }
-    ADDSynthCore.log.error("The "+type_name+" registry does not support Tags.");
   }
 
 }

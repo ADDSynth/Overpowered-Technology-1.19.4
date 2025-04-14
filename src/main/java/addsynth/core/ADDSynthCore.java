@@ -71,7 +71,7 @@ public final class ADDSynthCore {
       event.enqueueWork(Compatibility::debug);
     }
     NetworkHandler.registerMessages();
-    MinecraftForge.EVENT_BUS.addListener((TagsUpdatedEvent tag_event) -> Debug.dump_tags());
+    MinecraftForge.EVENT_BUS.addListener((TagsUpdatedEvent tag_event) -> Debug.dump_tags(tag_event.getRegistryAccess()));
     
     FurnaceRecipes.INSTANCE.register();
 

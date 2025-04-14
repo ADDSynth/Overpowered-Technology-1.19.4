@@ -1,6 +1,8 @@
 package addsynth.core.util.java.list;
 
 import java.util.Comparator;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.HolderSet;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -43,6 +45,10 @@ public final class Sorters {
     final ResourceLocation o2 = tag2.getKey().location();
     return compareMinecraftAndForge(o1, o2);
   };
+
+  public static final <T> int TagPairComparerMinecraftFirst(Pair<TagKey<T>, HolderSet.Named<T>> pair1, Pair<TagKey<T>, HolderSet.Named<T>> pair2){
+    return KeyComparerMinecraftFirst.compare(pair1.getFirst(), pair2.getFirst());
+  }
 
   public static final int compareMinecraftAndForge(final ResourceLocation o1, final ResourceLocation o2){
     final String namespace1 = o1.getNamespace();
