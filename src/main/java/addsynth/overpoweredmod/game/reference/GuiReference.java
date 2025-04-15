@@ -10,7 +10,7 @@ public final class GuiReference {
 
   public static final ResourceLocation advanced_ore_refinery    = new ResourceLocation(OverpoweredTechnology.MOD_ID, "textures/gui/advanced_ore_refinery.png");
   public static final ResourceLocation crystal_matter_generator = new ResourceLocation(OverpoweredTechnology.MOD_ID, "textures/gui/crystal_matter_generator.png");
-  public static final ResourceLocation crystal_energy_extractor = new ResourceLocation(OverpoweredTechnology.MOD_ID, "textures/gui/crystal_energy_extractor.png");
+  public static final ResourceLocation energy_extractor         = new ResourceLocation(OverpoweredTechnology.MOD_ID, "textures/gui/energy_extractor.png");
   public static final ResourceLocation fusion_chamber           = new ResourceLocation(OverpoweredTechnology.MOD_ID, "textures/gui/portal_frame.png");
   public static final ResourceLocation gem_converter            = new ResourceLocation(OverpoweredTechnology.MOD_ID, "textures/gui/gem_converter.png");
   public static final ResourceLocation identifier               = new ResourceLocation(OverpoweredTechnology.MOD_ID, "textures/gui/identifier.png");

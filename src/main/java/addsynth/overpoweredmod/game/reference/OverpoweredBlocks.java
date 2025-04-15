@@ -13,7 +13,7 @@ public final class OverpoweredBlocks {
   public static final RegistryObject<Block> black_hole                = RegistryObject.create(Names.BLACK_HOLE,                  ForgeRegistries.BLOCKS);
 
   public static final RegistryObject<Block> data_cable                = RegistryObject.create(Names.DATA_CABLE,                  ForgeRegistries.BLOCKS);
-  public static final RegistryObject<Block> crystal_energy_extractor  = RegistryObject.create(Names.CRYSTAL_ENERGY_EXTRACTOR,    ForgeRegistries.BLOCKS);
+  public static final RegistryObject<Block> energy_extractor          = RegistryObject.create(Names.ENERGY_EXTRACTOR,            ForgeRegistries.BLOCKS);
   public static final RegistryObject<Block> gem_converter             = RegistryObject.create(Names.GEM_CONVERTER,               ForgeRegistries.BLOCKS);
   public static final RegistryObject<Block> inverter                  = RegistryObject.create(Names.INVERTER,                    ForgeRegistries.BLOCKS);
   public static final RegistryObject<Block> magic_infuser             = RegistryObject.create(Names.MAGIC_INFUSER,               ForgeRegistries.BLOCKS);

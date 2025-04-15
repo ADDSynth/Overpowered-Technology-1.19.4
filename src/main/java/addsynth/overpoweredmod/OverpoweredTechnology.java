@@ -13,7 +13,7 @@ import addsynth.overpoweredmod.game.NetworkHandler;
 import addsynth.overpoweredmod.game.OverpoweredSavedData;
 import addsynth.overpoweredmod.machines.advanced_ore_refinery.GuiAdvancedOreRefinery;
 import addsynth.overpoweredmod.machines.crystal_matter_generator.GuiCrystalMatterGenerator;
-import addsynth.overpoweredmod.machines.energy_extractor.GuiCrystalEnergyExtractor;
+import addsynth.overpoweredmod.machines.energy_extractor.GuiEnergyExtractor;
 import addsynth.overpoweredmod.machines.fusion.chamber.GuiFusionChamber;
 import addsynth.overpoweredmod.machines.gem_converter.GuiGemConverter;
 import addsynth.overpoweredmod.machines.identifier.GuiIdentifier;
@@ -116,7 +116,7 @@ public class OverpoweredTechnology {
   }
 
   private static final void register_guis(){
-    MenuScreens.register(Containers.CRYSTAL_ENERGY_EXTRACTOR.get(),   GuiCrystalEnergyExtractor::new);
+    MenuScreens.register(Containers.ENERGY_EXTRACTOR.get(),           GuiEnergyExtractor::new);
     MenuScreens.register(Containers.GEM_CONVERTER.get(),              GuiGemConverter::new);
     MenuScreens.register(Containers.INVERTER.get(),                   GuiInverter::new);
     MenuScreens.register(Containers.MAGIC_INFUSER.get(),              GuiMagicInfuser::new);

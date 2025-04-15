@@ -6,15 +6,15 @@ import addsynth.overpoweredmod.registers.Containers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 
-public final class ContainerCrystalEnergyExtractor extends TileEntityContainer<TileCrystalEnergyExtractor> {
+public final class ContainerEnergyExtractor extends TileEntityContainer<TileEnergyExtractor> {
 
-  public ContainerCrystalEnergyExtractor(final int id, final Inventory player_inventory, final TileCrystalEnergyExtractor tile){
-    super(Containers.CRYSTAL_ENERGY_EXTRACTOR.get(), id, player_inventory, tile);
+  public ContainerEnergyExtractor(final int id, final Inventory player_inventory, final TileEnergyExtractor tile){
+    super(Containers.ENERGY_EXTRACTOR.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
-  public ContainerCrystalEnergyExtractor(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.CRYSTAL_ENERGY_EXTRACTOR.get(), id, player_inventory, data);
+  public ContainerEnergyExtractor(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
+    super(Containers.ENERGY_EXTRACTOR.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

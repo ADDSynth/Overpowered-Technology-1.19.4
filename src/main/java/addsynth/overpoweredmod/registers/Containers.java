@@ -3,7 +3,7 @@ package addsynth.overpoweredmod.registers;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.machines.advanced_ore_refinery.ContainerOreRefinery;
 import addsynth.overpoweredmod.machines.crystal_matter_generator.ContainerCrystalGenerator;
-import addsynth.overpoweredmod.machines.energy_extractor.ContainerCrystalEnergyExtractor;
+import addsynth.overpoweredmod.machines.energy_extractor.ContainerEnergyExtractor;
 import addsynth.overpoweredmod.machines.fusion.chamber.ContainerFusionChamber;
 import addsynth.overpoweredmod.machines.gem_converter.ContainerGemConverter;
 import addsynth.overpoweredmod.machines.identifier.ContainerIdentifier;
@@ -21,8 +21,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public final class Containers {
 
-  public static final RegistryObject<MenuType<ContainerCrystalEnergyExtractor>> CRYSTAL_ENERGY_EXTRACTOR  =
-    RegistryObject.create(Names.CRYSTAL_ENERGY_EXTRACTOR, ForgeRegistries.MENU_TYPES);
+  public static final RegistryObject<MenuType<ContainerEnergyExtractor>> ENERGY_EXTRACTOR  =
+    RegistryObject.create(Names.ENERGY_EXTRACTOR, ForgeRegistries.MENU_TYPES);
 
   public static final RegistryObject<MenuType<ContainerInverter>> INVERTER =
     RegistryObject.create(Names.INVERTER, ForgeRegistries.MENU_TYPES);

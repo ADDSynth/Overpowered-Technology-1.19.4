@@ -3,7 +3,7 @@ package addsynth.overpoweredmod.compatability;
 import addsynth.overpoweredmod.machines.advanced_ore_refinery.TileAdvancedOreRefinery;
 import addsynth.overpoweredmod.machines.crystal_matter_generator.TileCrystalMatterGenerator;
 import addsynth.overpoweredmod.machines.data_cable.TileDataCable;
-import addsynth.overpoweredmod.machines.energy_extractor.TileCrystalEnergyExtractor;
+import addsynth.overpoweredmod.machines.energy_extractor.TileEnergyExtractor;
 import addsynth.overpoweredmod.machines.fusion.chamber.TileFusionChamber;
 import addsynth.overpoweredmod.machines.fusion.converter.TileFusionEnergyConverter;
 import addsynth.overpoweredmod.machines.gem_converter.TileGemConverter;

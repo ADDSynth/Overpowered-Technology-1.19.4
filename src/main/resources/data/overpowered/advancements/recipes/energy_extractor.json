@@ -62,7 +62,7 @@
     "has_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "overpowered:crystal_energy_extractor"
+        "recipe": "overpowered:energy_extractor"
       }
     },
     "has_machine": {
@@ -71,7 +71,7 @@
         "items": [
           {
             "items": [
-              "overpowered:crystal_energy_extractor"
+              "overpowered:energy_extractor"
             ]
           }
         ]
@@ -91,7 +91,7 @@
   ],
   "rewards": {
     "recipes": [
-      "overpowered:crystal_energy_extractor"
+      "overpowered:energy_extractor"
     ]
   }
 }

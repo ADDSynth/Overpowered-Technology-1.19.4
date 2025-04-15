@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "overpowered:crystal_energy_extractor"
+          "name": "overpowered:energy_extractor"
         }
       ],
       "conditions": [

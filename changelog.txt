@@ -5,6 +5,7 @@ NEW:
   New debug feature: We now allow more Tag types to be dumped in ADDSynthCore config.
   Changed the /addsynthcore count_blocks command to also accept block tags.
 CHANGED:
+  Renamed Crystal Energy Extractor to Energy Extractor.
   The Matter Compressor's crafting recipe changed to use 3 Energy Stabilizers instead of 1.
   Changed the Crystal Energy Extractor's crafting recipe to use Silver Plates instead of Aluminum Plates.
   Items in the Materials Creative Tab are sorted by Item type again, instead of by Material type.

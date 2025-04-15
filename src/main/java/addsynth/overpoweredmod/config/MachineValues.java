@@ -58,7 +58,7 @@ public final class MachineValues {
 
   public MachineValues(final ForgeConfigSpec.Builder builder){
 
-    builder.push("Crystal Energy Extractor");
+    builder.push("Energy Extractor");
     energy_crystal_shards_energy      = builder.defineInRange("Energy Crystal Shards Produced Energy",
                                           DEFAULT_ENERGY_CRYSTAL_SHARDS_ENERGY, 0, Integer.MAX_VALUE);
     energy_crystal_shards_max_extract = builder.defineInRange("Energy Crystal Shards Extract Rate",

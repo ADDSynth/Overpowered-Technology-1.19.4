@@ -43,7 +43,7 @@ public final class TextReference {
   public static final Component laser_housing_description = Component.translatable("gui.overpowered.jei_description.laser_housing");
   public static final Component laser_description         = Component.translatable("gui.overpowered.jei_description.laser");
 
-  public static final Component crystal_energy_extractor_description = Component.translatable("gui.overpowered.jei_description.crystal_energy_extractor");
+  public static final Component energy_extractor_description         = Component.translatable("gui.overpowered.jei_description.energy_extractor");
   public static final Component data_cable_description               = Component.translatable("gui.overpowered.jei_description.data_cable");
   public static final Component gem_converter_description            = Component.translatable("gui.overpowered.jei_description.gem_converter");
   public static final Component inverter_description                 = Component.translatable("gui.overpowered.jei_description.inverter");

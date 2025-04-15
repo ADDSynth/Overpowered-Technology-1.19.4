@@ -2,7 +2,7 @@
   "parent": "block/cube_bottom_top",
   "textures": {
     "top":    "overpowered:block/machines/dark_top_texture",
-    "side":   "overpowered:block/machines/crystal_energy_extractor",
+    "side":   "overpowered:block/machines/energy_extractor",
     "bottom": "overpowered:block/machines/dark_bottom_texture"
   }
 }

@@ -24,8 +24,8 @@ import addsynth.overpoweredmod.machines.black_hole.BlackHoleItem;
 import addsynth.overpoweredmod.machines.crystal_matter_generator.ContainerCrystalGenerator;
 import addsynth.overpoweredmod.machines.crystal_matter_generator.CrystalMatterGeneratorBlock;
 import addsynth.overpoweredmod.machines.data_cable.DataCable;
-import addsynth.overpoweredmod.machines.energy_extractor.ContainerCrystalEnergyExtractor;
-import addsynth.overpoweredmod.machines.energy_extractor.CrystalEnergyExtractorBlock;
+import addsynth.overpoweredmod.machines.energy_extractor.ContainerEnergyExtractor;
+import addsynth.overpoweredmod.machines.energy_extractor.EnergyExtractorBlock;
 import addsynth.overpoweredmod.machines.fusion.chamber.ContainerFusionChamber;
 import addsynth.overpoweredmod.machines.fusion.chamber.FusionChamberBlock;
 import addsynth.overpoweredmod.machines.fusion.control.FusionControlLaserBeam;
@@ -88,7 +88,7 @@ public final class Registers {
       registry.register(Names.BLACK_HOLE,                  new BlackHoleBlock());
       
       registry.register(Names.DATA_CABLE,                  new DataCable());
-      registry.register(Names.CRYSTAL_ENERGY_EXTRACTOR,    new CrystalEnergyExtractorBlock());
+      registry.register(Names.ENERGY_EXTRACTOR,            new EnergyExtractorBlock());
       registry.register(Names.GEM_CONVERTER,               new GemConverterBlock());
       registry.register(Names.IDENTIFIER,                  new IdentifierBlock());
       registry.register(Names.INVERTER,                    new InverterBlock());
@@ -173,7 +173,7 @@ public final class Registers {
       registry.register(Names.UNIMATTER,                  new Item(new Item.Properties()));
       
       BlockItemHolder.register(registry, OverpoweredBlocks.data_cable);
-      BlockItemHolder.register(registry, OverpoweredBlocks.crystal_energy_extractor);
+      BlockItemHolder.register(registry, OverpoweredBlocks.energy_extractor);
       BlockItemHolder.register(registry, OverpoweredBlocks.gem_converter);
       BlockItemHolder.register(registry, OverpoweredBlocks.identifier);
       BlockItemHolder.register(registry, OverpoweredBlocks.inverter);
@@ -246,7 +246,7 @@ public final class Registers {
         I (not ADDSynth, someone else) just updated all of McJty's mods to use a DataFixer to do so.
       */
       final IForgeRegistry<BlockEntityType> registry = event.getForgeRegistry();
-      Tiles.CRYSTAL_ENERGY_EXTRACTOR.register(registry);
+      Tiles.ENERGY_EXTRACTOR.register(registry);
       Tiles.GEM_CONVERTER.register(registry);
       Tiles.IDENTIFIER.register(registry);
       Tiles.INVERTER.register(registry);
@@ -267,7 +267,7 @@ public final class Registers {
     }
     if(key.equals(ForgeRegistries.Keys.MENU_TYPES)){
       final IForgeRegistry<MenuType> registry = event.getForgeRegistry();
-      registry.register(Names.CRYSTAL_ENERGY_EXTRACTOR, IForgeMenuType.create(ContainerCrystalEnergyExtractor::new));
+      registry.register(Names.ENERGY_EXTRACTOR,         IForgeMenuType.create(ContainerEnergyExtractor::new));
       registry.register(Names.GEM_CONVERTER,            IForgeMenuType.create(ContainerGemConverter::new));
       registry.register(Names.IDENTIFIER,               IForgeMenuType.create(ContainerIdentifier::new));
       registry.register(Names.INVERTER,                 IForgeMenuType.create(ContainerInverter::new));
@@ -302,6 +302,16 @@ public final class Registers {
     for(Mapping<Item> map : missing_items){
       if(map.getKey().equals(Names.MATTER_ENERGY_CORE_LEGACY)){
         map.remap(OverpoweredItems.matter_energy_core.get());
+      }
+      if(map.getKey().equals(Names.CRYSTAL_ENERGY_EXTRACTOR_LEGACY)){
+        map.remap(OverpoweredBlocks.energy_extractor.get().asItem());
+      }
+    }
+    // handle blocks
+    final List<Mapping<Block>> missing_blocks = event.getMappings(ForgeRegistries.Keys.BLOCKS, OverpoweredTechnology.MOD_ID);
+    for(Mapping<Block> map : missing_blocks){
+      if(map.getKey().equals(Names.CRYSTAL_ENERGY_EXTRACTOR_LEGACY)){
+        map.remap(OverpoweredBlocks.energy_extractor.get());
       }
     }
   }

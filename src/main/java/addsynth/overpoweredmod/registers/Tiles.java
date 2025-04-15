@@ -7,7 +7,7 @@ import addsynth.overpoweredmod.machines.advanced_ore_refinery.TileAdvancedOreRef
 import addsynth.overpoweredmod.machines.black_hole.TileBlackHole;
 import addsynth.overpoweredmod.machines.crystal_matter_generator.TileCrystalMatterGenerator;
 import addsynth.overpoweredmod.machines.data_cable.TileDataCable;
-import addsynth.overpoweredmod.machines.energy_extractor.TileCrystalEnergyExtractor;
+import addsynth.overpoweredmod.machines.energy_extractor.TileEnergyExtractor;
 import addsynth.overpoweredmod.machines.fusion.chamber.TileFusionChamber;
 import addsynth.overpoweredmod.machines.fusion.converter.TileFusionEnergyConverter;
 import addsynth.overpoweredmod.machines.gem_converter.TileGemConverter;
@@ -24,8 +24,8 @@ import addsynth.overpoweredmod.machines.suspension_bridge.TileSuspensionBridge;
 
 public final class Tiles {
 
-  public static final BlockEntityHolder<TileCrystalEnergyExtractor> CRYSTAL_ENERGY_EXTRACTOR =
-    new BlockEntityHolder<>(Names.CRYSTAL_ENERGY_EXTRACTOR, TileCrystalEnergyExtractor::new, OverpoweredBlocks.crystal_energy_extractor);
+  public static final BlockEntityHolder<TileEnergyExtractor> ENERGY_EXTRACTOR =
+    new BlockEntityHolder<>(Names.ENERGY_EXTRACTOR, TileEnergyExtractor::new, OverpoweredBlocks.energy_extractor);
 
   public static final BlockEntityHolder<TileGemConverter> GEM_CONVERTER =
     new BlockEntityHolder<>(Names.GEM_CONVERTER, TileGemConverter::new, OverpoweredBlocks.gem_converter);

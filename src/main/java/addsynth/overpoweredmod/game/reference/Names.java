@@ -43,7 +43,7 @@ public final class Names {
   public static final ResourceLocation UNIMATTER               = new ResourceLocation(OverpoweredTechnology.MOD_ID, "unimatter");
 
   public static final ResourceLocation DATA_CABLE               = new ResourceLocation(OverpoweredTechnology.MOD_ID, "data_cable");
-  public static final ResourceLocation CRYSTAL_ENERGY_EXTRACTOR = new ResourceLocation(OverpoweredTechnology.MOD_ID, "crystal_energy_extractor");
+  public static final ResourceLocation ENERGY_EXTRACTOR         = new ResourceLocation(OverpoweredTechnology.MOD_ID, "energy_extractor");
   public static final ResourceLocation GEM_CONVERTER            = new ResourceLocation(OverpoweredTechnology.MOD_ID, "gem_converter");
   public static final ResourceLocation MAGIC_INFUSER            = new ResourceLocation(OverpoweredTechnology.MOD_ID, "magic_infuser");
   public static final ResourceLocation IDENTIFIER               = new ResourceLocation(OverpoweredTechnology.MOD_ID, "identifier");
@@ -97,6 +97,7 @@ public final class Names {
 
 
   // Legacy
-  public static final ResourceLocation MATTER_ENERGY_CORE_LEGACY = new ResourceLocation(OverpoweredTechnology.MOD_ID, "matter_energy_converter");
+  public static final ResourceLocation MATTER_ENERGY_CORE_LEGACY       = new ResourceLocation(OverpoweredTechnology.MOD_ID, "matter_energy_converter");
+  public static final ResourceLocation CRYSTAL_ENERGY_EXTRACTOR_LEGACY = new ResourceLocation(OverpoweredTechnology.MOD_ID, "crystal_energy_extractor");
   
 }

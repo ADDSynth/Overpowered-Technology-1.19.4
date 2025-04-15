@@ -24,9 +24,9 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 
-public final class CrystalEnergyExtractorBlock extends MachineBlock {
+public final class EnergyExtractorBlock extends MachineBlock {
 
-  public CrystalEnergyExtractorBlock(){
+  public EnergyExtractorBlock(){
     super(MaterialColor.COLOR_BLACK);
   }
 
@@ -38,13 +38,13 @@ public final class CrystalEnergyExtractorBlock extends MachineBlock {
   @Override
   @Nullable
   public final BlockEntity newBlockEntity(BlockPos position, BlockState blockstate){
-    return new TileCrystalEnergyExtractor(position, blockstate);
+    return new TileEnergyExtractor(position, blockstate);
   }
 
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.CRYSTAL_ENERGY_EXTRACTOR.get());
+    return standardTicker(world, type, Tiles.ENERGY_EXTRACTOR.get());
   }
 
   /** @deprecated Call via {@link BlockState#use(Level, Player, InteractionHand, BlockHitResult)} whenever possible.
@@ -53,7 +53,7 @@ public final class CrystalEnergyExtractorBlock extends MachineBlock {
   @Override
   public final InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit){
     if(world.isClientSide == false){
-      final TileCrystalEnergyExtractor tile = MinecraftUtility.getTileEntity(pos, world, TileCrystalEnergyExtractor.class);
+      final TileEnergyExtractor tile = MinecraftUtility.getTileEntity(pos, world, TileEnergyExtractor.class);
       if(tile != null){
         NetworkHooks.openScreen((ServerPlayer)player, tile, pos);
       }

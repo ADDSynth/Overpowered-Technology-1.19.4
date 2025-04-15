@@ -15,7 +15,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.BlockState;
 
-public final class TileCrystalEnergyExtractor extends TileStandardGenerator implements MenuProvider {
+public final class TileEnergyExtractor extends TileStandardGenerator implements MenuProvider {
 
   private static final BasicFilter input_filter = new BasicFilter(
     OverpoweredItems.energy_crystal_shards,
@@ -23,8 +23,8 @@ public final class TileCrystalEnergyExtractor extends TileStandardGenerator impl
     OverpoweredItems.light_block
   );
 
-  public TileCrystalEnergyExtractor(BlockPos position, BlockState blockstate){
-    super(Tiles.CRYSTAL_ENERGY_EXTRACTOR.get(), position, blockstate, input_filter);
+  public TileEnergyExtractor(BlockPos position, BlockState blockstate){
+    super(Tiles.ENERGY_EXTRACTOR.get(), position, blockstate, input_filter);
   }
 
   @Override
@@ -47,7 +47,7 @@ public final class TileCrystalEnergyExtractor extends TileStandardGenerator impl
   @Override
   @Nullable
   public AbstractContainerMenu createMenu(final int windowID, final Inventory player_inventory, final Player player){
-    return new ContainerCrystalEnergyExtractor(windowID, player_inventory, this);
+    return new ContainerEnergyExtractor(windowID, player_inventory, this);
   }
 
   @Override
