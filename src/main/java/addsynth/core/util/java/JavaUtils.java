@@ -47,10 +47,6 @@ public final class JavaUtils {
     return true;
   }
 
-  public static final boolean packageExists(final String path){
-    return Package.getPackage(path) != null;
-  }
-
   /** This converts a list of random objects to a list of class types. */
   public static final Class[] getTypes(@Nonnull final Object[] args){
     final Class[] arg_types = new Class[args.length];
@@ -65,7 +61,6 @@ public final class JavaUtils {
   public static final <T> T InvokeConstructor(@Nonnull final Class<T> clazz, final Object ... args){
     T obj = null;
     try{
-      // FEATURE: call our own GetConstructor() function which manually iterates through each constructor and tests each parameter using instanceof. Remove the RegistryUtil.InvokeCustomItemBlock function when I add this feature.
       obj = clazz.getConstructor(getTypes(args)).newInstance(args);
     }
     catch(NoSuchMethodException e){
