@@ -21,8 +21,8 @@ public final class CreativeTab {
   @SubscribeEvent
   public static final void buildContents(CreativeModeTabEvent.Register event){
     event.registerCreativeModeTab(new ResourceLocation(OverpoweredTechnology.MOD_ID, "creative_tab"), builder -> {
-      builder.title(Component.literal(OverpoweredTechnology.MOD_NAME)); // MAYBE this was being translated using key "overpowered". continue doing this?
-      builder.icon(() -> new ItemStack(OverpoweredBlocks.inverter.get(), 1));
+      builder.title(Component.literal(OverpoweredTechnology.MOD_NAME));
+      builder.icon(() -> new ItemStack(OverpoweredItems.celestial_gem.get(), 1));
       builder.displayItems((displayParameters, output) -> {
         output.accept(OverpoweredItems.celestial_gem.get());
         output.accept(OverpoweredItems.energy_crystal_shards.get());

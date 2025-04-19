@@ -9,6 +9,8 @@ CHANGED:
   The Matter Compressor's crafting recipe changed to use 3 Energy Stabilizers instead of 1.
   Changed the Crystal Energy Extractor's crafting recipe to use Silver Plates instead of Aluminum Plates.
   Items in the Materials Creative Tab are sorted by Item type again, instead of by Material type.
+  The Overpowered Technology's Creative Tab icon has changed back to a Celestial Gem.
+   - (matches the Advancements Tab.)
   The count_blocks and sample_ores commands max size has increased from 32 to 40.
   Unidentified Item Configuration settings have moved to their own config file.
 REMOVED:
