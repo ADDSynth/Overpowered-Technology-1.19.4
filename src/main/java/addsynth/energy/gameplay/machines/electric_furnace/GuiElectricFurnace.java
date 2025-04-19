@@ -1,6 +1,6 @@
 package addsynth.energy.gameplay.machines.electric_furnace;
 
-import addsynth.core.gui.widgets.ProgressBar;
+import addsynth.core.gui.widgets.rect.ProgressBar;
 import addsynth.energy.gameplay.reference.GuiReference;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.WorkProgressBar;

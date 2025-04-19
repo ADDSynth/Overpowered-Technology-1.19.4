@@ -64,14 +64,16 @@ public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabrica
       item_list_entries,
       CircuitFabricatorRecipes.getRecipes()
     );
-    item_scrollbar.setResponder(this::onItemSelected);
     addRenderableWidget(item_scrollbar);
     
     // setup data
     tile.updateGui(); // update displayed recipe, in case player opens another Circuit Fabricator
     final ItemStack output = tile.getRecipeOutput();
     selected_item = Component.translatable(output.getDescriptionId());
-    item_scrollbar.setSelected(output, false);
+    item_scrollbar.init(output);
+    
+    // set responder after setting the Scrollbar's Selected Index
+    item_scrollbar.setResponder(this::onItemSelected);
   }
 
   private final void onItemSelected(final ItemStack item, final int index){

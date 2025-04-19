@@ -143,7 +143,7 @@ public final class TeamManagerObjectiveGui extends GuiBase {
 
   /** Initializes the criteria list whenever the player changes the criteria type. */
   private final void setCriteriaList(int type){
-    criteria_list.setSelected(-1, false, false);
+    criteria_list.unSelect();
     switch(type){
     case CriteriaType.STANDARD:
       criteria_list.updateScrollbar(CriteriaData.standard_criteria);
@@ -246,16 +246,16 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     try{
       switch(type){
       case CriteriaType.STANDARD:
-        criteria_list.setSelected(TeamData.getStandardCriteriaIndex(criteria));
+        criteria_list.init(TeamData.getStandardCriteriaIndex(criteria));
         break;
       case CriteriaType.TEAM_KILL: case CriteriaType.KILLED_BY_TEAM:
-        criteria_list.setSelected(Component.literal(criteria.substring(criteria.indexOf('.')+1)));
+        criteria_list.init(Component.literal(criteria.substring(criteria.indexOf('.')+1)));
         break;
       case CriteriaType.STATISTICS:
-        criteria_list.setSelected(CriteriaData.getStatisticIndex(criteria.substring(criteria.indexOf(':')+1).replace('.', ':')));
+        criteria_list.init(CriteriaData.getStatisticIndex(criteria.substring(criteria.indexOf(':')+1).replace('.', ':')));
         break;
       default:
-        criteria_list.setSelected(Component.literal(criteria.substring(criteria.indexOf(':')+1).replace('.', ':')));
+        criteria_list.init(Component.literal(criteria.substring(criteria.indexOf(':')+1).replace('.', ':')));
         break;
       }
     }

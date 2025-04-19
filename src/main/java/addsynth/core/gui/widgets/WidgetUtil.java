@@ -157,21 +157,6 @@ public final class WidgetUtil {
     GuiComponent.blit(matrix, gui_x, gui_y2, width, half_height[1], texture_x, texture_y2, width, half_height[1], 256, 256);
   }
 
-  /** Used to render a larger texture into a smaller space, by splitting the texture into top and bottom parts. */
-  public static final void verticalSplitRender(PoseStack matrix, Dimensions gui, Dimensions texture){
-    verticalSplitRender(matrix, gui.x, gui.y, texture.x, texture.y, gui.width, gui.height, texture.max_height);
-  }
-
-  /** Used to render a larger texture into a smaller space, by splitting the texture into top and bottom parts. */
-  public static final void verticalSplitRender(PoseStack matrix, Dimensions gui, Dimensions texture, int scale_width, int scale_height){
-    final int[]     gui_half_height = get_half_lengths(gui.height);
-    final int[] texture_half_height = get_half_lengths(Math.min(texture.height, texture.max_height));
-    final int     gui_y2 = gui.y + gui_half_height[0];
-    final int texture_y2 = texture.y + texture.max_height - texture_half_height[1];
-    GuiComponent.blit(matrix, gui.x, gui.y,  gui.width, gui_half_height[0], texture.x, texture.y,  texture.width, texture_half_height[0], scale_width, scale_height);
-    GuiComponent.blit(matrix, gui.x, gui_y2, gui.width, gui_half_height[1], texture.x, texture_y2, texture.width, texture_half_height[1], scale_width, scale_height);
-  }
-
   /** Used to render a larger texture into a smaller space, by splitting the texture into left and right parts. */
   public static final void horizontalSplitRender(PoseStack matrix, int gui_x, int gui_y, int texture_x, int texture_y, int width, int height, int max_width){
     final int[] half_width = get_half_lengths(Math.min(width, max_width));
@@ -181,21 +166,6 @@ public final class WidgetUtil {
     GuiComponent.blit(matrix, gui_x2, gui_y, half_width[1], height, texture_x2, texture_y, half_width[1], height, 256, 256);
   }
 
-  /** Used to render a larger texture into a smaller space, by splitting the texture into left and right parts. */
-  public static final void horizontalSplitRender(PoseStack matrix, Dimensions gui, Dimensions texture){
-    horizontalSplitRender(matrix, gui.x, gui.y, texture.x, texture.y, gui.width, gui.height, texture.max_width);
-  }
-  
-  /** Used to render a larger texture into a smaller space, by splitting the texture into left and right parts. */
-  public static final void horizontalSplitRender(PoseStack matrix, Dimensions gui, Dimensions texture, int scale_width, int scale_height){
-    final int[]     gui_half_width = get_half_lengths(gui.width);
-    final int[] texture_half_width = get_half_lengths(Math.min(texture.width, texture.max_width));
-    final int     gui_x2 = gui.x + gui_half_width[0];
-    final int texture_x2 = texture.x + texture.max_width - texture_half_width[1];
-    GuiComponent.blit(matrix, gui.x,  gui.y, gui_half_width[0], gui.height, texture.x,  texture.y, texture_half_width[0], texture.height, scale_width, scale_height);
-    GuiComponent.blit(matrix, gui_x2, gui.y, gui_half_width[1], gui.height, texture_x2, texture.y, texture_half_width[1], texture.height, scale_width, scale_height);
-  }
-  
   public static final void crossSplitRender(PoseStack matrix, int gui_x, int gui_y, int texture_x, int texture_y, int width, int height, int max_width, int max_height){
     final int[] half_width  = WidgetUtil.get_half_lengths(Math.min(width,  max_width));
     final int[] half_height = WidgetUtil.get_half_lengths(Math.min(height, max_height));
@@ -209,6 +179,7 @@ public final class WidgetUtil {
     GuiComponent.blit(matrix, gui_x2, gui_y2, half_width[1], half_height[1], texture_x2, texture_y2, half_width[1], half_height[1], 256, 256);
   }
   
+  /* Have never needed to use this yet. These 'split' draw functions are now in the Dimension and TextureRect classes. DELETE this in 2030.
   public static final void crossSplitRender(PoseStack matrix, Dimensions gui, Dimensions texture){
     crossSplitRender(matrix, gui.x, gui.y, texture.x, texture.y, gui.width, gui.height, texture.max_width, texture.max_height);
   }
@@ -227,6 +198,7 @@ public final class WidgetUtil {
     GuiComponent.blit(matrix, gui.x,  gui_y2, gui_half_width[0], gui_half_height[1], texture.x,  texture_y2, texture_half_width[0], texture_half_height[1], scale_width, scale_height);
     GuiComponent.blit(matrix, gui_x2, gui_y2, gui_half_width[1], gui_half_height[1], texture_x2, texture_y2, texture_half_width[1], texture_half_height[1], scale_width, scale_height);
   }
+  */
 
 // ==================================== DETECT MOUSE COORDINATES ========================================
 

@@ -2,7 +2,6 @@ package addsynth.core.util.math.common;
 
 import javax.annotation.Nonnegative;
 import addsynth.core.ADDSynthCore;
-import addsynth.core.gui.widgets.scrollbar.AbstractScrollbar;
 
 /** For math functions that use {@link net.minecraft.core.BlockPos BlockPos},
  *  use {@link addsynth.core.util.math.block.BlockMath BlockMath} instead.
@@ -205,51 +204,6 @@ public final class MathUtility {
 
   public static final boolean isWithin(double x1, double y1, double z1, double x2, double y2, double z2, double distance){
     return get_distance(x1, y1, z1, x2, y2, z2) <= distance;
-  }
-
-  /** Used in {@link AbstractScrollbar Scrollbars}. Generates an array of stop positions for the scrollbar. */
-  public static final int[] getPositions(int max_number, int positions){
-    return getPositions(0, max_number, positions);
-  }
-  
-  /** Used in {@link AbstractScrollbar Scrollbars}. Generates an array of stop positions for the scrollbar.
-   * @param min_number Minimum Y Position
-   * @param max_number Maximum Y Position
-   * @param positions  Number of Scrollbar Index Positions
-   */
-  public static final int[] getPositions(int min_number, int max_number, int positions){
-    // handle a position of 1 to prevent divide by zero
-    if(positions <= 1){
-      return new int[] {min_number};
-    }
-    int[] recorded_positions = new int[positions];
-    double step = ((double)(max_number - min_number)) / (positions-1);
-    int i;
-    for(i = 0; i < positions; i++){
-      recorded_positions[i] = (int)Math.round(((double)(min_number)) + (step*i));
-    }
-    return recorded_positions;
-  }
-
-  /** Used in {@link AbstractScrollbar Scrollbars}. Uses the scrollbar's current position to determine the index amongst the
-   *  stop positions and writes all visible lines according to the index position.
-   * @param position
-   * @param values
-   */
-  public static final int getPositionIndex(int position, int[] values){
-    if(position <= values[0]){
-      return 0;
-    }
-    if(position >= values[values.length-1]){
-      return values.length-1;
-    }
-    int i = 1;
-    while(position >= values[i]){
-      i += 1;
-    }
-    final int left = values[i-1];
-    final int right = values[i];
-    return CommonMath.getExtreme(left, position, right) == left ? i-1 : i;
   }
 
 }

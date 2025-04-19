@@ -10,11 +10,11 @@ import addsynth.core.util.game.data.CombinedNameComponent;
 public class CombinedNameScrollbar extends AbstractScrollbar<CombinedNameComponent, CombinedListEntry> {
 
   public CombinedNameScrollbar(int x, int y, int height, CombinedListEntry[] list_items){
-    super(x, y, height, list_items, null);
+    super(x, y, height, list_items, null, CombinedNameComponent.EMPTY);
   }
 
   public CombinedNameScrollbar(int x, int y, int height, CombinedListEntry[] list_items, CombinedNameComponent[] values){
-    super(x, y, height, list_items, values);
+    super(x, y, height, list_items, values, CombinedNameComponent.EMPTY);
   }
 
   @Override

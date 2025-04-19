@@ -236,8 +236,8 @@ public final class CommonMath {
    * @param right_value
    */
   public static final int getExtreme(int left_value, int value, int right_value){
-    final int left_check = Math.abs(left_value - value);
-    final int right_check = Math.abs(right_value -value);
+    final int  left_check = Math.abs( left_value - value);
+    final int right_check = Math.abs(right_value - value);
     if(left_check < right_check){
       return left_value;
     }

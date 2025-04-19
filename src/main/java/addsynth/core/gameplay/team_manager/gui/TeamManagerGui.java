@@ -71,7 +71,7 @@ public final class TeamManagerGui extends GuiBase {
   private CombinedNameScrollbar objectives_list;
 
   private final BiConsumer<CombinedNameComponent, Integer> onTeamSelected = (CombinedNameComponent value, Integer id) -> {
-    team_selected = value; // PRIORITY: returns null if scrollbars are unselected! Need to unselect Team Players scrollbar when switching Teams!
+    team_selected = value;
     if(!player_selected_position){
       unSelectPlayer();
     }

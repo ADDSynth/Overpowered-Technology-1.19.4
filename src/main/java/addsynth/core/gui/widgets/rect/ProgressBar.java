@@ -1,4 +1,4 @@
-package addsynth.core.gui.widgets;
+package addsynth.core.gui.widgets.rect;
 
 import addsynth.core.util.math.common.RoundMode;
 import com.mojang.blaze3d.vertex.PoseStack;

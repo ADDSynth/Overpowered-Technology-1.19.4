@@ -26,11 +26,11 @@ import net.minecraft.world.item.ItemStack;
 public final class ItemListScrollbar extends AbstractScrollbar<ItemStack, ItemListEntry> {
 
   public ItemListScrollbar(int x, int y, int height, ItemListEntry[] list_items){
-    super(x, y, height, list_items, null);
+    super(x, y, height, list_items, null, ItemStack.EMPTY);
   }
 
   public ItemListScrollbar(int x, int y, int height, ItemListEntry[] list_items, ItemStack[] items){
-    super(x, y, height, list_items, items);
+    super(x, y, height, list_items, items, ItemStack.EMPTY);
   }
   
   @Override

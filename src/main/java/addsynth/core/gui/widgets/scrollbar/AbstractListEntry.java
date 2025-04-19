@@ -56,7 +56,7 @@ public abstract class AbstractListEntry<E> extends AbstractButton {
   @Override
   public void onPress(){
     if(StringUtil.StringExists(getMessage().getString())){
-      responder.setSelected(entry_id, true, false);
+      responder.setSelected(entry_id);
     }
   }
 

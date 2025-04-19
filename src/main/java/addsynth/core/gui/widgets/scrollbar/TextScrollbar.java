@@ -26,11 +26,11 @@ import net.minecraft.network.chat.Component;
 public final class TextScrollbar extends AbstractScrollbar<Component, ListEntry> {
 
   public TextScrollbar(int x, int y, int height, ListEntry[] list_items){
-    super(x, y, height, list_items, null);
+    super(x, y, height, list_items, null, Component.empty());
   }
 
   public TextScrollbar(int x, int y, int height, ListEntry[] list_items, Component[] values){
-    super(x, y, height, list_items, values);
+    super(x, y, height, list_items, values, Component.empty());
   }
   
   @Override
