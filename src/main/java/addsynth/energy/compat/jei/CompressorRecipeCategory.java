@@ -5,6 +5,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import addsynth.energy.gameplay.EnergyBlocks;
 import addsynth.energy.gameplay.machines.compressor.recipe.CompressorRecipe;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.gameplay.reference.GuiReference;
 import addsynth.energy.gameplay.reference.Names;
 import net.minecraft.network.chat.Component;
@@ -33,8 +34,8 @@ public final class CompressorRecipeCategory implements IRecipeCategory<Compresso
   }
 
   @Override
-  public Component getTitle(){
-    return Component.translatable(EnergyBlocks.compressor.get().getDescriptionId());
+  public final Component getTitle(){
+    return EnergyText.compressor;
   }
 
   @Override

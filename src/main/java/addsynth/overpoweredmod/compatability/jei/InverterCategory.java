@@ -3,6 +3,7 @@ package addsynth.overpoweredmod.compatability.jei;
 import addsynth.overpoweredmod.game.reference.GuiReference;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
+import addsynth.overpoweredmod.game.reference.TextReference;
 import addsynth.overpoweredmod.machines.inverter.InverterRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -33,8 +34,8 @@ public final class InverterCategory implements IRecipeCategory<InverterRecipe> {
   }
 
   @Override
-  public Component getTitle(){
-    return Component.translatable(OverpoweredBlocks.inverter.get().getDescriptionId());
+  public final Component getTitle(){
+    return TextReference.inverter;
   }
 
   @Override

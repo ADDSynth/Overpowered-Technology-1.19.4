@@ -15,6 +15,12 @@ public final class TextReference {
   public static final Component  laser_machine = Component.translatable("gui.overpowered.tooltip.laser_machine");
   public static final Component fusion_machine = Component.translatable("gui.overpowered.tooltip.fusion_machine");
 
+  // Blocks
+  public static final Component advanced_ore_refinery = OverpoweredBlocks.advanced_ore_refinery.get().getName();
+  public static final Component gem_converter         = OverpoweredBlocks.gem_converter.get().getName();
+  public static final Component inverter              = OverpoweredBlocks.inverter.get().getName();
+  public static final Component magic_infuser         = OverpoweredBlocks.magic_infuser.get().getName();
+
   // JEI Descriptions
   public static final Component celestial_gem_description         = Component.translatable("gui.overpowered.jei_description.celestial_gem");
   public static final Component energy_crystal_shards_description = Component.translatable("gui.overpowered.jei_description.energy_crystal_shards");

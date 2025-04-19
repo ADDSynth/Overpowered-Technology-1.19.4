@@ -3,6 +3,7 @@ package addsynth.overpoweredmod.compatability.jei;
 import addsynth.overpoweredmod.game.reference.GuiReference;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
+import addsynth.overpoweredmod.game.reference.TextReference;
 import addsynth.overpoweredmod.machines.magic_infuser.recipes.MagicInfuserRecipe;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -35,8 +36,8 @@ public final class MagicInfuserCategory implements IRecipeCategory<MagicInfuserR
   }
 
   @Override
-  public Component getTitle(){
-    return Component.translatable(OverpoweredBlocks.magic_infuser.get().getDescriptionId());
+  public final Component getTitle(){
+    return TextReference.magic_infuser;
   }
 
   @Override

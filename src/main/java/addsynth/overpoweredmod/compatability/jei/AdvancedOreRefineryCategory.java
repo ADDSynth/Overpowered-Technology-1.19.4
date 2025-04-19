@@ -3,6 +3,7 @@ package addsynth.overpoweredmod.compatability.jei;
 import addsynth.overpoweredmod.game.reference.GuiReference;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
+import addsynth.overpoweredmod.game.reference.TextReference;
 import addsynth.overpoweredmod.machines.advanced_ore_refinery.OreRefineryRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -33,9 +34,8 @@ public final class AdvancedOreRefineryCategory  implements IRecipeCategory<OreRe
   }
 
   @Override
-  public Component getTitle(){
-    // OPTIMIZE: Add this as a static reference in the TextReference class. (do this for all getTitle()s in JEI code)
-    return Component.translatable(OverpoweredBlocks.advanced_ore_refinery.get().getDescriptionId());
+  public final Component getTitle(){
+    return TextReference.advanced_ore_refinery;
   }
 
   @Override

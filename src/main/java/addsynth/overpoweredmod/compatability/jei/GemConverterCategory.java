@@ -3,6 +3,7 @@ package addsynth.overpoweredmod.compatability.jei;
 import addsynth.overpoweredmod.game.reference.GuiReference;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
+import addsynth.overpoweredmod.game.reference.TextReference;
 import addsynth.overpoweredmod.game.tags.OverpoweredItemTags;
 import addsynth.overpoweredmod.machines.gem_converter.GemConverterRecipe;
 import net.minecraft.network.chat.Component;
@@ -35,8 +36,8 @@ public final class GemConverterCategory implements IRecipeCategory<GemConverterR
   }
 
   @Override
-  public Component getTitle(){
-    return Component.translatable(OverpoweredBlocks.gem_converter.get().getDescriptionId());
+  public final Component getTitle(){
+    return TextReference.gem_converter;
   }
 
   @Override

@@ -1,5 +1,6 @@
 package addsynth.energy.gameplay.reference;
 
+import addsynth.energy.gameplay.EnergyBlocks;
 import net.minecraft.network.chat.Component;
 
 /** The TextReference class should only be used for common words
@@ -43,6 +44,10 @@ public final class EnergyText {
   // Machines
   public static final Component selected_text = Component.translatable("gui.addsynth_energy.common.selected");
   public static final Component total         = Component.translatable("gui.addsynth_energy.common.total");
+
+  // Blocks
+  public static final Component circuit_fabricator = EnergyBlocks.circuit_fabricator.get().getName();
+  public static final Component compressor         = EnergyBlocks.compressor.get().getName();
 
   // Descriptions:
   public static final Component wire_description               = Component.translatable("gui.addsynth_energy.jei_description.wire");

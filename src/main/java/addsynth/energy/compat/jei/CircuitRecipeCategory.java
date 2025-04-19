@@ -3,6 +3,7 @@ package addsynth.energy.compat.jei;
 import addsynth.core.compat.JeiUtil;
 import addsynth.energy.gameplay.EnergyBlocks;
 import addsynth.energy.gameplay.machines.circuit_fabricator.recipe.CircuitFabricatorRecipe;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.gameplay.reference.GuiReference;
 import addsynth.energy.gameplay.reference.Names;
 import net.minecraft.network.chat.Component;
@@ -38,8 +39,8 @@ public final class CircuitRecipeCategory implements IRecipeCategory<CircuitFabri
   }
 
   @Override
-  public Component getTitle(){
-    return Component.translatable(EnergyBlocks.circuit_fabricator.get().getDescriptionId());
+  public final Component getTitle(){
+    return EnergyText.circuit_fabricator;
   }
 
   @Override
