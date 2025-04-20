@@ -30,20 +30,20 @@ public final class ItemListEntry extends AbstractListEntry<ItemStack> {
   }
 
   @Override
-  public void set(final int entry_id, final ItemStack item){
+  public final void set(final int entry_id, final ItemStack item){
     this.entry_id = entry_id;
     this.item = item;
     setMessage(item != null ? Component.translatable(item.getDescriptionId()) : Component.empty());
   }
 
-  public void set(final int entry_id, final ItemStack item, final Component message){
+  public final void set(final int entry_id, final ItemStack item, final Component message){
     this.entry_id = entry_id;
     this.item = item;
     setMessage(message);
   }
 
   @Override
-  public void setNull(){
+  public final void setNull(){
     this.entry_id = -1;
     this.item = null;
     setMessage(Component.empty());

@@ -10,10 +10,10 @@ import net.minecraft.world.entity.player.Inventory;
 
 public final class GuiCrystalMatterGenerator extends GuiEnergyBase<TileCrystalMatterGenerator, ContainerCrystalGenerator> {
 
-  private final WorkProgressBar work_progress_bar = new WorkProgressBar(8, 89, 160, 5, 11, 194);
+  private final WorkProgressBar work_progress_bar = new WorkProgressBar(8, 89, 166, 5, 8, 222);
   
   public GuiCrystalMatterGenerator(final ContainerCrystalGenerator container, final Inventory player_inventory, final Component title){
-    super(176, 192, container, player_inventory, title, GuiReference.crystal_matter_generator);
+    super(182, 192, container, player_inventory, title, GuiReference.crystal_matter_generator);
   }
 
   @Override
@@ -34,7 +34,7 @@ public final class GuiCrystalMatterGenerator extends GuiEnergyBase<TileCrystalMa
     draw_status_after_switch(matrix, tile.getStatus());
     draw_energy_usage(matrix, 6, 38);
     draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 77);
-    draw_time_left(matrix, 98);
+    draw_time_left_center(matrix, 98);
   }
 
 }

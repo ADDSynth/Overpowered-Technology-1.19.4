@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 
 public final class TeamManagerTeamEditGui extends GuiBase {
 
-  private static final Component                 team_gui = Component.translatable("gui.addsynthcore.team_manager.team_edit.gui_title");
+  private static final Component           team_gui_title = Component.translatable("gui.addsynthcore.team_manager.team_edit.gui_title");
   private static final Component        team_id_name_text = Component.translatable("gui.addsynthcore.team_manager.team_edit.id_name");
   private static final Component   team_display_name_text = Component.translatable("gui.addsynthcore.team_manager.team_edit.display_name");
   private static final Component       friendly_fire_text = Component.translatable("gui.addsynthcore.team_manager.team_edit.friendly_fire");
@@ -65,13 +65,13 @@ public final class TeamManagerTeamEditGui extends GuiBase {
 
 
   public TeamManagerTeamEditGui(){
-    super(274, 244, team_gui, GuiReference.edit_team_gui);
+    super(274, 244, team_gui_title, GuiReference.edit_team_gui);
     new_team = true;
     existing_team = null;
   }
 
   public TeamManagerTeamEditGui(final String existing_team){
-    super(274, 244, team_gui, GuiReference.edit_team_gui);
+    super(274, 244, team_gui_title, GuiReference.edit_team_gui);
     new_team = false;
     this.existing_team = existing_team;
   }
@@ -97,11 +97,11 @@ public final class TeamManagerTeamEditGui extends GuiBase {
     final int button_x1 = (( left_x +  left_edge) / 2) - (button_width/2);
     final int button_x2 = ((right_x + right_edge) / 2) - (button_width/2);
     
-    team_id_name           = new EditBox(this.font,  left_x, widget_line_1, left_text_box_width, text_box_height, Component.empty());
+    team_id_name           = new EditBox(this.font,  left_x, widget_line_1,  left_text_box_width, text_box_height, Component.empty());
     team_display_name      = new EditBox(this.font, right_x, widget_line_1, right_text_box_width, text_box_height, Component.empty());
-    friendly_fire          = new ClientCheckbox(       left_x, widget_line_2 + 2, friendly_fire_text);
-    see_invisible_allys    = new ClientCheckbox(  left_x, widget_line_2 + ColorButtons.button_gui_size + 2, see_invisible_allys_text);
-    color_buttons          = new ColorButtons(              right_x, widget_line_2,
+    friendly_fire          = new ClientCheckbox(     left_x, widget_line_2 + 2, friendly_fire_text);
+    see_invisible_allys    = new ClientCheckbox(     left_x, widget_line_2 + ColorButtons.button_gui_size + 2, see_invisible_allys_text);
+    color_buttons          = new ColorButtons(      right_x, widget_line_2,
       (Integer color) -> {
         // team_display_name.setTextColor(TextFormatting.fromColorIndex(color).getColor());
       }

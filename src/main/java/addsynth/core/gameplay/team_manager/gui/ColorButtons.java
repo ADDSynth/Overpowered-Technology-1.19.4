@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.widgets.WidgetUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,7 @@ public final class ColorButtons extends AbstractButton {
   // private static final int texture_height = button_texture_size * 2;
 
   private int color = -1;
+  private boolean valid_color;
 
   private int render_x;
   private int render_y;
@@ -44,15 +46,13 @@ public final class ColorButtons extends AbstractButton {
   @Override
   public void renderWidget(PoseStack matrix, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_){
     WidgetUtil.common_button_render_setup(GuiReference.color_buttons);
-    render_x = color % 8;
-    render_y = color / 8;
     for(j = 0; j < 2; j++){
       for(i = 0; i < 8; i++){
         gui_x     = getX() + (i * button_gui_size);
         gui_y     = getY() + (j * button_gui_size);
         texture_x =          (i * button_texture_size);
         texture_y =          (j * button_texture_size);
-        if(validColor()){
+        if(valid_color){
           texture_y += (i == render_x && j == render_y ? button_texture_size*2 : 0);
         }
         blit(matrix, gui_x, gui_y, button_gui_size, button_gui_size, texture_x, texture_y, button_texture_size, button_texture_size, 256, 256);
@@ -60,9 +60,10 @@ public final class ColorButtons extends AbstractButton {
     }
   }
 
+  /** Sets color from user click, which returns 0 to 15. */
   @Override
   public void onClick(double mouse_x, double mouse_y){
-    color = WidgetUtil.getMouseInsideCell(getX(), getY(), (int)mouse_x, (int)mouse_y, button_gui_size, 8, 2);
+    validateColor(WidgetUtil.getMouseInsideCell(getX(), getY(), (int)mouse_x, (int)mouse_y, button_gui_size, 8, 2));
   }
 
   @Override
@@ -72,18 +73,26 @@ public final class ColorButtons extends AbstractButton {
     }
   }
 
-  public final boolean validColor(){
-    return color >= 0 && color < 16;
+  private final void validateColor(final int color){
+    valid_color = color >= 0 && color < 16;
+    if(valid_color){
+      this.color = color;
+      render_x = color % 8;
+      render_y = color / 8;
+    }
+    else{
+      this.color = -1;
+    }
   }
 
+  /** Returns color if valid or -1 if invalid. Translates color back to 15 to 0 to index proper {@link ChatFormatting}. */
   public final int getColor(){
-    // White color in the top-left should be color 0, however the colors listed in
-    // net.minecraft.util.text.TextFormatting are listed in reverse order.
-    return validColor() ? 15 - color : -1;
+    return valid_color ? 15 - color : -1;
   }
   
+  /** Sets color from {@link ChatFormatting}, which returns 15 to 0. We must convert to 0 to 15. */
   public final void setColor(int color){
-    this.color = (color >= 0 && color < 16) ? 15 - color : -1;
+    validateColor(15 - color);
   }
 
   @Override

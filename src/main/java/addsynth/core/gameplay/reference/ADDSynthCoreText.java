@@ -1,5 +1,6 @@
 package addsynth.core.gameplay.reference;
 
+import addsynth.core.gameplay.Core;
 import addsynth.core.util.color.ColorCode;
 import net.minecraft.network.chat.Component;
 
@@ -31,6 +32,9 @@ public final class ADDSynthCoreText {
     default -> north;
     };
   }
+
+  // Blocks
+  public static final Component team_manager = Core.team_manager.get().getName();
 
   // Descriptions:
   public static final Component    music_box_description = Component.translatable("gui.addsynthcore.jei_description.music_box");

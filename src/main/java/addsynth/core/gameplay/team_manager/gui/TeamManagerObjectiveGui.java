@@ -25,7 +25,7 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   private final boolean new_objective;
   private final String existing_objective;
 
-  private static final Component               objective_gui = Component.translatable("gui.addsynthcore.team_manager.objective_edit.gui_title");
+  private static final Component         objective_gui_title = Component.translatable("gui.addsynthcore.team_manager.objective_edit.gui_title");
   private static final Component      objective_id_name_text = Component.translatable("gui.addsynthcore.team_manager.objective_edit.id_name");
   private static final Component objective_display_name_text = Component.translatable("gui.addsynthcore.team_manager.objective_edit.display_name");
   private static final Component          criteria_type_text = Component.translatable("gui.addsynthcore.team_manager.objective_edit.type");
@@ -73,13 +73,13 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   private static final MutableGuiSection  right_section = new MutableGuiSection();
 
   public TeamManagerObjectiveGui(){
-    super(473, gui_height, objective_gui, GuiReference.edit_objective_gui);
+    super(473, gui_height, objective_gui_title, GuiReference.edit_objective_gui);
     new_objective = true;
     existing_objective = null;
   }
 
   public TeamManagerObjectiveGui(final String existing_objective){
-    super(473, gui_height, objective_gui, GuiReference.edit_objective_gui);
+    super(473, gui_height, objective_gui_title, GuiReference.edit_objective_gui);
     new_objective = false;
     this.existing_objective = existing_objective;
   }

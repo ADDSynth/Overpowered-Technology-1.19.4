@@ -2,8 +2,8 @@ package addsynth.core.gameplay.team_manager.gui;
 
 import java.util.function.BiConsumer;
 import javax.annotation.Nonnull;
-import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.NetworkHandler;
+import addsynth.core.gameplay.reference.ADDSynthCoreText;
 import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.gameplay.team_manager.network_messages.RequestPlayerScoreMessage;
@@ -111,7 +111,7 @@ public final class TeamManagerGui extends GuiBase {
   private static boolean player_score_can_be_changed;
 
   public TeamManagerGui(){
-    super(442, 326, Core.team_manager.get().getName(), GuiReference.team_manager);
+    super(442, 326, ADDSynthCoreText.team_manager, GuiReference.team_manager);
     TeamData.changed = true;
   }
 

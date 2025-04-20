@@ -19,10 +19,10 @@ public final class ContainerCrystalGenerator extends TileEntityContainer<TileCry
   }
 
   private final void common_setup(final Inventory player_inventory){
-    make_player_inventory(player_inventory,8,110);
+    make_player_inventory(player_inventory, 11, 110);
     int i;
     for(i = 0; i < 8; i++){
-      addSlot(new OutputSlot(tile,i,8 + (i*18),54));
+      addSlot(new OutputSlot(tile, i, 20 + (i*18), 54));
     }
   }
 
