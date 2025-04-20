@@ -134,8 +134,6 @@ public final class LightningStormCommand {
       }
       while(MathUtility.isWithin(position.getX(), position.getZ(), location_x, location_z, lightning_radius) == false);
       WorldUtil.spawnLightningBolt(world, new BlockPos(location_x, WorldUtil.getTopMostFreeSpace(world, location_x, location_z), location_z));
-      // OPTIMIZE: for previous versions, replace this code with WorldUtil.spawnLightningBolt().
-      // Remove import
     }
     return times > 0;
   }
