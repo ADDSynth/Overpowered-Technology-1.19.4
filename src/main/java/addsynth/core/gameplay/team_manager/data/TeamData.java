@@ -171,22 +171,20 @@ public final class TeamData {
 
   /** Currently only used in the Objective Gui to get the Standard Criteria name based on the selected List Entry. */
   public static final String getStandardCriteria(final int index){
-    ObjectiveCriteria criteria = null;
-    switch(index){
-    case 0: criteria = ObjectiveCriteria.DUMMY; break;
-    case 1: criteria = ObjectiveCriteria.TRIGGER; break;
-    case 2: criteria = ObjectiveCriteria.DEATH_COUNT; break;
-    case 3: criteria = ObjectiveCriteria.KILL_COUNT_PLAYERS; break;
-    case 4: criteria = ObjectiveCriteria.KILL_COUNT_ALL; break;
-    case 5: criteria = ObjectiveCriteria.HEALTH; break;
-    case 6: criteria = ObjectiveCriteria.EXPERIENCE; break;
-    case 7: criteria = ObjectiveCriteria.LEVEL; break;
-    case 8: criteria = ObjectiveCriteria.FOOD; break;
-    case 9: criteria = ObjectiveCriteria.AIR; break;
-    case 10: criteria = ObjectiveCriteria.ARMOR; break;
-    default: ADDSynthCore.log.error(new IllegalArgumentException("Invalid index.")); break;
-    }
-    return criteria != null ? criteria.getName() : "[Null Error]";
+    return switch(index){
+      case  0 -> ObjectiveCriteria.DUMMY.getName();
+      case  1 -> ObjectiveCriteria.TRIGGER.getName();
+      case  2 -> ObjectiveCriteria.DEATH_COUNT.getName();
+      case  3 -> ObjectiveCriteria.KILL_COUNT_PLAYERS.getName();
+      case  4 -> ObjectiveCriteria.KILL_COUNT_ALL.getName();
+      case  5 -> ObjectiveCriteria.HEALTH.getName();
+      case  6 -> ObjectiveCriteria.EXPERIENCE.getName();
+      case  7 -> ObjectiveCriteria.LEVEL.getName();
+      case  8 -> ObjectiveCriteria.FOOD.getName();
+      case  9 -> ObjectiveCriteria.AIR.getName();
+      case 10 -> ObjectiveCriteria.ARMOR.getName();
+      default -> "invalid";
+    };
   }
 
   /** Returns the {@link ObjectiveCriteria} given the supplied ID. */

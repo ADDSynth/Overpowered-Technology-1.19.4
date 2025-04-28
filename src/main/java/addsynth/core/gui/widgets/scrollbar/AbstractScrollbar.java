@@ -1,6 +1,7 @@
 package addsynth.core.gui.widgets.scrollbar;
 
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.gameplay.reference.GuiReference;
@@ -178,20 +179,26 @@ public abstract class AbstractScrollbar<E, L extends AbstractListEntry<E>> exten
   }
 
   /** Used to update the displayed list entries. Must be called every time the scrollbar's position changes. */
-  private final void updateList(){
+  protected final void updateList(){
     int i;
     int index = scrollbar_system.getIndex();
     int id;
     for(i = 0; i < visible_elements; i++){
       id = index + i;
       if(id < list_length){
-        list_items[i].set(id, values[id]);
+        updateListItem(list_items[i], id, values[id]);
         list_items[i].setSelected(selected);
       }
       else{
         list_items[i].setNull();
       }
     }
+  }
+
+  // Rather than setting a bunch of variables as protected, I decided to do this.
+  // I'd only have to override this. Thought this was best at the time.
+  protected void updateListItem(final L list_item, final int id, final E value){
+    list_item.set(id, value);
   }
 
   @Override
@@ -251,6 +258,12 @@ public abstract class AbstractScrollbar<E, L extends AbstractListEntry<E>> exten
     init(find(value));
   }
 
+  /** Goes through all the values in this scrollbar and selects
+   *  the first value that passes your Predicate test.  */
+  public final void init(final Predicate<E> predicate){
+    init(find(predicate));
+  }
+
   /** Searches through the list of values and returns the index if we find the value
    *  you're looking for. Returns -1 if we did not find it in the list. */
   public int find(final E value){
@@ -258,6 +271,20 @@ public abstract class AbstractScrollbar<E, L extends AbstractListEntry<E>> exten
       int i;
       for(i = 0; i < list_length; i++){
         if(values[i].equals(value)){
+          return i;
+        }
+      }
+    }
+    return -1;
+  }
+
+  /** Tests all the values in this scrollbar and returns the index of the
+   *  first value that passes the predicate. Returns -1 if no value passed. */
+  public final int find(final Predicate<E> predicate){
+    if(values != null){
+      int i;
+      for(i = 0; i < list_length; i++){
+        if(predicate.test(values[i])){
           return i;
         }
       }

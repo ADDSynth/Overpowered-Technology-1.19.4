@@ -24,6 +24,9 @@ public final class Config {
   // Music Box
   public static ForgeConfigSpec.BooleanValue enable_left_hand;
 
+  // Team Manager
+  public static ForgeConfigSpec.BooleanValue translate_criteria_list;
+
   public static ForgeConfigSpec.BooleanValue item_explosion_command;
   public static ForgeConfigSpec.BooleanValue zombie_raid_command;
   public static ForgeConfigSpec.BooleanValue blackout_command;
@@ -64,6 +67,13 @@ public final class Config {
       "By default, the Music Box uses Right-Hand controls (Left-click adds notes, Right-click deletes notes.)\n"+
       "Set this to true to enable Left-Hand controls, which will swap these functions.")
       .define("Enable Left Hand", false);
+    builder.pop();
+
+    builder.push("Team Manager");
+    translate_criteria_list = builder.comment(
+      "Client Only. Determines whether the Criteria List in the Team Manager displays translated names (true)\n"+
+      "or displays the ID names (false). You can also change this in the Team Manager Objective Edit screen.")
+      .define("Translate Criteria List", true);
     builder.pop();
 
     builder.push("Compatibility");

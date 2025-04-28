@@ -9,6 +9,7 @@ import addsynth.core.util.time.TimeConstants;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -212,6 +213,17 @@ public final class StringUtil {
           return block.getClass().getSimpleName();
         }
         return unlocalized_name;
+      }
+      return registry_name.toString();
+    }
+    return "null";
+  }
+
+  public static final String getName(final EntityType entity){
+    if(entity != null){
+      final ResourceLocation registry_name = ForgeRegistries.ENTITY_TYPES.getKey(entity);
+      if(registry_name == null){
+        return entity.getDescriptionId();
       }
       return registry_name.toString();
     }

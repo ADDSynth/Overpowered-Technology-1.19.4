@@ -76,7 +76,11 @@ public abstract class AbstractListEntry<E> extends AbstractButton {
     this.selected = selected_entry_id >= 0 && entry_id == selected_entry_id;
   }
 
-  public abstract void setNull();
+  public void setNull(){
+    this.entry_id = -1;
+    setMessage(Component.empty());
+    this.selected = false;
+  }
 
   @Override
   public final void playDownSound(SoundManager p_playDownSound_1_){

@@ -9,12 +9,36 @@ import addsynth.core.util.game.data.CombinedNameComponent;
  */
 public class CombinedNameScrollbar extends AbstractScrollbar<CombinedNameComponent, CombinedListEntry> {
 
+  private boolean use_translated_names;
+
   public CombinedNameScrollbar(int x, int y, int height, CombinedListEntry[] list_items){
     super(x, y, height, list_items, null, CombinedNameComponent.EMPTY);
+    use_translated_names = true;
+  }
+
+  public CombinedNameScrollbar(int x, int y, int height, CombinedListEntry[] list_items, boolean use_translated_names){
+    super(x, y, height, list_items, null, CombinedNameComponent.EMPTY);
+    this.use_translated_names = use_translated_names;
   }
 
   public CombinedNameScrollbar(int x, int y, int height, CombinedListEntry[] list_items, CombinedNameComponent[] values){
     super(x, y, height, list_items, values, CombinedNameComponent.EMPTY);
+    use_translated_names = true;
+  }
+
+  public CombinedNameScrollbar(int x, int y, int height, CombinedListEntry[] list_items, CombinedNameComponent[] values, boolean use_translated_names){
+    super(x, y, height, list_items, values, CombinedNameComponent.EMPTY);
+    this.use_translated_names = use_translated_names;
+  }
+
+  public final void changeDisplayMode(final boolean mode){
+    use_translated_names = mode;
+    // updateList(); Need to completely replace the values, because they are re-sorted
+  }
+
+  @Override
+  protected final void updateListItem(final CombinedListEntry list_item, final int id, final CombinedNameComponent value){
+    list_item.set(id, value, use_translated_names);
   }
 
   @Override

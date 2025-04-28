@@ -1,5 +1,6 @@
 package addsynth.core.gameplay.team_manager.gui;
 
+import addsynth.core.gameplay.Config;
 import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gameplay.team_manager.data.CriteriaData;
@@ -11,8 +12,9 @@ import addsynth.core.gui.GuiBase;
 import addsynth.core.gui.section.MutableGuiSection;
 import addsynth.core.gui.widgets.WidgetUtil;
 import addsynth.core.gui.widgets.buttons.RadialButtonGroup;
-import addsynth.core.gui.widgets.scrollbar.ListEntry;
-import addsynth.core.gui.widgets.scrollbar.TextScrollbar;
+import addsynth.core.gui.widgets.scrollbar.CombinedListEntry;
+import addsynth.core.gui.widgets.scrollbar.CombinedNameScrollbar;
+import addsynth.core.util.game.data.CombinedNameComponent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -30,6 +32,8 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   private static final Component objective_display_name_text = Component.translatable("gui.addsynthcore.team_manager.objective_edit.display_name");
   private static final Component          criteria_type_text = Component.translatable("gui.addsynthcore.team_manager.objective_edit.type");
   private static final Component        criteria_header_text = Component.translatable("gui.addsynthcore.team_manager.objective_edit.criteria_header");
+  private static final Component        translate_names_text = Component.translatable("gui.addsynthcore.team_manager.objective_edit.use_translated_names");
+  private static final Component               id_names_text = Component.translatable("gui.addsynthcore.team_manager.objective_edit.use_id_names");
   private static final Component[] criteria_options = {
     Component.translatable("gui.addsynthcore.team_manager.criteria_type.standard"),
     Component.translatable("gui.addsynthcore.team_manager.criteria_type.team_kill"),
@@ -48,8 +52,9 @@ public final class TeamManagerObjectiveGui extends GuiBase {
 
   private EditBox objective_id_name;
   private EditBox objective_display_name;
+  private RadialButtonGroup criteria_name_mode;
   private RadialButtonGroup criteria_types;
-  private TextScrollbar criteria_list;
+  private CombinedNameScrollbar criteria_list;
   private Button finish_button;
 
   private static final int widget_spacing = 2;
@@ -63,6 +68,7 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   // Text
   private static final int line_1 = 18;
   private static final int line_2 = line_1 + 8 + widget_spacing + text_box_height + line_space;
+  private static final int line_3 = line_2 + text_box_height + 50;
   private static final int line_5 = gui_height - 8 - button_height - 12;
 
   // Widgets
@@ -92,6 +98,7 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     final int bottom = guiBox.top + line_5 - 4;
     final int widget_line_1 = guiBox.top + line_1 + 8 + widget_spacing;
     final int widget_line_2 = guiBox.top + line_2 + 8 + widget_spacing;
+    final int widget_line_3 = guiBox.top + line_3;
       left_section.setBox(         guiBox.left + 6, widget_line_1, guiBox.left        + 6 + left_section_width,   bottom);
     middle_section.setBox(  left_section.right + 6, widget_line_1, left_section.right + 6 + middle_section_width, bottom);
      right_section.setBox(middle_section.right + 6, widget_line_1, guiBox.right       - 6 - scrollbar_width,      guiBox.bottom - 6);
@@ -102,6 +109,12 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     objective_display_name = new EditBox(this.font, left_section.x, widget_line_2, left_section_width, text_box_height, Component.empty());
     addWidget(objective_display_name);
 
+    // Criteria Name Mode
+    final Component[] criteria_mode_options = new Component[]{translate_names_text, id_names_text};
+    criteria_name_mode = new RadialButtonGroup(left_section.x, widget_line_3, criteria_mode_options, this::CriteriaNamesChanged);
+    criteria_name_mode.option_selected = Config.translate_criteria_list.get() ? 0 : 1;
+    addRenderableWidget(criteria_name_mode);
+
     // Criteria Type Selection
     criteria_types = new RadialButtonGroup(middle_section.x, left_section.y, criteria_options, this::setCriteriaList);
     addRenderableWidget(criteria_types);
@@ -109,13 +122,13 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     // Criteria List
     final int criteria_list_length = right_section.height / entry_height;
     final int list_height = entry_height*criteria_list_length;
-    final ListEntry[] objective_entries = new ListEntry[criteria_list_length];
+    final CombinedListEntry[] objective_entries = new CombinedListEntry[criteria_list_length];
     int i;
     for(i = 0; i < criteria_list_length; i++){
-      objective_entries[i] = new ListEntry(right_section.x, right_section.y + (entry_height*i), right_section.width, entry_height);
+      objective_entries[i] = new CombinedListEntry(right_section.x, right_section.y + (entry_height*i), right_section.width, entry_height);
       addRenderableWidget(objective_entries[i]);
     }
-    criteria_list = new TextScrollbar(right_section.right, widget_line_1, list_height, objective_entries);
+    criteria_list = new CombinedNameScrollbar(right_section.right, widget_line_1, list_height, objective_entries, Config.translate_criteria_list.get());
     addRenderableWidget(criteria_list);
 
     // Done and Cancel Buttons
@@ -141,9 +154,21 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     }
   }
 
+  private final void CriteriaNamesChanged(int selection){
+    final boolean choice = selection == 0;
+    if(choice != Config.translate_criteria_list.get()){
+      Config.translate_criteria_list.set(choice);
+      Config.translate_criteria_list.save();
+      final String selected_criteria = getCriteriaID(); // get selected before arrays are sorted
+      CriteriaData.sort();
+      criteria_list.changeDisplayMode(choice);
+      setCriteria(criteria_types.getSelectedOption(), selected_criteria);
+    }
+  }
+
   /** Initializes the criteria list whenever the player changes the criteria type. */
   private final void setCriteriaList(int type){
-    criteria_list.unSelect();
+    criteria_list.reset();
     switch(type){
     case CriteriaType.STANDARD:
       criteria_list.updateScrollbar(CriteriaData.standard_criteria);
@@ -210,31 +235,31 @@ public final class TeamManagerObjectiveGui extends GuiBase {
       criteria = CriteriaType.KILLED_BY_TEAM_PREFIX + criteria_list.getSelected();
       break;
     case CriteriaType.STATISTICS:
-      criteria = CriteriaType.STATISTICS_PREFIX + CriteriaData.getStatisticID(criteria_list.getSelectedIndex()).replace(':', '.');
+      criteria = CriteriaType.STATISTICS_PREFIX + criteria_list.getSelected().getName().replace(':', '.');
       break;
     case CriteriaType.BLOCK_MINED:
-      criteria = CriteriaType.BLOCK_MINED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
+      criteria = CriteriaType.BLOCK_MINED_PREFIX + criteria_list.getSelected().getName().replace(':', '.');
       break;
     case CriteriaType.ITEM_BROKEN:
-      criteria = CriteriaType.ITEM_BROKEN_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
+      criteria = CriteriaType.ITEM_BROKEN_PREFIX + criteria_list.getSelected().getName().replace(':', '.');
       break;
     case CriteriaType.ITEM_CRAFTED:
-      criteria = CriteriaType.ITEM_CRAFTED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
+      criteria = CriteriaType.ITEM_CRAFTED_PREFIX + criteria_list.getSelected().getName().replace(':', '.');
       break;
     case CriteriaType.ITEM_DROPPED:
-      criteria = CriteriaType.ITEM_DROPPED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
+      criteria = CriteriaType.ITEM_DROPPED_PREFIX + criteria_list.getSelected().getName().replace(':', '.');
       break;
     case CriteriaType.ITEM_PICKED_UP:
-      criteria = CriteriaType.ITEM_PICKED_UP_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
+      criteria = CriteriaType.ITEM_PICKED_UP_PREFIX + criteria_list.getSelected().getName().replace(':', '.');
       break;
     case CriteriaType.ITEM_USED:
-      criteria = CriteriaType.ITEM_USED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
+      criteria = CriteriaType.ITEM_USED_PREFIX + criteria_list.getSelected().getName().replace(':', '.');
       break;
     case CriteriaType.KILLED:
-      criteria = CriteriaType.KILLED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
+      criteria = CriteriaType.KILLED_PREFIX + criteria_list.getSelected().getName().replace(':', '.');
       break;
     case CriteriaType.KILLED_BY:
-      criteria = CriteriaType.KILLED_BY_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
+      criteria = CriteriaType.KILLED_BY_PREFIX + criteria_list.getSelected().getName().replace(':', '.');
       break;
     }
     return criteria;
@@ -242,6 +267,9 @@ public final class TeamManagerObjectiveGui extends GuiBase {
 
   /** Adjusts the Criteria List to select the criteria. */
   private final void setCriteria(int type, String criteria){
+    if(criteria == null){
+      return;
+    }
     setCriteriaList(type);
     try{
       switch(type){
@@ -249,13 +277,10 @@ public final class TeamManagerObjectiveGui extends GuiBase {
         criteria_list.init(TeamData.getStandardCriteriaIndex(criteria));
         break;
       case CriteriaType.TEAM_KILL: case CriteriaType.KILLED_BY_TEAM:
-        criteria_list.init(Component.literal(criteria.substring(criteria.indexOf('.')+1)));
-        break;
-      case CriteriaType.STATISTICS:
-        criteria_list.init(CriteriaData.getStatisticIndex(criteria.substring(criteria.indexOf(':')+1).replace('.', ':')));
+        criteria_list.init((CombinedNameComponent c) -> {return c.getName().equals(criteria.substring(criteria.indexOf('.')+1));});
         break;
       default:
-        criteria_list.init(Component.literal(criteria.substring(criteria.indexOf(':')+1).replace('.', ':')));
+        criteria_list.init((CombinedNameComponent c) -> {return c.getName().equals(criteria.substring(criteria.indexOf(':')+1).replace('.', ':'));});
         break;
       }
     }

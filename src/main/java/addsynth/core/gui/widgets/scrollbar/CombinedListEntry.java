@@ -10,16 +10,15 @@ public class CombinedListEntry extends AbstractListEntry<CombinedNameComponent> 
   }
 
   @Override
+  @Deprecated
   public final void set(final int entry_id, final CombinedNameComponent value){
     this.entry_id = entry_id;
     setMessage(value.getDisplayName());
   }
 
-  @Override
-  public final void setNull(){
-    this.entry_id = -1;
-    setMessage(Component.empty());
-    this.selected = false;
+  public final void set(final int entry_id, final CombinedNameComponent value, final boolean mode){
+    this.entry_id = entry_id;
+    setMessage(mode ? value.getDisplayName() : Component.literal(value.getName()));
   }
 
 }

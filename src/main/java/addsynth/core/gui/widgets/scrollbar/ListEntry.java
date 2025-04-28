@@ -14,11 +14,4 @@ public final class ListEntry extends AbstractListEntry<Component> {
     setMessage(message);
   }
 
-  @Override
-  public void setNull(){
-    this.entry_id = -1;
-    setMessage(Component.empty());
-    this.selected = false;
-  }
-
 }

@@ -44,9 +44,7 @@ public final class ItemListEntry extends AbstractListEntry<ItemStack> {
 
   @Override
   public final void setNull(){
-    this.entry_id = -1;
+    super.setNull();
     this.item = null;
-    setMessage(Component.empty());
-    this.selected = false;
   }
 }
