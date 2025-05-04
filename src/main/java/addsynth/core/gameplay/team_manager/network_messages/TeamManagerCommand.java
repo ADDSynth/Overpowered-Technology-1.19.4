@@ -37,7 +37,7 @@ public final class TeamManagerCommand {
           final MinecraftServer server = player.getLevel().getServer();
           final Scoreboard scoreboard = server.getScoreboard();
           scoreboard.setDisplayObjective(message.display_slot, null);
-          TeamData.sync();
+          TeamData.sync(server, scoreboard);
         });
       }
       context.setPacketHandled(true);
@@ -64,7 +64,7 @@ public final class TeamManagerCommand {
           final MinecraftServer server = player.getLevel().getServer();
           final Scoreboard scoreboard = server.getScoreboard();
           scoreboard.removePlayerTeam(scoreboard.getPlayerTeam(message.team_name));
-          TeamData.sync();
+          TeamData.sync(server, scoreboard);
         });
       }
       context.setPacketHandled(true);
@@ -91,7 +91,7 @@ public final class TeamManagerCommand {
           final MinecraftServer server = player.getLevel().getServer();
           final Scoreboard scoreboard = server.getScoreboard();
           scoreboard.removeObjective(scoreboard.getObjective(message.objective_name));
-          TeamData.sync();
+          TeamData.sync(server, scoreboard);
         });
       }
       context.setPacketHandled(true);
@@ -122,7 +122,7 @@ public final class TeamManagerCommand {
           final Scoreboard scoreboard = server.getScoreboard();
           final Objective objective = scoreboard.getObjective(message.objective);
           scoreboard.setDisplayObjective(message.display_slot, objective);
-          TeamData.sync();
+          TeamData.sync(server, scoreboard);
         });
       }
       context.setPacketHandled(true);
@@ -152,7 +152,7 @@ public final class TeamManagerCommand {
           final MinecraftServer server = player.getLevel().getServer();
           final Scoreboard scoreboard = server.getScoreboard();
           if(scoreboard.addPlayerToTeam(message.player, scoreboard.getPlayerTeam(message.team))){
-            TeamData.sync();
+            TeamData.sync(server, scoreboard);
           }
         });
       }
@@ -186,7 +186,7 @@ public final class TeamManagerCommand {
           if(team != null){ // player is on a team
             if(team.getName().equals(message.team_name)){ // players team is the one we want him out of
               scoreboard.removePlayerFromTeam(message.player, team);
-              TeamData.sync();
+              TeamData.sync(server, scoreboard);
             }
           }
         });
@@ -352,8 +352,7 @@ public final class TeamManagerCommand {
       if(player != null){
         context.enqueueWork(() -> {
           final MinecraftServer server = player.getLevel().getServer();
-          final Scoreboard scoreboard = server.getScoreboard();
-          edit_objective(scoreboard, player, message.objective_id, message.display_name, message.criteria);
+          edit_objective(server, player, message.objective_id, message.display_name, message.criteria);
         });
       }
       context.setPacketHandled(true);
@@ -384,8 +383,7 @@ public final class TeamManagerCommand {
       if(player != null){
         context.enqueueWork(() -> {
           final MinecraftServer server = player.getLevel().getServer();
-          final Scoreboard scoreboard = server.getScoreboard();
-          edit_objective(scoreboard, player, message.objective_id, message.display_name, message.criteria);
+          edit_objective(server, player, message.objective_id, message.display_name, message.criteria);
         });
       }
       context.setPacketHandled(true);
@@ -445,8 +443,7 @@ public final class TeamManagerCommand {
       if(player != null){
         context.enqueueWork(() -> {
           final MinecraftServer server = player.getLevel().getServer();
-          final Scoreboard scoreboard = server.getScoreboard();
-          edit_team(scoreboard, player, message.team_id, message.display_name, message.pvp,
+          edit_team(server, player, message.team_id, message.display_name, message.pvp,
                     message.see_invisible_allys, message.team_color, message.nametag_option,
                     message.death_message_option, message.member_prefix, message.member_suffix);
         });
@@ -508,8 +505,7 @@ public final class TeamManagerCommand {
       if(player != null){
         context.enqueueWork(() -> {
           final MinecraftServer server = player.getLevel().getServer();
-          final Scoreboard scoreboard = server.getScoreboard();
-          edit_team(scoreboard, player, message.team_id, message.display_name, message.pvp,
+          edit_team(server, player, message.team_id, message.display_name, message.pvp,
                     message.see_invisible_allys, message.team_color, message.nametag_option,
                     message.death_message_option, message.member_prefix, message.member_suffix);
         });
@@ -518,9 +514,10 @@ public final class TeamManagerCommand {
     }
   }
   
-  private static final void edit_team(final Scoreboard scoreboard, final ServerPlayer player, final String team_name, final String display_name,
+  private static final void edit_team(final MinecraftServer server, final ServerPlayer player, final String team_name, final String display_name,
                                       final boolean pvp, final boolean see_invisible_allys, final int team_color, final int nametag_option,
                                       final int death_message_option, final String member_prefix, final String member_suffix){
+    final Scoreboard scoreboard = server.getScoreboard();
     if(team_name.isEmpty()){
       final Component message = Component.translatable("gui.addsynthcore.team_manager.message.create_team_failed");
       player.sendSystemMessage(message);
@@ -541,10 +538,11 @@ public final class TeamManagerCommand {
     team.setPlayerSuffix(Component.literal(member_suffix));
     
     // MessageUtil.send_to_player(player, "gui.addsynthcore.team_manager.message.edit_team_success", team_name);
-    TeamData.sync();
+    TeamData.sync(server, scoreboard);
   }
 
-  private static final void edit_objective(final Scoreboard scoreboard, final ServerPlayer player, final String objective_name, final String display_name, final String criteria_name){
+  private static final void edit_objective(final MinecraftServer server, final ServerPlayer player, final String objective_name, final String display_name, final String criteria_name){
+    final Scoreboard scoreboard = server.getScoreboard();
     if(objective_name.isEmpty()){
       final Component message = Component.translatable("gui.addsynthcore.team_manager.message.create_objective_failed");
       player.sendSystemMessage(message);
@@ -566,7 +564,7 @@ public final class TeamManagerCommand {
         scoreboard.addObjective(objective_name, criteria, Component.literal(display_name), criteria.getDefaultRenderType());
       }
     }
-    TeamData.sync();
+    TeamData.sync(server, scoreboard);
   }
 
 }

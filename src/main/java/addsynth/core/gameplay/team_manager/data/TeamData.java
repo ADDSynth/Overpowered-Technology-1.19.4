@@ -13,7 +13,6 @@ import addsynth.core.gameplay.team_manager.network_messages.TeamManagerSyncMessa
 import addsynth.core.util.debug.DebugUtil;
 import addsynth.core.util.game.data.CombinedNameComponent;
 import addsynth.core.util.java.StringUtil;
-import addsynth.core.util.server.ServerUtils;
 import addsynth.core.util.time.TickHandler;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.PlayerTeam;
@@ -54,80 +53,77 @@ public final class TeamData {
     if(event.phase == Phase.END){
       DebugUtil.beginSection("Team Manager Data Update");
       if(tick_handler.tick()){
-        sync();
+        @SuppressWarnings("resource")
+        final MinecraftServer server = event.getServer();
+        sync(server, server.getScoreboard());
       }
       DebugUtil.endSection();
     }
   }
 
   /** Gets data from server. */
-  public static final void sync(){
-    @SuppressWarnings("resource")
-    final MinecraftServer server = ServerUtils.getServer();
-    if(server != null){
-      final Scoreboard scoreboard = server.getScoreboard();
-      
-      // Teams
-      team_list = scoreboard.getPlayerTeams();
-      number_of_teams = team_list.size();
-      team_array = team_list.toArray(new PlayerTeam[number_of_teams]);
-      teams = new TeamDataUnit[number_of_teams];
-      int i;
-      for(i = 0; i < number_of_teams; i++){
-        teams[i] = new TeamDataUnit();
-        teams[i].name = team_array[i].getName();
-        teams[i].display_name = team_array[i].getDisplayName();
-        teams[i].color = team_array[i].getColor().getId();
-        teams[i].prefix = team_array[i].getPlayerPrefix();
-        teams[i].suffix = team_array[i].getPlayerSuffix();
-        teams[i].pvp = team_array[i].isAllowFriendlyFire();
-        teams[i].see_invisible_allys = team_array[i].canSeeFriendlyInvisibles();
-        teams[i].nametag_option = team_array[i].getNameTagVisibility().id;
-        teams[i].death_message_option = team_array[i].getDeathMessageVisibility().id;
+  public static final void sync(final MinecraftServer server, final Scoreboard scoreboard){
+    
+    // Teams
+    team_list = scoreboard.getPlayerTeams();
+    number_of_teams = team_list.size();
+    team_array = team_list.toArray(new PlayerTeam[number_of_teams]);
+    teams = new TeamDataUnit[number_of_teams];
+    int i;
+    for(i = 0; i < number_of_teams; i++){
+      teams[i] = new TeamDataUnit();
+      teams[i].name = team_array[i].getName();
+      teams[i].display_name = team_array[i].getDisplayName();
+      teams[i].color = team_array[i].getColor().getId();
+      teams[i].prefix = team_array[i].getPlayerPrefix();
+      teams[i].suffix = team_array[i].getPlayerSuffix();
+      teams[i].pvp = team_array[i].isAllowFriendlyFire();
+      teams[i].see_invisible_allys = team_array[i].canSeeFriendlyInvisibles();
+      teams[i].nametag_option = team_array[i].getNameTagVisibility().id;
+      teams[i].death_message_option = team_array[i].getDeathMessageVisibility().id;
+    }
+    
+    // Players
+    all_players = server.getPlayerList().getPlayers();
+    non_team_players.clear();
+    for(final Player player : all_players){
+      team = player.getTeam();
+      if(team == null){
+        non_team_players.add(new CombinedNameComponent(player));
       }
-      
-      // Players
-      all_players = server.getPlayerList().getPlayers();
-      non_team_players.clear();
-      for(final Player player : all_players){
-        team = player.getTeam();
-        if(team == null){
-          non_team_players.add(new CombinedNameComponent(player));
-        }
-        else{
-          for(final TeamDataUnit team_data : teams){
-            if(team_data.matches(team)){
-              team_data.players.add(new CombinedNameComponent(player));
-            }
+      else{
+        for(final TeamDataUnit team_data : teams){
+          if(team_data.matches(team)){
+            team_data.players.add(new CombinedNameComponent(player));
           }
         }
       }
-      
-      // Objectives
-      objectives_list = scoreboard.getObjectives();
-      number_of_objectives = objectives_list.size();
-      objective_array = objectives_list.toArray(new Objective[number_of_objectives]);
-      objectives = new ObjectiveDataUnit[number_of_objectives];
-      for(i = 0; i < number_of_objectives; i++){
-        objectives[i] = new ObjectiveDataUnit();
-        objectives[i].name = objective_array[i].getName();
-        objectives[i].display_name = objective_array[i].getDisplayName();
-        objectives[i].criteria = objective_array[i].getCriteria();
-        objectives[i].criteria_name = objectives[i].criteria.getName();
-        objectives[i].modify = !objectives[i].criteria.isReadOnly();
-      }
-      
-      // DisplaySlots
-      Objective o = scoreboard.getDisplayObjective(0);
-      display_slot_objective[0] = o != null ? o.getName() : "";
-      o = scoreboard.getDisplayObjective(1);
-      display_slot_objective[1] = o != null ? o.getName() : "";
-      o = scoreboard.getDisplayObjective(2);
-      display_slot_objective[2] = o != null ? o.getName() : "";
-  
-      TeamManagerSyncMessage message = new TeamManagerSyncMessage(non_team_players, teams, objectives, display_slot_objective);
-      NetworkHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), message);
     }
+    
+    // Objectives
+    objectives_list = scoreboard.getObjectives();
+    number_of_objectives = objectives_list.size();
+    objective_array = objectives_list.toArray(new Objective[number_of_objectives]);
+    objectives = new ObjectiveDataUnit[number_of_objectives];
+    for(i = 0; i < number_of_objectives; i++){
+      objectives[i] = new ObjectiveDataUnit();
+      objectives[i].name = objective_array[i].getName();
+      objectives[i].display_name = objective_array[i].getDisplayName();
+      objectives[i].criteria = objective_array[i].getCriteria();
+      objectives[i].criteria_name = objectives[i].criteria.getName();
+      objectives[i].modify = !objectives[i].criteria.isReadOnly();
+    }
+    
+    // DisplaySlots
+    Objective o = scoreboard.getDisplayObjective(0);
+    display_slot_objective[0] = o != null ? o.getName() : "";
+    o = scoreboard.getDisplayObjective(1);
+    display_slot_objective[1] = o != null ? o.getName() : "";
+    o = scoreboard.getDisplayObjective(2);
+    display_slot_objective[2] = o != null ? o.getName() : "";
+
+    TeamManagerSyncMessage message = new TeamManagerSyncMessage(non_team_players, teams, objectives, display_slot_objective);
+    NetworkHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), message);
   }
 
   public static final void syncClientData(ArrayList<CombinedNameComponent> non_team_players, TeamDataUnit[] teams, ObjectiveDataUnit[] objectives, String[] display_slot_objectives){
