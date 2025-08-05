@@ -484,6 +484,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     for(direction = 0; direction < 6; direction++){
       if(bridge_data[direction].relation == BridgeRelation.MASTER){
         bridge_data[direction].turn_off_immediately(world);
+        bridge_data[direction].message = BridgeMessage.NO_BRIDGE;
       }
     }
   }
