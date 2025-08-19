@@ -8,7 +8,7 @@ import net.minecraft.world.level.material.MaterialColor;
 public final class IronFrameBlock extends Block {
 
   public IronFrameBlock(){
-    super(Block.Properties.of(Material.METAL, MaterialColor.WOOL).strength(3.5f, 300.0f));
+    super(Block.Properties.of(Material.METAL, MaterialColor.WOOL).strength(0.5f, 6.0f));
     DataCable.addAttachableBlock(this);
   }
 
